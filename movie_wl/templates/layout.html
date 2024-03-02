@@ -1,0 +1,52 @@
+{% from "macro/nav.html" import header %}
+{% from "macro/footer.html" import footer%}
+
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" class="{{ 'dark-mode' if session.get('theme') == 'dark' }}">
+    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title> {{ title | default('Movie Watchlist') }}</title>
+        <link href="https://fonts.googleapis.com/css?family=Public+Sans:400,600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous">
+
+            {% block head_content %} {% endblock %}
+        </head>
+        
+        <body>
+            
+            <div class="background__image"></div> <!-- Make sure to remove the <img> tag here -->
+            <!-- Rest of your form content -->
+            
+            
+            <!-- End of your HTML content -->
+            
+            <!-- Include jQuery library -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            
+            <!-- JavaScript code for adjusting background image height -->
+            <script>
+            $(window).on('resize', function() {
+                var windowHeight = $(window).height();
+                var imagePath = '/static/cnmtc.jpg'; // Adjust the path accordingly
+                $('.background__image').css('background-image', 'url(' + imagePath + ')');
+                $('.background__image').height(windowHeight);
+            });
+            
+            // Trigger resize event on page load
+            $(window).resize();
+            </script> 
+            
+            {{ header(session.get("theme"), current_user) }}
+
+            <main class="main">
+                {% block main_content %} {% endblock %}
+            </main>
+            {{ footer() }}
+        </body>
+</html>

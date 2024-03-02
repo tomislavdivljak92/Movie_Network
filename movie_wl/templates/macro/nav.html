@@ -1,0 +1,90 @@
+{% from "macro/svgs.html" import moon, sun %}
+{% macro header(theme, current_user) %}
+
+
+<header class="header">
+    <div class="nav-container">
+        <a href="{{ url_for('pages.main') }}" class="header__logo">
+            <svg xmlns="http://www.w3.org/2000/svg" class="logo__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+</svg> <span class="logo__name">Watchlist</span>
+        </a>
+        <nav class="nav">
+            {% if not current_user.is_authenticated %}
+                <a
+                    href="{{ url_for('pages.login') }}"
+                    class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.login') }}"
+                >
+                    <span class="nav__item">Log In</span>
+                </a>
+                <a
+                    href="{{ url_for('pages.register') }}"
+                    class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.register') }}"
+                >
+                    <span class="nav__item">Registration</span>
+                </a>
+
+            {% else %}
+            
+                <form action="{{ url_for('pages.search') }}" method="GET" class="nav__search-form">
+                    
+                    <i class="fas fa-search nav__search-icon"></i>
+                    <input type="text" name="q" placeholder="Search" class="nav__search-input" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target="#results">
+                    
+                   
+                </form>
+            
+                <a
+                    href="{{ url_for('pages.watchlist') }}"
+                    class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.watchlist') }}"
+                >
+                    <span class="nav__item">Movies</span>
+                </a>
+                <a
+                    href="{{ url_for('pages.account') }}"
+                    class="nav__link"
+                >   
+                    <span class="nav__item">Members</span>
+                <a
+                    href="{{ url_for('pages.account') }}"
+                    class="nav__link"
+                >   
+                    <span class="nav__item">About</span>
+                </a>
+                
+
+                <div class="nav__profile">
+                    <a href="{{ url_for('pages.account') }}"></a>  
+                        <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Picture" class="nav__image">
+                    
+                        <div class="nav__dropdown">
+                            <a href="{{ url_for('pages.account') }}" class="nav__dropdown-item">Profile</a>
+                            <a href="{{ url_for('pages.edit_profile') }}" class="nav__dropdown-item">Edit Profile</a>
+                            <a href="{{ url_for('pages.logout') }}" class="nav__dropdown-item">Log Out</a>
+                        </div>
+                </div>
+
+                
+
+            {% endif %}
+
+            <a
+                href="{{ url_for('pages.toggle_theme', current_page=request.path) }}"
+                class="nav__link"
+            >
+                <span class="nav__item">
+                    {% if theme == "dark" %}
+                        {{ sun("nav__icon") }}
+                    {% else %}
+                        {{ moon("nav__icon") }}
+                    {% endif %}
+                </span>
+            </a>
+        </nav>
+    </div>
+</header>
+    <body>
+        
+
+
+{% endmacro %}

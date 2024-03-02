@@ -1,0 +1,381 @@
+:root {
+    --text-dark: #000;
+    --text-light: #fbf2f2;
+    --text-muted: #595959;
+    --text-accountemail: #252525;
+  
+    --background-color: #f7f7f7;
+    --accent-colour: #f56565;
+    --accent-colour-2: #3bb54a;
+    --tag-colour: var(--accent-colour);
+  
+    --border: 3px solid #302f2f;
+
+    --shadow-color-image: rgba(0, 0, 0, 0.7);
+  }
+
+:root.dark-mode {
+    --text-dark: #fbf2f2;
+    --text-light: #000;
+    --text-muted: #595959;
+    --text-accountemail: #888888;
+  
+    --background-color: #1c2023;
+    --accent-colour: #f56565;
+    --accent-colour-2: #3bb54a;
+    --tag-colour: var(--accent-colour);
+  
+    --border: 3px solid #fff;
+
+    --shadow-color-image: rgba(255, 255, 255, 0.5);
+
+  } 
+
+.button {
+    --background-color: #e2e7f0;
+    --background-color-hover: #bfd0ec;
+    border-radius: 4px;
+}
+
+
+.form__field {
+    --background-color: #e8e5e5;
+  }
+
+.form__field,
+.nav__link {
+    --border: 3px solid #f56565;
+
+}
+
+html {
+    font-size: 12px;
+}
+
+/* when the screen width hits 960px, we increase the global font size to 14px.
+this changes the scale of all o our relative units, keeping everything in proportion */
+
+@media screen and (min-width: 60em) {
+    html {
+        font-size: 14px;
+        
+    }
+}
+
+/* when screen width hits 1200px, we once again increase the global font size,
+this time to 16px.
+*/
+@media screen and (min-width: 75em) {
+    html {
+        font-size: 18px;
+    }
+}
+
+body {
+    /* sets the shared font characteristics, so that they can be inherited globally */
+    display: flex;
+    flex-direction: column;
+    font-family: "Public Sans", sans-serif;
+    color: var(--text-dark);
+    line-height: 1.45;
+    background-color: var(--background-color);
+}
+
+.main {
+    flex-grow: 1;
+    padding: 3rem 1.5rem 2rem 1.5rem;
+}
+
+@media screen and (min-width: 30em) {
+    .main {
+      padding-top: 5rem;
+    }
+  }
+
+.header {
+    padding: 0 2rem;
+    
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.header__logo:hover {
+    color: var(--accent-colour);
+    transform: scale(1.1);
+}
+
+.logo__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.logo__name {
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 75rem;
+    margin: 0 auto;
+}
+
+
+
+.nav {
+    display: flex;
+
+}
+
+.nav__link {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 3px solid transparent; /* Set initial border bottom */
+    transition: border-bottom 0.2s ease-in-out;
+}
+
+.nav__link--active {
+    background: var(--accent-colour);
+    color: var(--text-light);
+}
+
+.nav__link:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+.nav__link:hover {
+    margin-bottom: -3px;
+    border-bottom: var(--border);
+  }
+
+.nav__item {
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav__icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.footer {
+    padding: 1rem 0;
+    color: var(--text-muted);
+    text-align: center;
+}
+/* button styles that we will share across our site */
+.button {
+    display: block;
+    outline: none;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    transition: background 0.1s ease-in;
+}
+
+/* utility class to use on links within text */
+.link {
+    text-decoration: none;
+    color: var(--accent-colour);
+    white-space: nowrap;
+
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+    
+    
+
+
+.background__image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.5;
+    
+    
+}
+
+.nav__image {
+    
+    width: 40px; /* Adjust as needed */
+    height: 40px;
+    
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1rem; /* Adjust as needed */
+    border-radius: 50%; /* Make it rounded */
+    margin-right: auto;
+    align-items: center;
+    display: flex;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+     /* Add margin to separate it from other links */
+}
+
+
+.nav__profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5em;
+    
+    
+    
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 5px solid transparent; /* Set initial border bottom */
+    transition: border-bottom 0.2s ease-in-out;
+    
+}
+
+
+
+
+.nav__profile:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+.nav__profile:hover {
+    margin-bottom: -3px;
+    border-bottom: var(--border);
+    
+  }
+
+
+  .nav__profile {
+    --border: 3px solid #f56565;
+
+}
+
+
+.nav__dropdown {
+    display: none;
+    position: absolute;
+    
+    top: calc(80% + 20px); /* Adjust the distance between the profile image and dropdown */
+    right: 0;
+    background-color: var(--background-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1000;
+    width: 150px;
+    opacity: 0; /* Set initial opacity to 0 */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.nav__dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: background-color 0.2s ease-in-out;
+
+
+}
+
+
+.nav__dropdown-item:hover {
+    background-color: var(--accent-colour);
+    color: var(--text-light);
+}
+
+.nav__profile:hover .nav__dropdown {
+    display: block;
+    opacity: 1;
+}
+
+
+
+
+/* Define keyframes for the dropdown opening animation */
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px); /* Start with dropdown just below the profile image */
+    }
+    to {
+        transform: translateY(calc(0% - 5px)); /* End with dropdown revealed just below the profile image */
+    }
+}
+
+
+
+.nav__search-form {
+    margin-right: 4.5rem; /* Adjust margin to position the search bar more to the left */
+    display: flex;
+    position: relative;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.nav__search-form:hover {
+    transform: scale(1.1); /* Zoom in effect on hover */
+}
+
+.nav__search-input {
+    padding: 8px;
+    padding-left: 30px;
+    border-radius: 4px;
+    border: 1px solid; /* Set the default border to transparent */
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.5); /* Background color with opacity */
+    color: var(--text-dark); /* Match the text color of other sections */
+    transition: var(--border) 0.5s ease, transform 0.5s ease, width 0.5s ease; /* Smooth transition for border color change */
+    flex-grow: 5; /* Allow the input to grow to fill available space */
+    
+    
+}
+
+.nav__search-input:focus {
+    border-color: var(--text-light);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Remove box-shadow on focus */
+    outline: 2px solid var(--border); /* Change border color on focus */
+}
+
+/* Add a tiny border when the search input is not focused or hovered */
+.nav__search-input:not(:focus):not(:hover) {
+    border-width: 1px; /* Tiny border width */
+}
+
+
+.nav__search-input::placeholder {
+    color: var(--text-dark); /* Placeholder text color */
+}
+
+.nav__search-icon {
+    position: absolute; /* Position the icon absolute within its container */
+    left: 0.5rem;
+/* Adjust the left position of the icon */
+    color: var(--text-dark) solid transparent;
+    opacity: 0.6; /* Set the color of the icon */
+}
+
+.nav__search-form:hover .nav__search-icon {
+    transform: scale(1.0);
+    transition: transform 0.3s ease; /* Zoom in effect on hover */
+}
+
+
+

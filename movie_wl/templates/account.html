@@ -1,0 +1,43 @@
+{% from "macro/svgs.html" import pencil %}
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
+
+{% endblock %}
+
+{% block main_content %}
+    <div class="content-section">
+        <div class="media">
+             
+            <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Picture">
+            
+            <div class="movie__name">
+                <h2 class="account-heading">{{ current_user.username }}
+                <p class="text-secondary">{{ current_user.email }}</p>
+                
+            </h2>
+             
+            </div>
+            <a href="{{ url_for('pages.edit_profile') }}" class="edit_profile">Edit Profile {{ pencil("pencil_edit") }}</a> 
+        </div>
+        
+        {% for post in user_posts %} {# Use user_posts instead of posts #}
+        <div class="post-acc">
+            <div class="post-acc-header">
+                <a href="{{ url_for('pages.account', username=post.user.username) }}" class="post-acc-header a"><!-- making anchor inherit styles for image and username -->
+                <img src="{{ url_for('static', filename='profile_pics/' + post.user.image_file) }}" alt="Profile Picture" class="post-header-img-acc"> 
+                <h3 class="post-username-acc">{{ post.user.username }}</h3> <!-- Display the username -->
+                </a>
+                <p class="post-date-acc">{{ post.date_posted.strftime('%d %b %Y') }}</p> <!-- Display the date_posted -->
+            </div>
+            <p class="post-content-acc">{{ post.content }}</p>
+        </div>
+        
+        {% endfor %}
+    </div>
+    
+    
+{% endblock %}

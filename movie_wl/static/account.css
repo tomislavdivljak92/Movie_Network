@@ -1,0 +1,157 @@
+.content-section {
+    width: 768px; /* Set the width to 500px */
+     /* Use flexbox */
+    flex-direction: column;
+    height: 145px; /* Set the height to 125px */
+    margin: auto; /* Center horizontally */
+    position: absolute; /* Position absolutely */
+    top: 35%; /* Align to the vertical center */
+    left: 50%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%); 
+    border-radius: 10px;
+    border: var(--border);
+    background-color: var(--background-color);
+    
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour-2);
+    padding-bottom: 10%;
+}
+
+@media screen and (max-width: 768px) {
+    .content-section {
+        width: 80%; /* Set a smaller width for smaller screens */
+        height: 60%; /* Set a smaller height for smaller screens */
+    }
+}
+
+.media {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+    
+    
+}
+
+
+.account-img {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    border-radius: 50%; /* Makes the image round */
+    margin-right: 20px;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+}
+
+.movie__name {
+    flex: 1; /* Shorthand for flex-grow: 1, flex-shrink: 1, and flex-basis: 0 */
+ /* Add some space between the image and text */
+    /* Add any additional styling for the container */
+}
+
+.account-heading {
+    font-size: 24px; /* Adjust as needed */
+    margin-bottom: 5px;
+     /* Adjust as needed */
+}
+
+.text-secondary {
+    color: var(--text-accountemail);
+    font-size: 16px; /* Adjust the font size for the email */
+    margin-bottom: 0;
+}
+
+
+.edit_profile {
+    color: inherit;
+    text-decoration: none;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    display: flex; /* Use flexbox */
+    align-items: center;
+  }
+
+.edit_profile:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-colour);
+  }
+
+
+.pencil_edit {
+    width: 1em;
+    height: 1em;
+    
+    
+}
+
+
+
+
+
+
+.post-acc {
+    position: relative;
+    width: 90%; /* Set the width to 90% of the container */
+    max-width: 500px; /* Set a maximum width */
+    margin: 50px auto 20px; /* Adjusted margin for spacing */
+    padding: 10px; /* Padding */
+    border: 1px solid var(--border); /* Set border color */
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    background-color: var(--background-color);
+    overflow: hidden; 
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour-2);/* Add overflow property to contain floated elements */
+}
+
+.post-acc-header {
+    display: flex;
+    align-items: center; /* Align items vertically in the header */
+}
+
+.post-username-acc {
+    font-size: 18px;
+    text-align: left;
+    margin: 0;
+     /* Adjusted margin */
+}
+
+.post-content-acc {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 3px; /* Adjusted margin */
+}
+
+.post-date-acc {
+    font-size: 10px; /* Set font size for date */
+    color: #666; /* Set text color for date */
+    position: absolute; /* Position the date in the top right corner */
+    top: 5px; /* Adjust top position */
+    right: 5px;  /* Adjust right position */
+}
+
+.post-header-img-acc {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+}
+
+
+@media screen and (max-width: 768px) {
+    .post-acc {
+        width: 80%; /* Set a smaller width for smaller screens */
+        height: 60%; /* Set a smaller height for smaller screens */
+    }
+}
+
+
+
+
+.post-acc-header a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove default underline */
+}
+
+.post-acc-header a:hover {
+    text-decoration: underline; /* Add underline on hover if desired */
+}

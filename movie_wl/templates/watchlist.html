@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}" />
+{% endblock %}
+
+
+{% block main_content %}
+    {% if movie_data %}
+        <table class="table">
+            <colgroup>             
+                <col style="width: 60%">
+                <col style="width: 25%">
+                <col style="width: 15%">
+                <col style="width: 10%">
+            </colgroup>
+            <thead>
+                <tr class="table__header">
+                    <th class="table__cell table__cell--header">Title</th>
+                    <th class="table__cell table__cell--header">Release Date</th>
+                    <th class="table__cell table__cell--header"></th>
+                    <th class="table__cell table__cell--header"></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                
+                    {% for movie in movie_data %}
+                        <tr>
+                            <td class="table__cell">
+                                <p class="table__movieTitle">{{ movie.title }}</p>
+                                <p class="table__movieDirector">{{ movie.director }}</p>
+                            </td>
+                            <td class="table__cell">{{ movie.year }}</td>
+                            <td class="table__cell">
+                                <a href="{{ url_for('pages.movie', post_id=movie.id)}}" class="table__link">View</a>
+
+                            </td>
+                            <td class="table__cell">
+                                <form action="{{ url_for('pages.delete_movie', post_id=movie.id)}}" method="post" style="display: inline;">
+                                    <input type="submit" value="Delete" class="delete__movie">
+                                </form>
+                            </td>
+    
+                        </tr>
+                    
+                    {% endfor %}
+                    
+
+                    
+
+    
+
+
+                
+            </tbody>
+        </table>
+        
+    {% else %}
+        <p class="table__empty">You haven't added any movies yet. <a href="{{ url_for('pages.add_movie') }}" class="link">Add one!</a></p>
+    
+    {% endif %}
+
+    <a href="{{ url_for('pages.add_movie') }}" class="button button--add">
+        <span>+</span>
+    </a>
+{% endblock %}

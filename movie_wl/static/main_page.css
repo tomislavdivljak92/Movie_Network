@@ -1,0 +1,121 @@
+.input-container {
+    text-align: center; /* Center align the content */
+}
+
+.styled-input {
+    width: 60%; /* Set width of the input field container */
+    margin: 0 auto;
+     /* Add a transparent border */
+/* Center align the input field container */
+}
+
+.styled-input textarea {
+    width: 90%;
+    height: 4rem; /* Set width of the input field */
+    padding: 10px; /* Adjust padding as needed */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px; /* Set font size */
+    color: #333; /* Set text color */
+    background-color: #f9f9f9; /* Add some space between the input field and the button */
+}
+
+.input-container textarea:focus {
+    outline: none; /* Remove outline on focus */
+    border-color: var(--text-light); /* Change border color on focus */
+    box-shadow: 0 0 10px rgba(245, 101, 101, 0.5);
+    transition: box-shadow 0.4s ease; /* Add box shadow on focus */
+}
+
+
+
+.post-button {
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: var(--accent-colour); /* Use the accent colour defined in your root variables */
+    color: var(--text-light); /* Use the light text colour defined in your root variables */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease,box-shadow 0.3s ease; /* Smooth transition for background colour change */
+}
+
+.post-button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Apply a dark box-shadow on hover */
+}
+
+
+.post-container {
+    width: 60%; /* Set the width of the post container to match the input field container */
+    margin: 3rem auto 0;
+    
+     /* Center the post container */
+}
+
+.post {
+    width: 90%; /* Make the post width match the container */
+    position: relative;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    border:1px var(--border) solid transparent;
+    background-color: var(--background-color);
+    overflow: hidden;
+    
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour);
+     
+}
+
+.post-header {
+    display: flex;
+    
+    align-items: center; /* Align items vertically in the header */
+}
+
+.post-username {
+    font-size: 18px;
+    text-align: left;
+    margin: 0;
+     /* Adjust as needed for the distance between the image and username */
+}
+
+.post-content {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 3px; /* Set font size for content */
+}
+
+.post-date {
+    font-size: 12px; /* Set font size for date */
+    color: #666; /* Set text color for date */
+    position: absolute; /* Position the date in the top right corner */
+    top: 5px; /* Adjust top position */
+    right: 5px; /* Adjust right position */
+}
+
+
+.post-header-img {
+    width: 40px; /* Adjust the width of the profile picture */
+    height: 40px; /* Adjust the height of the profile picture */
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+     /* Add some space between the picture and the username */
+}
+
+
+
+.post-header a {
+    color: inherit; /* Ensure anchor inherits text color */
+    text-decoration: none;
+     /* Remove default underline */
+}
+
+.post-header a:hover {
+    text-decoration: underline; /* Add underline on hover if desired */
+}
