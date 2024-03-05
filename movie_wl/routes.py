@@ -18,8 +18,9 @@ def main():
     if current_user.is_authenticated:
         # If user is authenticated, render the main page with the form and posts
         form = PostForm()
-        posts = PostMain.query.order_by(PostMain.date_posted.desc()).all()
-        return render_template("main.html", title="Main", form=form, posts=posts)
+        posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).all()
+        members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
+        return render_template("main.html", title="MS Network", form=form, posts=posts, members = members)
     
     # If user is not authenticated, redirect to login
     return redirect(url_for(".login"))

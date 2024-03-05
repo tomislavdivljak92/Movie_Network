@@ -6,6 +6,7 @@
     
 {% endblock %}
 
+
 {% block main_content %}
     <!-- Content specific to the main page -->
     <div class="input-container">
@@ -24,8 +25,8 @@
         {% for post in posts %}
         <div class="post">
             <div class="post-header">
-                <a href="{{ url_for('pages.account', username=post.user.username) }}" class="post-header a">
-                <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Picture" class="post-header-img">
+                <a href="{{ url_for('pages.main', username=post.user.username) }}" class="post-header a">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.user.image_file) }}" alt="Profile Picture" class="post-header-img">
                 <h3 class="post-username">{{ post.user.username }}</h3> <!-- Display the username -->
                 </a>
                 <p class="post-date">{{ post.date_posted.strftime('%d %b %Y') }}</p> <!-- Display the date_posted -->
@@ -33,6 +34,21 @@
             <p class="post-content">{{ post.content }}</p>
         </div>
         {% endfor %}
+        
     </div>
-    
+<!-- New container for the list of members -->
+<div class="right-container">
+    <h2>MEMBERS</h2>
+    <ul class="member-list">
+        {% for member in members %}
+        <li class="member-list-item">
+            <a href="{{ url_for('pages.main') }}" class="member-list-item a">
+                <img src="{{ url_for('static', filename='profile_pics/' + member.image_file) }}" alt="Profile Photo" class="member-list-item img">
+                {{ member.username }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+   
 {% endblock %}

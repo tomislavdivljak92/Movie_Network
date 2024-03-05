@@ -18,13 +18,14 @@
     margin-bottom: 10px;
     font-size: 16px; /* Set font size */
     color: #333; /* Set text color */
-    background-color: #f9f9f9; /* Add some space between the input field and the button */
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px var(--shadow-color-image); /* Add some space between the input field and the button */
 }
 
 .input-container textarea:focus {
     outline: none; /* Remove outline on focus */
-    border-color: var(--text-light); /* Change border color on focus */
-    box-shadow: 0 0 10px rgba(245, 101, 101, 0.5);
+     /* Change border color on focus */
+     box-shadow: 0 0 10px var(--shadow-color-image);
     transition: box-shadow 0.4s ease; /* Add box shadow on focus */
 }
 
@@ -67,7 +68,7 @@
     overflow: hidden;
     
     box-sizing: border-box; /* Ensure border is included in width/height */
-    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour);
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--shadow-color-image);
      
 }
 
@@ -81,8 +82,13 @@
     font-size: 18px;
     text-align: left;
     margin: 0;
-     /* Adjust as needed for the distance between the image and username */
+    
 }
+
+.post-username:hover {
+    color: var(--accent-colour); /* Change color on hover */
+}
+
 
 .post-content {
     font-size: 16px;
@@ -118,4 +124,96 @@
 
 .post-header a:hover {
     text-decoration: underline; /* Add underline on hover if desired */
+}
+
+
+
+.right-container {
+    width: 12rem; /* Adjust width as needed */
+    height: auto; /* Allow the height to adjust based on content */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
+    padding: 10px 2rem; /* Add padding for better appearance */
+    background-color: var(--background-color); /* Add background color */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    position: absolute; /* Position the container absolutely */
+    top: 180px; /* Adjust top position */
+    left:35px;
+    
+    box-shadow: 0 0 8px var(--shadow-color-image); /* Align the container to the left side of the page */
+}
+
+.member-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0; /* Remove default margin */
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 12px; /* Specify the font size */
+    font-weight: normal; /* Specify the font weight */
+    line-height: 1.5; /* Specify the line height */
+    color: var(--text-dark);
+}
+
+.member-list-item {
+    margin-bottom: 5px; /* Add space between each member */
+}
+
+
+.right-container h2 {
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 20px; /* Specify the font size */
+    font-weight: bold; /* Specify the font weight */
+    margin-bottom: 20px;
+    margin-left: 0;
+     /* Add space below the heading */
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+
+    position: relative;
+
+}
+
+.right-container h2:hover {
+    color: var(--accent-colour); /* Change color on hover */
+}
+
+
+.right-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 71%;
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    transition: width 0.5s ease; /* Smooth transition for width */
+}
+
+.right-container h2:hover::after {
+    width: 100%; /* Expand the width to the right side */
+}
+
+
+
+
+.member-list-item a {
+    text-decoration: none; /* Remove underlines from links */
+    color: inherit; /* Inherit text color */
+    display: flex; /* Align image and username horizontally */
+    align-items: center;
+}
+
+.member-list-item img {
+    width: 30px; /* Adjust image width */
+    height: 30px; /* Adjust image height */
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Add space between image and username */
+}
+
+.member-list-item img {
+    width: 25px; /* Adjust image width */
+    height: 25px; /* Adjust image height */
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 10px; /* Add space between image and username */
 }

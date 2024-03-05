@@ -1,7 +1,8 @@
 .content-section {
-    width: 768px; /* Set the width to 500px */
-     /* Use flexbox */
+    width: 768px;
+    height: 150px !important;
     flex-direction: column;
+    display: flex;
     height: 145px; /* Set the height to 125px */
     margin: auto; /* Center horizontally */
     position: absolute; /* Position absolutely */
@@ -9,11 +10,11 @@
     left: 50%; /* Align to the horizontal center */
     transform: translate(-50%, -50%); 
     border-radius: 10px;
-    border: var(--border);
+    box-shadow: 0 0 8px var(--shadow-color-image);
     background-color: var(--background-color);
     
     box-sizing: border-box; /* Ensure border is included in width/height */
-    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour-2);
+    
     padding-bottom: 10%;
 }
 
@@ -26,19 +27,19 @@
 
 .media {
     display: flex;
+    flex-direction: column; /* Stack elements vertically */
     align-items: center;
-    margin-left: 20px;
-    margin-top: 20px;
-    
-    
+    justify-content: center; /* Center items horizontally */
+    text-align: center; /* Align text center */
+    margin-bottom: 20px; /* Adjust margin as needed */
 }
-
-
 .account-img {
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
-    border-radius: 50%; /* Makes the image round */
-    margin-right: 20px;
+    width: 100px;
+    height: 100px;
+    align-self: center;
+    border-radius: 50%;
+    margin-bottom: 20px;
+     /* Adjust the negative margin-top to move the image up */
     box-shadow: 0 0 10px var(--shadow-color-image);
 }
 
@@ -51,6 +52,7 @@
 .account-heading {
     font-size: 24px; /* Adjust as needed */
     margin-bottom: 5px;
+    margin-top: 15px;
      /* Adjust as needed */
 }
 
@@ -62,13 +64,15 @@
 
 
 .edit_profile {
+    position: absolute;
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
     color: inherit;
     text-decoration: none;
-    margin-right: 2rem;
-    margin-bottom: 2rem;
-    display: flex; /* Use flexbox */
+    display: flex;
     align-items: center;
-  }
+    font-size: 14px;
+}
 
 .edit_profile:hover {
     text-decoration: underline;
@@ -84,22 +88,28 @@
 }
 
 
-
-
-
+.post-container-acc {
+    width: 60%;
+    margin: 6rem auto; /* Increase the margin to create a larger distance */
+}
 
 .post-acc {
+    width: 90%; /* Make the post width match the container */
     position: relative;
-    width: 90%; /* Set the width to 90% of the container */
-    max-width: 500px; /* Set a maximum width */
-    margin: 50px auto 20px; /* Adjusted margin for spacing */
-    padding: 10px; /* Padding */
-    border: 1px solid var(--border); /* Set border color */
+    border: 1px solid;
     border-radius: 5px;
-    box-sizing: border-box; /* Ensure border is included in width/height */
+    padding: 10px;
+    margin-bottom: 20px;
+    top: 8rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border:1px var(--border) solid transparent;
     background-color: var(--background-color);
-    overflow: hidden; 
-    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour-2);/* Add overflow property to contain floated elements */
+    overflow: hidden;
+    
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--shadow-color-image);
 }
 
 .post-acc-header {
@@ -154,4 +164,21 @@
 
 .post-acc-header a:hover {
     text-decoration: underline; /* Add underline on hover if desired */
+}
+
+
+.update-photo-link {
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: var(--text-dark);
+    align-self: center;
+}
+
+.neon-line {
+    width: 100%; /* Set width to full width */
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    margin-bottom: 20px; /* Adjust margin as needed */
 }

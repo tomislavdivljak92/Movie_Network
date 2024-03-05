@@ -142,10 +142,13 @@ body {
     align-items: center;
     padding: 0 0.5rem;
     
+
+
     text-decoration: none;
     color: inherit;
     border-bottom: 3px solid transparent; /* Set initial border bottom */
     transition: border-bottom 0.2s ease-in-out;
+    
 }
 
 .nav__link--active {
@@ -155,11 +158,13 @@ body {
 
 .nav__link:not(:last-child) {
     margin-right: 1rem;
-  }
+}
 
 .nav__link:hover {
     margin-bottom: -3px;
-    border-bottom: var(--border);
+    border-bottom: 3px solid var(--accent-colour); /* Add red accent color */
+    box-shadow: 0px 3px 1px -3px rgba(245, 101, 101, 0.8);
+
   }
 
 .nav__item {
@@ -177,6 +182,7 @@ body {
     padding: 1rem 0;
     color: var(--text-muted);
     text-align: center;
+    
 }
 /* button styles that we will share across our site */
 .button {
@@ -260,7 +266,9 @@ body {
 
 .nav__profile:hover {
     margin-bottom: -3px;
-    border-bottom: var(--border);
+    
+    border-bottom: 3px solid var(--accent-colour); /* Add red accent color */
+    box-shadow: 0px 3px 1px -3px rgba(245, 101, 101, 0.8);
     
   }
 
@@ -328,10 +336,13 @@ body {
     position: relative;
     align-items: center;
     transition: transform 0.3s ease;
+    
 }
 
 .nav__search-form:hover {
-    transform: scale(1.1); /* Zoom in effect on hover */
+    transform: scale(1.1);
+    
+     /* Zoom in effect on hover */
 }
 
 .nav__search-input {
@@ -343,15 +354,17 @@ body {
     background-color: rgba(255, 255, 255, 0.5); /* Background color with opacity */
     color: var(--text-dark); /* Match the text color of other sections */
     transition: var(--border) 0.5s ease, transform 0.5s ease, width 0.5s ease; /* Smooth transition for border color change */
-    flex-grow: 5; /* Allow the input to grow to fill available space */
+    flex-grow: 5;
+    box-shadow: 0 0 5px var(--shadow-color-image);
     
     
 }
 
 .nav__search-input:focus {
     border-color: var(--text-light);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Remove box-shadow on focus */
-    outline: 2px solid var(--border); /* Change border color on focus */
+     /* Remove box-shadow on focus */
+    outline: 2px solid var(--border);
+     /* Change border color on focus */
 }
 
 /* Add a tiny border when the search input is not focused or hovered */
