@@ -3,7 +3,7 @@
 
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='main_page.css') }}" />
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
 {% endblock %}
 
 
@@ -50,5 +50,25 @@
         {% endfor %}
     </ul>
 </div>
-   
+
+<div class="left-container">
+    <h2>TOP RATED MOVIES</h2>
+    <ul class="movie-list">
+        <!-- Movie list items go here -->
+        {% for movie in top_movies %}
+        <li class="movie-list-item">
+            <a href="{{ url_for('pages.main') }}" class="movie-list-item a">
+            {{ movie.title }}
+            <div class="movie-rating">
+                {% for i in range(1, 6) %}
+                        <svg class="star {% if movie.rate and movie.rate >= i %}star--filled{% endif %}" viewBox="0 0 24 24">
+                            <path d="M12 2l2.35 7.24h7.65l-6.19 4.49 2.35 7.26L12 17.36l-6.16 4.63 2.35-7.26-6.19-4.49h7.65z"></path>
+                        </svg>
+                    {% endfor %}
+            </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

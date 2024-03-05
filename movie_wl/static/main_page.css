@@ -217,3 +217,99 @@
     border-radius: 50%; /* Make the image circular */
     margin-right: 10px; /* Add space between image and username */
 }
+
+
+.left-container {
+    width: 14rem; /* Adjust width as needed */
+    height: auto; /* Allow height to adjust based on content */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
+    padding: 10px 2rem; /* Add padding for better appearance */
+    background-color: var(--background-color); /* Add background color */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    position: absolute; /* Position the container absolutely */
+    top: 180px; /* Adjust top position */
+    right: 35px; /* Position to the right side */
+    box-shadow: 0 0 8px var(--shadow-color-image); /* Add shadow */
+}
+
+.left-container h2 {
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 18px; /* Specify the font size */
+    font-weight: bold; /* Specify the font weight */
+    margin-bottom: 20px;
+    margin-left: 0;
+     /* Add space below the heading */
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+
+    position: relative;
+
+}
+
+.left-container h2:hover {
+    color: var(--accent-colour); /* Change color on hover */
+}
+
+.left-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 56%;
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    transition: width 0.5s ease; /* Smooth transition for width */
+}
+
+
+.left-container h2:hover::after {
+    width: 100%; /* Expand the width to the right side */
+}
+
+
+.movie-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0; /* Remove default margin */
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 12px; /* Specify the font size */
+    font-weight: normal; /* Specify the font weight */
+    line-height: 1.5; /* Specify the line height */
+    color: var(--text-dark);
+}
+
+.movie-list-item {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 5px; /* Add margin between movie items */
+}
+
+.movie-list-item a {
+    text-decoration: none; /* Remove underlines from links */
+    color: inherit; /* Inherit text color */
+    display: flex; /* Align image and movie details horizontally */
+    align-items: center;
+}
+
+.movie-info {
+    margin-right: 10px; /* Add spacing between movie title and rating */
+}
+
+.movie-rating {
+    display: flex; /* Make movie rating a flex container */
+    align-items: center; /* Align items vertically */
+    margin-left: 10px;
+}
+
+.movie-rating .star {
+    width: 1em; /* Adjust size as needed */
+    height: 1em; /* Adjust size as needed */
+    fill: none;
+    
+}
+
+.movie-rating .star--filled {
+    fill: #ffdb2a; /* Adjust color for filled stars */
+    
+}

@@ -18,9 +18,10 @@ def main():
     if current_user.is_authenticated:
         # If user is authenticated, render the main page with the form and posts
         form = PostForm()
+        top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
         posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).all()
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
-        return render_template("main.html", title="MS Network", form=form, posts=posts, members = members)
+        return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies)
     
     # If user is not authenticated, redirect to login
     return redirect(url_for(".login"))
@@ -146,7 +147,7 @@ def edit_movie(post_id):
         post.main_cast = form.main_cast.data
 
         db.session.commit()
-        flash('Your movie has been updated!', 'success')
+        
         return redirect(url_for(".movie", post_id=post_id))
     
     elif request.method == 'GET':
@@ -269,10 +270,6 @@ def edit_profile():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template("edit_profile.html", title="Edit Profile", image_file=image_file, form=form)
-
-
-
-    
 
 
 
