@@ -27,30 +27,46 @@
     }
   }
   
-  .button--add:hover {
-    color: var(--text);
-    background-color: var(--accent-colour);
-  }
+.button--add:hover {
+  color: var(--text);
+  background-color: var(--accent-colour);
+}
 
-  .table {
-    max-width: 50rem;
-    width: 100%;
-    margin: 0 auto;
-    border-spacing: 0;
+.table {
+  max-width: 50rem;
+  width: 100%;
+  margin: 0 auto;
+  border-spacing: 0;
 
-  }
+}
 
-  .table__cell {
-    padding: 1.25rem 1rem;
-  }
+.table__cell {
+  padding: 1.25rem 1rem;
+}
 
-  .table__cell--header {
-    text-align: left;
-    padding: 0.5rem 1rem;
-    border-bottom: var(--border);
-  }
+.table__cell--header {
+  position: relative; /* Position relative for pseudo-element */
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid var(--accent-colour); /* Bottom border */
+  box-shadow: none; /* Turn off box shadow */
+}
 
-  .delete__movie {
+.table__cell--header::after {
+  content: ''; /* Required for pseudo-element */
+  position: absolute; /* Position absolute to overlay on top */
+  bottom: -2px; /* Offset to align with bottom border */
+  left: 0;
+  width: 100%; /* Set width to 100% */
+  height: 2px; /* Adjust thickness as needed */
+  background-color: var(--accent-colour); /* Neon effect color */
+  box-shadow: 0 0 10px var(--accent-colour); /* Neon effect */
+  opacity: 0.5; /* Adjust opacity as needed */
+  z-index: -1; /* Behind the content */
+}
+
+
+.delete__movie {
     background-color: transparent; /* Set background color to transparent */
     border: none; /* Remove border */
     padding: 0; /* Remove padding */

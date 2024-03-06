@@ -82,11 +82,12 @@
     font-size: 18px;
     text-align: left;
     margin: 0;
-    
+     
 }
 
 .post-username:hover {
-    color: var(--accent-colour); /* Change color on hover */
+    color: var(--accent-colour);
+    
 }
 
 
@@ -142,6 +143,12 @@
     box-shadow: 0 0 8px var(--shadow-color-image); /* Align the container to the left side of the page */
 }
 
+.right-container a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove underline */
+    /* Add other styles as needed */
+}
+
 .member-list {
     list-style-type: none; /* Remove bullet points */
     padding: 0;
@@ -167,7 +174,7 @@
      /* Add space below the heading */
     color: var(--text-dark);
     transition: color 0.3s ease;
-
+    
     position: relative;
 
 }
@@ -220,7 +227,8 @@
 
 
 .left-container {
-    width: 14rem; /* Adjust width as needed */
+    width: 14rem;
+    text-decoration: none !important; /* Adjust width as needed */
     height: auto; /* Allow height to adjust based on content */
     overflow-y: auto; /* Add vertical scrollbar if needed */
     padding: 10px 2rem; /* Add padding for better appearance */
@@ -231,6 +239,13 @@
     right: 35px; /* Position to the right side */
     box-shadow: 0 0 8px var(--shadow-color-image); /* Add shadow */
 }
+
+.left-container a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove underline */
+    /* Add other styles as needed */
+}
+
 
 .left-container h2 {
     font-family: "Public Sans", sans-serif; /* Specify the font family */
@@ -255,7 +270,7 @@
     position: absolute;
     left: 0;
     bottom: -5px;
-    width: 56%;
+    width: 55%;
     height: 2px;
     background-color: var(--accent-colour);
     box-shadow: 0 0 10px var(--accent-colour);
@@ -311,5 +326,5 @@
 
 .movie-rating .star--filled {
     fill: #ffdb2a; /* Adjust color for filled stars */
-    
+    stroke: var(--stroke-main-star);
 }

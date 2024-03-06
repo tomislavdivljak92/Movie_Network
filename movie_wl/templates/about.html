@@ -1,0 +1,20 @@
+{% from "macro/svgs.html" import pencil %}
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}" />
+    
+{% endblock %}
+
+{% block main_content %}
+<section class="about-section">
+    <h1>ABOUT</h1>
+    <div class="neon-line"></div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget sapien non augue condimentum aliquam.</p>
+    <p>Nulla facilisi. Phasellus fermentum, odio a scelerisque volutpat, dolor turpis finibus enim, et tincidunt velit orci id velit.</p>
+    <!-- Add more content about your application or team -->
+  </section>
+    
+{% endblock %}

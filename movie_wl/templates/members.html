@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='members.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
+    
+{% endblock %}
+
+{% block main_content %}
+<div class="member-container">
+    <h2>MEMBERS</h2>
+    <ul class="member-list">
+        {% for member in members %}
+        <li class="member-list-item">
+            <a href="#" class="member-list-item a">
+                <img src="{{ url_for('static', filename='profile_pics/' + member.image_file) }}" alt="Profile Photo" class="member-list-item img">
+                {{ member.username }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+    
+    
+{% endblock %}

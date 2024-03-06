@@ -271,5 +271,23 @@ def edit_profile():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template("edit_profile.html", title="Edit Profile", image_file=image_file, form=form)
 
+@pages.route("/about")
+def about():
+    return render_template("about.html")
 
+
+@pages.route("/members")
+@login_required
+def members():
+
+    members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
+    return render_template("members.html", members = members)
+
+
+@pages.route("/top_rated_movies")
+@login_required
+def top_rated_movies():
+
+    top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
+    return render_template("top_rated_movies.html", top_movies = top_movies)
 

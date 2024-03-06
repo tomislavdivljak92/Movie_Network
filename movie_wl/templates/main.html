@@ -38,11 +38,13 @@
     </div>
 <!-- New container for the list of members -->
 <div class="right-container">
+    <a href="{{ url_for('pages.members') }}">
     <h2>MEMBERS</h2>
+    </a>
     <ul class="member-list">
         {% for member in members %}
         <li class="member-list-item">
-            <a href="{{ url_for('pages.main') }}" class="member-list-item a">
+            <a href="{{ url_for('pages.members') }}" class="member-list-item a">
                 <img src="{{ url_for('static', filename='profile_pics/' + member.image_file) }}" alt="Profile Photo" class="member-list-item img">
                 {{ member.username }}
             </a>
@@ -52,12 +54,14 @@
 </div>
 
 <div class="left-container">
+    <a href="{{ url_for('pages.top_rated_movies') }}">
     <h2>TOP RATED MOVIES</h2>
+    </a>
     <ul class="movie-list">
         <!-- Movie list items go here -->
         {% for movie in top_movies %}
         <li class="movie-list-item">
-            <a href="{{ url_for('pages.main') }}" class="movie-list-item a">
+            <a href="{{ url_for('pages.top_rated_movies') }}" class="movie-list-item a">
             {{ movie.title }}
             <div class="movie-rating">
                 {% for i in range(1, 6) %}

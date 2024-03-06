@@ -1,0 +1,62 @@
+.member-container {
+    max-width: 500px;
+    margin: 25px auto 0; /* Adjust the top margin to move it down */
+    padding: 10px 2rem; /* Add padding for better appearance */
+    background-color: var(--background-color); /* Add background color */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    box-shadow: 0 0 8px var(--shadow-color-image); /* Align the container to the left side of the page */
+  }
+  
+  .member-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0; /* Remove default margin */
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 12px; /* Specify the font size */
+    font-weight: normal; /* Specify the font weight */
+    line-height: 1.5; /* Specify the line height */
+    color: var(--text-dark);
+  }
+  
+  .member-list-item {
+    margin-bottom: 5px; /* Add space between each member */
+  }
+  
+  .member-container h2 {
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 2em; /* Specify the font size */
+    font-weight: bold; /* Specify the font weight */
+    margin-bottom: 20px; /* Add space below the heading */
+    color: var(--text-dark);
+    position: relative;
+    text-align: center;
+  }
+  
+  
+  .member-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour); 
+  }
+  
+  
+  
+  .member-list-item a {
+    text-decoration: none; /* Remove underlines from links */
+    color: inherit; /* Inherit text color */
+    display: flex; /* Align image and username horizontally */
+    align-items: center;
+  }
+  
+  .member-list-item img {
+    width: 30px; /* Adjust image width */
+    height: 30px; /* Adjust image height */
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Add space between image and username */
+  }
