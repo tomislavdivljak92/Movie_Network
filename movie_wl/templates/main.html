@@ -1,13 +1,16 @@
 {% from "macro/fields.html" import render_text_field, render_area_field, render_post_field %}
 {% extends "layout.html" %}
+{% from "macro/svgs.html" import star, pencil %}
 
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='main_page.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
 {% endblock %}
 
 
 {% block main_content %}
+
     <!-- Content specific to the main page -->
     <div class="input-container">
         <form method="post" action="{{ url_for('pages.create_post') }}">
@@ -20,18 +23,31 @@
         
     </div>
     
-    <!-- Example posts -->
+    
     <div class="post-container">
+        <div class="neon-line-main"></div>
         {% for post in posts %}
         <div class="post">
             <div class="post-header">
-                <a href="{{ url_for('pages.main', username=post.user.username) }}" class="post-header a">
+        
+                <a href="{{ url_for('pages.account', username=post.user.username) }}" class="post-header a">
                     <img src="{{ url_for('static', filename='profile_pics/' + post.user.image_file) }}" alt="Profile Picture" class="post-header-img">
                 <h3 class="post-username">{{ post.user.username }}</h3> <!-- Display the username -->
                 </a>
-                <p class="post-date">{{ post.date_posted.strftime('%d %b %Y') }}</p> <!-- Display the date_posted -->
+                
+                {% if current_user.is_authenticated and post.user_id == current_user.id %}
+                
+                <a class="post__edit" href="{{ url_for('pages.edit_post', post_id=post.id) }}">Edit</a>
+                <form action="{{ url_for('pages.delete_post', post_id=post.id)}}" method="post" style="display: inline;">
+                    <input type="submit" value="Delete" class="delete__post">
+                       
+                </form>
+                
+                {% endif %}
             </div>
+            
             <p class="post-content">{{ post.content }}</p>
+            <p class="post-date">{{ post.date_posted.strftime('%d %b %Y') }}</p> <!-- Display the date_posted -->
         </div>
         {% endfor %}
         
@@ -65,11 +81,12 @@
             {{ movie.title }}
             <div class="movie-rating">
                 {% for i in range(1, 6) %}
-                        <svg class="star {% if movie.rate and movie.rate >= i %}star--filled{% endif %}" viewBox="0 0 24 24">
-                            <path d="M12 2l2.35 7.24h7.65l-6.19 4.49 2.35 7.26L12 17.36l-6.16 4.63 2.35-7.26-6.19-4.49h7.65z"></path>
-                        </svg>
-                    {% endfor %}
+                <svg class="star {% if movie.rate and movie.rate >= i %}star--filled{% endif %}" viewBox="0 0 24 24">
+                    <path d="M12 2l2.35 7.24h7.65l-6.19 4.49 2.35 7.26L12 17.36l-6.16 4.63 2.35-7.26-6.19-4.49h7.65z"></path>
+                </svg>
+                {% endfor %}   
             </div>
+            
             </a>
         </li>
         {% endfor %}

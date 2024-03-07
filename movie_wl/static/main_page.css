@@ -29,8 +29,6 @@
     transition: box-shadow 0.4s ease; /* Add box shadow on focus */
 }
 
-
-
 .post-button {
     padding: 10px 20px; /* Adjust padding as needed */
     background-color: var(--accent-colour); /* Use the accent colour defined in your root variables */
@@ -61,6 +59,7 @@
     padding: 10px;
     margin-bottom: 20px;
     
+    
     margin-left: auto;
     margin-right: auto;
     border:1px var(--border) solid transparent;
@@ -69,13 +68,18 @@
     
     box-sizing: border-box; /* Ensure border is included in width/height */
     box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--shadow-color-image);
-     
+    transition: box-shadow 0.3s ease; 
+}
+
+.post:hover {
+    
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour); /* Light box shadow on hover */
+    
 }
 
 .post-header {
     display: flex;
-    
-    align-items: center; /* Align items vertically in the header */
+    align-items: center;/* Align items vertically in the header */
 }
 
 .post-username {
@@ -87,7 +91,8 @@
 
 .post-username:hover {
     color: var(--accent-colour);
-    
+    text-decoration: none;
+    transition: 0.2s ease;
 }
 
 
@@ -101,7 +106,7 @@
     font-size: 12px; /* Set font size for date */
     color: #666; /* Set text color for date */
     position: absolute; /* Position the date in the top right corner */
-    top: 5px; /* Adjust top position */
+    top: 2px; /* Adjust top position */
     right: 5px; /* Adjust right position */
 }
 
@@ -120,11 +125,12 @@
 .post-header a {
     color: inherit; /* Ensure anchor inherits text color */
     text-decoration: none;
+    
      /* Remove default underline */
 }
 
 .post-header a:hover {
-    text-decoration: underline; /* Add underline on hover if desired */
+    text-decoration: none; /* Add underline on hover if desired */
 }
 
 
@@ -328,3 +334,75 @@
     fill: #ffdb2a; /* Adjust color for filled stars */
     stroke: var(--stroke-main-star);
 }
+
+
+
+
+.delete__post {
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #a0a0a0;
+    background-color: transparent; /* Move both to the right side */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.post__edit {
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #a0a0a0;
+    background-color: transparent; /* Move both to the right side */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+.post__edit a {
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #a0a0a0;
+    background-color: transparent; /* Move both to the right side */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    
+}
+ .post__edit:hover {
+    color: var(--accent-colour);
+ }
+
+
+
+.delete__post {
+    margin-left: 10px; /* Add some space between delete and edit */
+}
+
+.delete__post:hover {
+    color: var(--accent-colour);
+}
+
+
+
+.neon-line-main {
+    width: 30%; /* Set width to full width */
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    
+    margin-bottom: 30px;
+    margin-top: -10px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+
+
+
+
+
+

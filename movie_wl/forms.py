@@ -57,6 +57,11 @@ class PostForm(FlaskForm):
     content = TextAreaField("Content", validators=[DataRequired()])
     submit = SubmitField("Post")
 
+class EditPost(PostForm):
+    content = TextAreaField("Edit Post", validators=[DataRequired()])
+    submit = SubmitField("Update Post")
+
+
 
 
 

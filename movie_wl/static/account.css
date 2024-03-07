@@ -124,6 +124,11 @@
      /* Adjusted margin */
 }
 
+.post-username-acc:hover {
+    color: var(--accent-colour);
+    transition: 0.2s ease;
+}
+
 .post-content-acc {
     font-size: 16px;
     margin-top: 10px;
@@ -163,7 +168,7 @@
 }
 
 .post-acc-header a:hover {
-    text-decoration: underline; /* Add underline on hover if desired */
+    text-decoration: none; /* Add underline on hover if desired */
 }
 
 
@@ -181,4 +186,53 @@
     background-color: var(--accent-colour);
     box-shadow: 0 0 10px var(--accent-colour);
     margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+
+
+.delete__post__acc {
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #a0a0a0;
+    background-color: transparent; /* Move both to the right side */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.post__edit__acc {
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #a0a0a0;
+    background-color: transparent; /* Move both to the right side */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+.post__edit__acc a {
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #a0a0a0;
+    background-color: transparent; /* Move both to the right side */
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    
+}
+ .post__edit__acc:hover {
+    color: var(--accent-colour);
+ }
+
+
+
+.delete__post__acc {
+    margin-left: 10px; /* Add some space between delete and edit */
+}
+
+.delete__post__acc:hover {
+    color: var(--accent-colour);
 }

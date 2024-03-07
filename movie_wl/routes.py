@@ -3,15 +3,12 @@ from flask_login import login_required, current_user, LoginManager, login_user, 
 from datetime import datetime
 from movie_wl import db, bcrypt
 from movie_wl.models import Post, User, PostMain
-from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm
+from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost
 import secrets
 from PIL import Image
 import os
 
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
-
-
-
 
 @pages.route('/')
 def main():
@@ -65,26 +62,42 @@ def search():
             results = []
 
         return render_template("search.html", results=results)
-#@pages.route("/search")
-##def search():
-#    if current_user.is_authenticated:
-#        q = request.args.get("q")
-#        print("Search term:", q)  # Debugging statement
-#        if q: 
-#            # Perform case-insensitive search using ilike
-#           results = Post.query.filter(
-#                (Post.user_id == current_user.id) &
-#                (func.lower(Post.title).ilike(f"%{q.lower()}%") | func.lower(Post.director).ilike(f"%{q.lower()}%"))
-#            ).order_by(Post.date_posted.desc()).limit(5).all()
-#            print("Query:", results)  # Debugging statement
-#        else:
-#            results = []
 
-#        return render_template("index.html", results=results)
-    
-    
         
-        
+@pages.route("/edit_post/<int:post_id>/edit_post", methods=["GET","POST"])
+@login_required
+def edit_post(post_id):
+    form = EditPost()
+    post = PostMain.query.get_or_404(post_id)
+    if form.validate_on_submit():
+        post.content = form.content.data
+
+        db.session.commit()
+
+        return redirect(url_for(".main"))
+    
+    elif request.method == 'GET':
+        form.content.data = post.content
+    
+    return render_template("edit_post.html", title="Edit Post", form=form)
+
+@pages.route("/account/edit_post/<int:post_id>/edit_post", methods=["GET","POST"])
+@login_required
+def edit_post_acc(post_id):
+    form = EditPost()
+    post = PostMain.query.get_or_404(post_id)
+    if form.validate_on_submit():
+        post.content = form.content.data
+
+        db.session.commit()
+
+        return redirect(url_for(".account"))
+    
+    elif request.method == 'GET':
+        form.content.data = post.content
+    
+    return render_template("edit_post.html", title="Edit Post", form=form)
+               
 
 
 @pages.route("/add", methods=["GET", "POST"])
@@ -291,3 +304,14 @@ def top_rated_movies():
     top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
     return render_template("top_rated_movies.html", top_movies = top_movies)
 
+
+
+@pages.route("/post<int:post_id>/delete_post", methods=["POST"])
+@login_required
+def delete_post(post_id):
+    post = PostMain.query.get_or_404(post_id)
+    if post.user_id != current_user.id:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for(".main"))
