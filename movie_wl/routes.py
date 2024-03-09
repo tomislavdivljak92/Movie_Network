@@ -13,10 +13,10 @@ pages = Blueprint("pages", __name__, template_folder="templates", static_folder=
 @pages.route('/')
 def main():
     if current_user.is_authenticated:
-        # If user is authenticated, render the main page with the form and posts
+        page = request.args.get("page", 1, type=int)
         form = PostForm()
         top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
-        posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).all()
+        posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=3)
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
         return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies)
     
@@ -46,16 +46,16 @@ def create_post():
 @login_required
 def watchlist():
     sort_option = request.args.get("sort_option", "Date")  # Default sorting option is "Date"
-    
+    page = request.args.get("page", 1, type=int)
     if sort_option == "Year":
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.year.desc()).all()
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.year.desc()).paginate(page=page, per_page=5)
     elif sort_option == "Rate":
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.rate.desc()).all()
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.rate.desc()).paginate(page=page, per_page=5)
     elif sort_option == "Alphabetical":  # Handle alphabetical sorting
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.title).all()
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.title).paginate(page=page, per_page=5)
     else:
         # Default sorting by date_posted
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).all()
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
 
     return render_template("watchlist.html", title="Movies Watchlist", movie_data=movie_data, sort_option=sort_option)
 

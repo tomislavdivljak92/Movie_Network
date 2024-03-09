@@ -26,7 +26,7 @@
     
     <div class="post-container">
         <div class="neon-line-main"></div>
-        {% for post in posts %}
+        {% for post in posts.items %}
         <div class="post">
             <div class="post-header">
         
@@ -50,8 +50,24 @@
             <p class="post-date">{{ post.date_posted.strftime('%d %b %Y') }}</p> <!-- Display the date_posted -->
         </div>
         {% endfor %}
-        
+        <div class="pagination-container">
+            
+            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if posts.page == page_num %}
+                <a class="pagination-current" href="{{ url_for('pages.main', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                <a class="pagination" href="{{ url_for('pages.main', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+            ...
+            {% endif %}
+            {% endfor %}
+        </div>    
     </div>
+
+        
+
 <!-- New container for the list of members -->
 <div class="right-container">
     <a href="{{ url_for('pages.members') }}">

@@ -2,6 +2,7 @@
 
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_page.css') }}" />
 
 {% endblock %}
 
@@ -79,5 +80,20 @@
     <a href="{{ url_for('pages.add_movie') }}" class="button button--add">
         <span>+</span>
     </a>
+    
+    <div class="pagination-container">
+        {% for page_num in movie_data.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if movie_data.page == page_num %}
+                    <a class="pagination-current" href="{{ url_for('pages.watchlist', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <a class="pagination" href="{{ url_for('pages.watchlist', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+    </div>
+
 
 {% endblock %}

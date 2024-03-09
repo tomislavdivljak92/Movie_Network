@@ -146,7 +146,7 @@
     top: 180px; /* Adjust top position */
     left:35px;
     
-    box-shadow: 0 0 8px var(--shadow-color-image); /* Align the container to the left side of the page */
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Align the container to the left side of the page */
 }
 
 .right-container a {
@@ -243,7 +243,7 @@
     position: absolute; /* Position the container absolutely */
     top: 180px; /* Adjust top position */
     right: 35px; /* Position to the right side */
-    box-shadow: 0 0 8px var(--shadow-color-image); /* Add shadow */
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Add shadow */
 }
 
 .left-container a {
@@ -408,3 +408,68 @@
 
 
 
+/* Pagination container */
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+    
+    
+}
+
+/* Pagination links */
+.pagination {
+    display: inline-block;
+    color: var(--accent-colour);
+    text-decoration: none;
+    padding: 1px 10px;
+    
+    border-radius: 4px;
+    background-color: var(--background-color);
+    
+
+
+}
+
+/* Pagination link styles */
+.pagination a {
+    color: var(--accent-colour); /* Set the color for the pagination links */
+    text-decoration: none;
+    padding: 1px 6px;
+    
+    
+    border-radius: 4px;
+    
+}
+
+/* Hover state for pagination links */
+.pagination:hover {
+    background-color: var(--accent-colour);
+    color: var(--text-light);
+    transition: 0.3s ease;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+}
+.pagination a:hover {
+    background-color: var(--shadow-color-image);
+    color: var(--text-light);
+    transition: 0.3s ease;
+}
+
+
+.pagination-current {
+    background-color: var(--accent-colour);
+    color: var(--text-dark);
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    border-radius: 4px;
+    padding: 1px 10px;
+    display: inline-block;
+    text-decoration: none; 
+}
+
+.pagination-current a{
+    background-color: var(--accent-colour);
+    color: var(--text-dark);
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    border-radius: 4px;
+    padding: 1px 10px;
+    display: inline-block; 
+}
