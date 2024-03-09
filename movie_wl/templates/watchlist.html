@@ -2,11 +2,32 @@
 
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}" />
+
 {% endblock %}
 
 
 {% block main_content %}
     {% if movie_data %}
+
+    <form id="sort-form" action="{{ url_for('pages.watchlist') }}" method="get">
+        <div class="sort-dropdown">
+            <label for="sort-option">Sort by:</label>
+            <select id="sort-option" name="sort_option" onchange="handleSortOption()">
+                <option value="Date">Date Posted</option>
+                <option value="Year" {% if sort_option == "Year" %} selected {% endif %}>Year</option>
+                <option value="Rate" {% if sort_option == "Rate" %} selected {% endif %}>Rate</option>
+                <option value="Alphabetical"{% if sort_option == "Alphabetical" %} selected {% endif %}>Alphabetical</option>
+            </select>
+        </div>
+    </form>
+
+
+    <script>
+        function handleSortOption() {
+            document.getElementById("sort-form").submit();
+        }
+    </script>
+
         <table class="table">
             <colgroup>             
                 <col style="width: 60%">
@@ -22,19 +43,19 @@
                     <th class="table__cell table__cell--header"></th>
                 </tr>
             </thead>
-            <tbody>
-                
-                
-                
+            <tbody>              
                     {% for movie in movie_data %}
                         <tr>
                             <td class="table__cell">
-                                <p class="table__movieTitle">{{ movie.title }}</p>
-                                <p class="table__movieDirector">{{ movie.director }}</p>
+                                <a href="{{ url_for('pages.movie', post_id=movie.id)}}" class="table__link">
+                                    <p class="table__movieTitle">{{ movie.title }}</p>
+                                </a>
+                                    <p class="table__movieDirector">By {{ movie.director }}</p>
+                                
                             </td>
                             <td class="table__cell">{{ movie.year }}</td>
                             <td class="table__cell">
-                                <a href="{{ url_for('pages.movie', post_id=movie.id)}}" class="table__link">View</a>
+                                <a href="{{ url_for('pages.edit_movie', post_id=movie.id)}}" class="table__link__edit">Edit</a>
 
                             </td>
                             <td class="table__cell">
@@ -46,14 +67,7 @@
                         </tr>
                     
                     {% endfor %}
-                    
-
-                    
-
-    
-
-
-                
+                             
             </tbody>
         </table>
         
@@ -65,4 +79,5 @@
     <a href="{{ url_for('pages.add_movie') }}" class="button button--add">
         <span>+</span>
     </a>
+
 {% endblock %}

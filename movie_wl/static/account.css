@@ -53,6 +53,7 @@
     font-size: 24px; /* Adjust as needed */
     margin-bottom: 5px;
     margin-top: 15px;
+    
      /* Adjust as needed */
 }
 
@@ -60,6 +61,7 @@
     color: var(--text-accountemail);
     font-size: 16px; /* Adjust the font size for the email */
     margin-bottom: 0;
+    
 }
 
 
@@ -192,6 +194,7 @@
 
 .delete__post__acc {
     margin-left: auto;
+    margin-top: 5px;
     display: flex;
     font-size: 12px;
     color: #a0a0a0;
@@ -202,7 +205,8 @@
 }
 
 .post__edit__acc {
-    margin-left: auto;
+    margin-left: 1rem;
+    margin-top: 5px;
     display: flex;
     font-size: 12px;
     color: #a0a0a0;

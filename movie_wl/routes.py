@@ -42,12 +42,23 @@ def create_post():
 
 
 
-@pages.route("/watchlist")
+@pages.route("/watchlist", methods=["GET", "POST"])
+@login_required
 def watchlist():
-    if current_user.is_authenticated:
+    sort_option = request.args.get("sort_option", "Date")  # Default sorting option is "Date"
+    
+    if sort_option == "Year":
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.year.desc()).all()
+    elif sort_option == "Rate":
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.rate.desc()).all()
+    elif sort_option == "Alphabetical":  # Handle alphabetical sorting
+        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.title).all()
+    else:
+        # Default sorting by date_posted
         movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).all()
-        return render_template("watchlist.html", title="Movies Watchlist", movie_data=movie_data)  
-    return redirect(url_for(".login"))
+
+    return render_template("watchlist.html", title="Movies Watchlist", movie_data=movie_data, sort_option=sort_option)
+
 
 @pages.route("/search")
 def search():

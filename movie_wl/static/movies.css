@@ -37,12 +37,17 @@
   width: 100%;
   margin: 0 auto;
   border-spacing: 0;
-
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--shadow-color-image);
+  
 }
 
 .table__cell {
-  padding: 1.25rem 1rem;
+  padding: 1.05rem 1rem;
 }
+
+
 
 .table__cell--header {
   position: relative; /* Position relative for pseudo-element */
@@ -65,43 +70,185 @@
   z-index: -1; /* Behind the content */
 }
 
-
 .delete__movie {
-    background-color: transparent; /* Set background color to transparent */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-    font-size: smaller;
-    margin-left: 8px; /* Add some margin for spacing */
-    cursor: pointer;
-    color: #a0a0a0
-  }
+  background-color: transparent; /* Set background color to transparent */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+  font-size: smaller;
+  margin-left: 8px; /* Add some margin for spacing */
+  cursor: pointer;
+  color: var(--delete-color);
+}
   
   /* Optionally, you can style the hover effect */
-  .delete__movie:hover {
-    color: var(--accent-colour);
-  }
+.delete__movie:hover {
+  color: var(--accent-colour);
+}
 
-  .table__movieTitle {
-    font-weight: 600;
-  }
+.table__movieTitle {
+  font-weight: 600;
   
   
-  .table__movieDirector {
-    font-size: 0.85em;
+}
+
+.table__movieDirector {
+  font-size: 0.75em;
+  color: var(--accent-colour-2);
+  
+}
+
+
+.table__movieTitle:hover {
+  color: var(--accent-colour);
+  text-decoration: none;
+  transition: 0.2s ease;
+  
+}
+
+
+
+.table__link {
+  color: inherit;
+  text-decoration: none;
+  
+}
+
+.table__link:hover {
+  text-decoration: none;
+  text-decoration-color: var(--accent-colour);
+  color: var(--accent-colour);
+}
+
+
+.table__link a:hover {
+  text-decoration: none;
+  text-decoration-color: var(--accent-colour);
+}
+
+.table__link__edit {
+  color: var(--delete-color);
+  text-decoration: none;
+  font-size: smaller;
+}
+
+.table__link__edit:hover {
+  text-decoration: none;
+  text-decoration-color: var(--accent-colour);
+  color: var(--accent-colour);
+}
+
+
+
+
+
+
+.table__empty {
+  display: block;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+
+.table__link__edit a{
+  color: #a0a0a0;
+  text-decoration: none;
+  font-size: 12px;
+  
+}
+
+.table__link__edit a:hover {
+  text-decoration: none;
+  text-decoration-color: var(--accent-colour);
+  color: var(--accent-colour);
+}
+
+
+
+
+.table__cell--header.sortable {
+  cursor: pointer;
+}
+
+
+
+
+
+.sort-dropdown {
+  position: absolute;
+  top: 10.5rem; /* Adjust the top position as needed */
+  left: 40%; /* Adjust the left position to move it horizontally */
+  transform: translateX(-50%);
+  z-index: 1;
+  
+}
+
+.sort-dropdown label {
+  font-size: 0.9rem; /* Adjust font size as needed */
+  margin-right: 0.5rem;
+  font-family: "Public Sans", sans-serif;
+  vertical-align: middle;
+  
+   /* Adjust spacing between label and select */
+}
+
+.sort-dropdown select {
+  font-size: 0.7rem; /* Adjust font size to make it smaller */
+  padding: 0.25rem 0.25rem; /* Adjust padding to make it smaller */
+  width: 80px;
+  max-width: 100px;
+  height: 25px;
+  outline: none;
+  font-family: "Public Sans", sans-serif;
+  vertical-align: middle;
+  background-color: var(--background-color);
+  color: var(--accent-colour);
+  transition: 0.8s ease;
+}
+
+
+
+.sort-dropdown select:focus {
+  background-color: var(--background-color);
+  color: var(--text-dark);
+  font-size: 0.7rem;
+  outline: none;
+  box-shadow: 0 0 10px var(--shadow-color-image);
+  transition: box-shadow 0.2s ease;
+
+}
+
+
+.sort-dropdown select option:hover {
+  background-color: var(--accent-colour);
+  color: var(--text-light);
+  
+}
+/* Adjust positioning of dropdown to fit between title and release year */
+.table__header {
+  position: relative;
+}
+
+.table__header .sort-dropdown {
+  top: auto;
+  bottom: 0.5rem; /* Adjust spacing from bottom as needed */
+}
+
+
+
+@media screen and (min-width: 50em) {
+  .sort-dropdown select {
+    width: 130px; /* Increase width for larger screens */
+    max-width: 130px; /* Increase width for larger screens */
+    visibility: visible; /* Ensure select element is visible */
+    opacity: 1; /* Ensure select element is fully visible */
+  }
+}
+
+
+@media screen and (min-width: 50em) {
+  .sort-dropdown label {
+      font-size: 1rem;
+      width: 100px;
   }
 
-  .table__link {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .table__link:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-colour);
-  }
-
-  .table__empty {
-    display: block;
-    text-align: center;
-    font-size: 1.2rem;
-  }
+}
