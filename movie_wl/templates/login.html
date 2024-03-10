@@ -24,8 +24,9 @@
 
             <span class="form__small">
                 Don't have an account? <a href="{{ url_for('pages.register') }}" class="form__link">Register Here</a>
+                <a href="{{ url_for('pages.reset_request') }}">Forgot Password?</a>
             </span>
-
+            
             <div>
                 {{ form.submit(class_="button button--form") }}
             </div>

@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
-from movie_wl import db, bcrypt
+from movie_wl import db, bcrypt, mail
 from movie_wl.models import Post, User, PostMain
-from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost
+from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm
 import secrets
 from PIL import Image
 import os
+from flask_mail import Message
 
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
 
@@ -16,7 +17,7 @@ def main():
         page = request.args.get("page", 1, type=int)
         form = PostForm()
         top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
-        posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=3)
+        posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=5)
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
         return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies)
     
@@ -221,6 +222,58 @@ def register():
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('.login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@pages.route("/reset_password", methods=["GET","POST"])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('.main'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash("The email has been sent, including instructions to reset your pasword.", 'success')
+        return redirect(url_for('.login'))
+    return render_template("reset_password_request.html", title="Reset Password", form=form)
+
+
+@pages.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('.main'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('.reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been updated! You are now able to log in', 'success')
+        return redirect(url_for('.login'))
+    return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+
+
+
+
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', sender="tomislavdivljak92@gmail.com", recipients=[user.email])
+    
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('pages.reset_token', token=token, _external=True)}
+
+If you did not make this request, ignore it.'''
+    
+    mail.send(msg)
+
+
+
+
 
 @pages.route("/login", methods=['GET', 'POST'])
 def login():
