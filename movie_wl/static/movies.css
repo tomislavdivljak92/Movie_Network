@@ -13,6 +13,12 @@
     font-size: 1.75rem;
     align-items: center;
     justify-content: center;
+    
+  }
+
+  .button--add:hover {
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: 0.3s ease;
   }
   
   @media screen and (min-width: 50em) {
@@ -37,9 +43,13 @@
   width: 100%;
   margin: 0 auto;
   border-spacing: 0;
+  
+  
+
   background-color: var(--background-color);
   border-radius: 10px;
   box-shadow: 0 0 10px var(--shadow-color-image);
+  
   
 }
 

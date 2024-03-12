@@ -17,6 +17,7 @@
             {% endfor %}
         {% endwith %}
         <div class="form__container">
+            <div class="login-header-login">LOGIN</div>    
             {{ form.hidden_tag() }}
             {{ render_text_field(form.email) }}
             {{ render_text_field(form.password) }}
@@ -24,7 +25,7 @@
 
             <span class="form__small">
                 Don't have an account? <a href="{{ url_for('pages.register') }}" class="form__link">Register Here</a>
-                <a href="{{ url_for('pages.reset_request') }}">Forgot Password?</a>
+                <a href="{{ url_for('pages.reset_request') }}" class="form__small-link">Forgot Password?</a>
             </span>
             
             <div>
@@ -33,9 +34,9 @@
         </div>
         
         
-        
+       
 
     </form>
    
-
+    
 {% endblock %}

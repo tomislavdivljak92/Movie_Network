@@ -1,12 +1,12 @@
 .content-section {
     width: 768px;
-    height: 150px !important;
+    height: 260px !important;
     flex-direction: column;
     display: flex;
     height: 145px; /* Set the height to 125px */
     margin: auto; /* Center horizontally */
     position: absolute; /* Position absolutely */
-    top: 35%; /* Align to the vertical center */
+    top: 45%; /* Align to the vertical center */
     left: 50%; /* Align to the horizontal center */
     transform: translate(-50%, -50%); 
     border-radius: 10px;
@@ -30,37 +30,38 @@
     flex-direction: column; /* Stack elements vertically */
     align-items: center;
     justify-content: center; /* Center items horizontally */
-    text-align: center; /* Align text center */
-    margin-bottom: 20px; /* Adjust margin as needed */
+    text-align: center !important; /* Align text center */
+    margin-bottom: 20px;
+    position: relative; /* Adjust margin as needed */
 }
 .account-img {
     width: 100px;
     height: 100px;
     align-self: center;
     border-radius: 50%;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-top: 20px;
      /* Adjust the negative margin-top to move the image up */
     box-shadow: 0 0 10px var(--shadow-color-image);
 }
 
 .movie__name {
-    flex: 1; /* Shorthand for flex-grow: 1, flex-shrink: 1, and flex-basis: 0 */
- /* Add some space between the image and text */
-    /* Add any additional styling for the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0 auto;
+    margin-bottom: 20px; 
 }
 
 .account-heading {
-    font-size: 24px; /* Adjust as needed */
-    margin-bottom: 5px;
-    margin-top: 15px;
-    
+    font-size: 24px;
      /* Adjust as needed */
 }
 
 .text-secondary {
     color: var(--text-accountemail);
-    font-size: 16px; /* Adjust the font size for the email */
-    margin-bottom: 0;
+    font-size: 16px;
+    
     
 }
 
@@ -90,9 +91,30 @@
 }
 
 
+
+.login-header-profile {
+    font-size: 1.2rem; /* Adjust font size as needed */
+    color: #f7f7f7; /* Adjust color as needed */
+    text-align: center;
+    font-weight: bold; /* Example: make the text bold */
+    margin: 0 auto;
+    background-image: var(--login-gradient-dark);
+    /* Linear gradient background */
+    width: 10rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    transition: transform 0.3s ease; /* Linear gradient background */
+}
+
+.login-header-profile:hover {
+    transform: translateY(10px); /* Scale up the header on hover */
+}
+
+
 .post-container-acc {
     width: 60%;
-    margin: 6rem auto; /* Increase the margin to create a larger distance */
+    margin: 310px auto 3rem; /* Adjust margin-top to move the container down */
+    position: relative; /* Add relative positioning */
+    height: 123px; /* Increase the margin to create a larger distance */
 }
 
 .post-acc {
@@ -101,8 +123,8 @@
     border: 1px solid;
     border-radius: 5px;
     padding: 10px;
+    margin-top: 20px;
     margin-bottom: 20px;
-    top: 8rem;
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -187,7 +209,7 @@
     height: 2px;
     background-color: var(--accent-colour);
     box-shadow: 0 0 10px var(--accent-colour);
-    margin-bottom: 20px; /* Adjust margin as needed */
+    margin-top: 10px;
 }
 
 
@@ -239,4 +261,24 @@
 
 .delete__post__acc:hover {
     color: var(--accent-colour);
+}
+
+
+
+
+.follow-btn, .unfollow-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.follow-btn:hover, .unfollow-btn:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
 }

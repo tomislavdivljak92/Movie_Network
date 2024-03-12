@@ -30,11 +30,14 @@
         <div class="post">
             <div class="post-header">
         
-                <a href="{{ url_for('pages.account', username=post.user.username) }}" class="post-header a">
+                {% if current_user == post.user %}
+                    <a href="{{ url_for('pages.account') }}" class="post-header a">
+                {% else %}
+                    <a href="{{ url_for('pages.user_profile', username=post.user.username) }}" class="post-header a">
+                {% endif %}
                     <img src="{{ url_for('static', filename='profile_pics/' + post.user.image_file) }}" alt="Profile Picture" class="post-header-img">
-                <h3 class="post-username">{{ post.user.username }}</h3> <!-- Display the username -->
-                </a>
-                
+                    <h3 class="post-username">{{ post.user.username }}</h3> <!-- Display the username -->
+    </a>
                 {% if current_user.is_authenticated and post.user_id == current_user.id %}
                 
                 <a class="post__edit" href="{{ url_for('pages.edit_post', post_id=post.id) }}">Edit</a>

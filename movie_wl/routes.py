@@ -312,6 +312,21 @@ def account():
 
 
 
+@pages.route("/user_profile/<username>", methods=["GET", "POST"])
+@login_required
+def user_profile(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User not found.', 'danger')
+        return redirect(url_for('.main'))
+
+    user_posts = PostMain.query.filter_by(user_id=user.id).order_by(PostMain.date_posted.desc()).all()
+    
+    return render_template('user_profile.html', title='User Profile', user=user, user_posts=user_posts)
+
+
+
+
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_txt = os.path.splitext(form_picture.filename)
@@ -379,3 +394,33 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for(".main"))
+
+
+
+@pages.route("/follow/<username>", methods=["POST"])
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return redirect(url_for("pages.main"))
+    if user == current_user:
+        return redirect(url_for("pages.account", username=username))
+
+    current_user.follow(user)
+    db.session.commit()
+
+    return redirect(url_for("pages.user_profile", username=username))
+
+@pages.route("/unfollow/<username>", methods=["POST"])
+@login_required
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return redirect(url_for("pages.main"))
+    if user == current_user:
+        return redirect(url_for("pages.account", username=username))
+
+    current_user.unfollow(user)
+    db.session.commit()
+    
+    return redirect(url_for("pages.user_profile", username=username))

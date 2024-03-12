@@ -9,6 +9,7 @@
 {% block main_content %}
     <form name="add_movie" method="post" novalidate class="form">
         <div class="form__container">
+            <div class="login-header-login">Edit</div>
             {{ form.hidden_tag() }}           
             {{ render_text_field(form.title) }}
             {{ render_text_field(form.director) }}

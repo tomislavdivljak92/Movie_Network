@@ -1,16 +1,63 @@
 .form {
     margin: 0 auto;
-    max-width: 30rem;
-    border: var(--border);
+    max-width: 28rem;
+    border: 2px solid transparent; /* Hide default border */
+    border-image: var(--border-gradient-dark);
+    border-image-slice: 1;
+    
+    overflow: hidden;
+    
+    /* Ensure entire border is covered by gradient */
     font-size: 1.2rem;
     border-radius: 10px;
     background: var(--background-color);
+    
     box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour);
 }
 
 .form__container {
     padding: 2.5rem 2.5rem 1.5rem 1.5rem;
 }
+
+
+
+.login-header-login {
+    font-size: 2.5rem; /* Adjust font size as needed */
+    color: var(--text-dark); /* Adjust color as needed */
+    text-align: left;
+    font-weight: bold; /* Example: make the text bold */
+    margin-bottom: 20px;
+    background-image: var(--login-gradient-dark);
+    /* Linear gradient background */
+    
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    transition: transform 0.3s ease; /* Linear gradient background */
+}
+
+.login-header-login:hover {
+    transform: translateY(-5px); /* Scale up the header on hover */
+}
+
+
+.login-header-login-watchlist {
+    font-size: 1.2rem; /* Adjust font size as needed */
+    color: #f7f7f7; /* Adjust color as needed */
+    text-align: left;
+    font-weight: bold; /* Example: make the text bold */
+    margin: 0 auto;
+    background-image: var(--login-gradient-dark);
+    /* Linear gradient background */
+    
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    transition: transform 0.3s ease; /* Linear gradient background */
+}
+
+.login-header-login-watchlist:hover {
+    transform: translateX(5px); /* Scale up the header on hover */
+}
+
+
+
 
 /* following media queries allow for more padding inside the form as the window size increases */
 
@@ -20,7 +67,7 @@
     }
 }
 
-@media screen and (min-width: 30em) {
+@media screen and (min-width: 28em) {
     .form__container {
       padding-left: 2.5rem;
     }
@@ -45,14 +92,18 @@
 
     font-size: inherit;
     font-family: inherit;
-
+    
     padding: 0.75rem 0.5rem;
     background: var(--background-color);
 }
 
 .form__field:focus {
     border-bottom: var(--border);
+    box-shadow: 0 0 10px var(--shadow-color-image); 
+    transition: 0.3s ease;
 }
+
+
 
 
 
@@ -61,6 +112,18 @@
     font-size: 0.83rem;
     color: var(--text-muted);
 }
+
+
+
+.form__small-link {
+    font-size: 1rem;  
+    color: var(--accent-colour);
+}
+
+.form__small-link:hover {
+    color: #d05656;
+}
+
 
 .form__link {
     text-decoration: none;

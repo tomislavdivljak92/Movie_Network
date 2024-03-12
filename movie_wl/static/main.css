@@ -13,6 +13,10 @@
     --stroke-main-star:#000;
     --shadow-color-image: rgba(0, 0, 0, 0.7);
     --delete-color: #4d4d4d;
+
+    --border-gradient-dark: linear-gradient(to right, #d05656, #1c2023); /* Gradient for light mode */
+    --login-gradient-dark: linear-gradient(to right, #d05656, #f7f7f7);
+
 }
 
 :root.dark-mode {
@@ -30,12 +34,24 @@
     --stroke-main-star:#fff;
     --shadow-color-image: rgba(255, 255, 255, 0.5);
     --delete-color: #c0c0c0;
+    --border-gradient-dark: linear-gradient(to right, #d05656, #fff);
+
+    --login-gradient-dark: linear-gradient(to right, #d05656, #1c2023);
+
+
   } 
 
 .button {
     --background-color: #e2e7f0;
     --background-color-hover: #bfd0ec;
     border-radius: 4px;
+    
+    
+}
+
+.button:hover {
+    transition: 0.1s ease;
+    box-shadow: 0 0 10px var(--shadow-color-image);
 }
 
 
@@ -148,14 +164,17 @@ body {
     text-decoration: none;
     color: inherit;
     border-bottom: 3px solid transparent; /* Set initial border bottom */
-    transition: border-bottom 0.2s ease-in-out;
+    transition: border-bottom 0.2s ease;
     
 }
 
 .nav__link--active {
     background: var(--accent-colour);
     color: var(--text-light);
+     
 }
+
+
 
 .nav__link:not(:last-child) {
     margin-right: 1rem;
@@ -165,6 +184,8 @@ body {
     margin-bottom: -3px;
     border-bottom: 3px solid var(--accent-colour); /* Add red accent color */
     box-shadow: 0px 3px 1px -3px rgba(245, 101, 101, 0.8);
+    transition: 0.2s ease;
+    
 
   }
 
@@ -254,7 +275,7 @@ body {
     text-decoration: none;
     color: inherit;
     border-bottom: 5px solid transparent; /* Set initial border bottom */
-    transition: border-bottom 0.2s ease-in-out;
+    transition: border-bottom 0.2s ease;
     
 }
 
@@ -270,7 +291,7 @@ body {
     
     border-bottom: 3px solid var(--accent-colour); /* Add red accent color */
     box-shadow: 0px 3px 1px -3px rgba(245, 101, 101, 0.8);
-    
+    transition: 0.3s ease;
   }
 
 

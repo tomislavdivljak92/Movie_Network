@@ -4,11 +4,13 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from movie_wl.config import Config
 from flask_mail import Mail
+from flask_migrate import Migrate
 
 
 
 
 db = SQLAlchemy()
+migrate = Migrate()
 mail = Mail()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -24,6 +26,7 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    migrate.init_app(app, db)
     from movie_wl.routes import pages
     
     app.register_blueprint(pages)

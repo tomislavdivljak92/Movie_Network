@@ -1,0 +1,224 @@
+.content-section {
+    width: 768px;
+    height: 260px !important;
+    flex-direction: column;
+    display: flex;
+    height: 145px; /* Set the height to 125px */
+    margin: auto; /* Center horizontally */
+    position: absolute; /* Position absolutely */
+    top: 45%; /* Align to the vertical center */
+    left: 50%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%); 
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--shadow-color-image);
+    background-color: var(--background-color);
+    
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    
+    padding-bottom: 10%;
+}
+
+@media screen and (max-width: 768px) {
+    .content-section {
+        width: 80%; /* Set a smaller width for smaller screens */
+        height: 60%; /* Set a smaller height for smaller screens */
+    }
+}
+
+.media {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center; /* Center items horizontally */
+    text-align: center !important; /* Align text center */
+    margin-bottom: 20px;
+    position: relative; /* Adjust margin as needed */
+}
+.account-img {
+    width: 100px;
+    height: 100px;
+    align-self: center;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    margin-top: 20px;
+     /* Adjust the negative margin-top to move the image up */
+    box-shadow: 0 0 10px var(--shadow-color-image);
+}
+
+.heading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0 auto;
+    margin-bottom: 20px; /* Add margin to separate from profile image */
+}
+
+.account-heading {
+    font-size: 24px;
+    
+}
+
+.text-secondary {
+    color: var(--text-accountemail);
+    font-size: 16px;
+    
+}
+
+
+.login-header-login-user_profile {
+    font-size: 1.2rem; /* Adjust font size as needed */
+    color: #f7f7f7; /* Adjust color as needed */
+    text-align: center;
+    font-weight: bold; /* Example: make the text bold */
+    margin: 0 auto;
+    background-image: var(--login-gradient-dark);
+    /* Linear gradient background */
+    width: 10rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    transition: transform 0.3s ease; /* Linear gradient background */
+}
+
+.login-header-login-user_profile:hover {
+    transform: translateY(10px);
+    
+}
+
+
+.post-container-acc {
+    width: 60%;
+    margin: 310px auto 3rem; /* Adjust margin-top to move the container down */
+    position: relative; /* Add relative positioning */
+    height: 123px; /* Set the height to half of 246px */
+}
+.post-acc {
+    width: 90%; /* Make the post width match the container */
+    position: relative;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border:1px var(--border) solid transparent;
+    background-color: var(--background-color);
+    overflow: hidden;
+    
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--shadow-color-image);
+}
+
+.post-acc-header {
+    display: flex;
+    align-items: center; /* Align items vertically in the header */
+}
+
+.post-username-acc {
+    font-size: 18px;
+    text-align: left;
+    margin: 0;
+     /* Adjusted margin */
+}
+
+.post-username-acc:hover {
+    color: var(--accent-colour);
+    transition: 0.2s ease;
+}
+
+.post-content-acc {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 3px; /* Adjusted margin */
+}
+
+.post-date-acc {
+    font-size: 10px; /* Set font size for date */
+    color: #666; /* Set text color for date */
+    position: absolute; /* Position the date in the top right corner */
+    top: 5px; /* Adjust top position */
+    right: 5px;  /* Adjust right position */
+}
+
+.post-header-img-acc {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+}
+
+
+@media screen and (max-width: 768px) {
+    .post-acc {
+        width: 80%; /* Set a smaller width for smaller screens */
+        height: 60%; /* Set a smaller height for smaller screens */
+    }
+}
+
+
+
+
+.post-acc-header a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove default underline */
+}
+
+.post-acc-header a:hover {
+    text-decoration: none; /* Add underline on hover if desired */
+}
+
+
+
+
+.neon-line {
+    width: 100%; /* Set width to full width */
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    margin-top: 10px;
+}
+
+
+.follow-unfollow--style {
+    display: inline-block; /* Ensure the div behaves like an inline element */
+     /* Apply the same right margin as the buttons */
+    margin-top: -11px;
+    text-align: center;/* Apply the same right margin as the buttons */
+}
+
+
+
+.follow-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border:2px solid var(--accent-colour-2);
+    border-radius: 5px;
+    background-color: transparent; /* Red color */
+    color: var(--text-dark);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.follow-btn:hover {
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: 0.2s ease;
+}
+
+.unfollow-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border:2px solid var(--accent-colour);
+    border-radius: 5px;
+    background-color: transparent; /* Red color */
+    color: var(--text-dark);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.unfollow-btn:hover {
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: 0.2s ease;
+}

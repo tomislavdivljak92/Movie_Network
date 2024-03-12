@@ -13,12 +13,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 .movie__name {
     display: flex;
     align-items: center;
+    font-weight: bold; /* Example: make the text bold */
+    
+
 }
+
 
 .movie__rating {
     display: flex;

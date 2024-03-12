@@ -10,6 +10,7 @@
     <form name="edit_profile" method="post" novalidate class="form" enctype="multipart/form-data">
         
         <div class="form__container">
+            <div class="login-header-login">Edit Profile</div>
             {{ form.hidden_tag() }}
             {{ render_edit_field(form.picture) }}
             {{ render_text_field(form.username) }}
