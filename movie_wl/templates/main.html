@@ -79,7 +79,7 @@
     <ul class="member-list">
         {% for member in members %}
         <li class="member-list-item">
-            <a href="{{ url_for('pages.members') }}" class="member-list-item a">
+            <a href="{{ url_for('pages.user_profile', username=member.username) }}" class="member-list-item a">
                 <img src="{{ url_for('static', filename='profile_pics/' + member.image_file) }}" alt="Profile Photo" class="member-list-item img">
                 {{ member.username }}
             </a>

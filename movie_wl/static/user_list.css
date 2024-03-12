@@ -1,26 +1,26 @@
-.member-container {
+.user-list-container {
     max-width: 500px;
     margin: 25px auto 0; /* Adjust the top margin to move it down */
     padding: 10px 2rem; /* Add padding for better appearance */
     background-color: var(--background-color); /* Add background color */
     border-radius: 5px; /* Add border radius for rounded corners */
     box-shadow: 0 0 8px var(--shadow-color-image); /* Align the container to the left side of the page */
-  }
+}
 
-  .username {
+
+.user-list-username {
     font-size: 18px; /* Adjust username font size */
     margin-right: 10px; /* Add space between the image and username */
     color: var(--text-dark); /* Set the text color */
 }
 
-.username:hover {
+.user-list-username:hover {
     color: var(--accent-colour);
     transition: 0.3s ease; /* Set the text color */
 }
 
 
-  
-  .member-list {
+.user-list-list {
     list-style-type: none; /* Remove bullet points */
     padding: 0;
     margin: 0; /* Remove default margin */
@@ -29,26 +29,28 @@
     font-weight: normal; /* Specify the font weight */
     line-height: 1.5; /* Specify the line height */
     color: var(--text-dark);
-  }
-  
-  .member-list-item {
+}
+
+.user-list-list-item {
     display: flex; /* Align image, username, and button horizontally */
     align-items: center; /* Align items vertically */
     justify-content: space-between;
-    margin-bottom: 5px;/* Add space between each member */
-    
-  }
+    margin-bottom: 5px; /* Add space between each member */
+}
 
- 
+.user-list-list-item a {
+    text-decoration: none; /* Remove underlines from links */
+    color: inherit; /* Inherit text color */
+    display: flex; /* Align image and username horizontally */
+    align-items: center;/* Add space between each member */
+}
 
-  .member-list-item:hover {
+.user-list-list-item:hover {
     color: var(--accent-colour);
     transition: 0.3s ease;
-    
-  }
-  
-  
-  .member-container h2 {
+}
+
+.user-list-container h2 {
     font-family: "Public Sans", sans-serif; /* Specify the font family */
     font-size: 2em; /* Specify the font size */
     font-weight: bold; /* Specify the font weight */
@@ -56,10 +58,9 @@
     color: var(--text-dark);
     position: relative;
     text-align: center;
-  }
-  
-  
-  .member-container h2::after {
+}
+
+.user-list-container h2::after {
     content: '';
     position: absolute;
     left: 0;
@@ -67,28 +68,31 @@
     width: 100%;
     height: 2px;
     background-color: var(--accent-colour);
-    box-shadow: 0 0 10px var(--accent-colour); 
-  }
-  
-  
-  
-  .member-list-item a {
+    box-shadow: 0 0 10px var(--accent-colour);
+}
+
+.user-list-list-item a {
     text-decoration: none; /* Remove underlines from links */
     color: inherit; /* Inherit text color */
     display: flex; /* Align image and username horizontally */
     align-items: center;
-  }
-  
-  .member-list-item img {
+}
+
+
+
+.user-list-list-item img {
     width: 40px; /* Adjust image width */
     height: 40px; /* Adjust image height */
     border-radius: 50%; /* Make the image circular */
     margin-right: 10px;
-    box-shadow: 0 0 10px var(--shadow-color-image); /* Add space between image and username */
-  }
+}
+
+.user-list-list-item .username {
+    font-size: 16px; /* Adjust username font size */
+}
 
 
-  .membersfollow-unfollow--style {
+.user-listfollow-unfollow--style {
     display: inline-block; /* Ensure the div behaves like an inline element */
      /* Apply the same right margin as the buttons */
     margin-top: -11px;
@@ -97,7 +101,7 @@
 
 
 
-.membersfollow-btn {
+.user-listfollow-btn {
     display: inline-block;
     padding: 6px 10px; /* Adjust padding to make the buttons smaller */
     font-size: 12px;
@@ -110,12 +114,12 @@
     cursor: pointer;
 }
 
-.membersfollow-btn:hover {
+.user-listfollow-btn:hover {
     box-shadow: 0 0 10px var(--shadow-color-image);
     transition: 0.1s ease;
 }
 
-.membersunfollow-btn {
+.user-listunfollow-btn {
     display: inline-block;
     padding: 6px 10px; /* Adjust padding to make the buttons smaller */
     font-size: 12px;
@@ -128,7 +132,16 @@
     cursor: pointer;
 }
 
-.membersunfollow-btn:hover {
+.user-listunfollow-btn:hover {
     box-shadow: 0 0 10px var(--shadow-color-image);
     transition: 0.1s ease;
+}
+
+
+
+
+.no-users-message {
+    color: var(--accent-colour);
+    text-align: center;
+    
 }

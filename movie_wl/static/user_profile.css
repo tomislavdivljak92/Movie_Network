@@ -40,7 +40,7 @@
     align-self: center;
     border-radius: 50%;
     margin-bottom: 15px;
-    margin-top: 20px;
+    margin-top: 15px;
      /* Adjust the negative margin-top to move the image up */
     box-shadow: 0 0 10px var(--shadow-color-image);
 }
@@ -78,27 +78,23 @@
     transition: transform 0.3s ease; /* Linear gradient background */
 }
 
-.login-header-login-user_profile:hover {
-    transform: translateY(10px);
-    
-}
+
 
 
 .post-container-acc {
     width: 60%;
     margin: 310px auto 3rem; /* Adjust margin-top to move the container down */
     position: relative; /* Add relative positioning */
-    height: 123px; /* Set the height to half of 246px */
+    height: auto; /* Set the height to half of 246px */
 }
-.post-acc {
+.post-acc{
     width: 90%; /* Make the post width match the container */
     position: relative;
     border: 1px solid;
     border-radius: 5px;
     padding: 10px;
-    margin-top: 20px;
     margin-bottom: 20px;
-    max-width: 500px;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     border:1px var(--border) solid transparent;
@@ -107,6 +103,13 @@
     
     box-sizing: border-box; /* Ensure border is included in width/height */
     box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--shadow-color-image);
+    transition: box-shadow 0.3s ease; 
+}
+
+.post-acc:hover {
+    
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour); /* Light box shadow on hover */
+    
 }
 
 .post-acc-header {
@@ -133,7 +136,7 @@
 }
 
 .post-date-acc {
-    font-size: 10px; /* Set font size for date */
+    font-size: 12px; /* Set font size for date */
     color: #666; /* Set text color for date */
     position: absolute; /* Position the date in the top right corner */
     top: 5px; /* Adjust top position */
@@ -149,11 +152,14 @@
 }
 
 
-@media screen and (max-width: 768px) {
-    .post-acc {
-        width: 80%; /* Set a smaller width for smaller screens */
-        height: 60%; /* Set a smaller height for smaller screens */
-    }
+.follow_to_see_posts_text {
+    display: flex;
+    margin-top: 10px;
+    color: var(--text-dark);
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Adjust the height as needed */
 }
 
 
@@ -203,7 +209,7 @@
 
 .follow-btn:hover {
     box-shadow: 0 0 10px var(--shadow-color-image);
-    transition: 0.2s ease;
+    transition: 0.1s ease;
 }
 
 .unfollow-btn {
@@ -220,5 +226,42 @@
 
 .unfollow-btn:hover {
     box-shadow: 0 0 10px var(--shadow-color-image);
-    transition: 0.2s ease;
+    transition: 0.1s ease;
+}
+
+
+.follower-following-container {
+    position: absolute;
+    top: 30%; /* Adjust the vertical position */
+    left: 5%; /* Adjust the horizontal position */
+    transform: translateY(-50%); /* Center vertically */
+    text-align: left; /* Align text to the left */
+}
+
+
+/* Adjustments for follow-count and follow-count strong classes if needed */
+.follow-count {
+    font-size: 20px; /* Adjust font size as needed */
+    color: var(--text-secondary); /* Adjust color as needed */
+    margin-bottom: 10px; /* Add margin for separation */
+}
+
+.follow-count a{
+    text-decoration: none;
+    font-size: 20px; /* Adjust font size as needed */
+    color: var(--text-secondary); /* Adjust color as needed */
+    margin-bottom: 10px; /* Add margin for separation */
+}
+
+.follow-count strong {
+    font-weight: bold; /* Make the count text bold */
+    color: var(--accent-colour);
+}
+
+
+
+.follow-count:hover {
+    font-weight: bold; /* Make the count text bold */
+    color: var(--accent-colour);
+    transition: 0.3s ease; /* Adjust color for the count text */
 }

@@ -17,7 +17,11 @@ def main():
         page = request.args.get("page", 1, type=int)
         form = PostForm()
         top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
-        posts = PostMain.query.join(User).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=5)
+
+        followed_user_ids = [user.id for user in current_user.followed]
+        followed_user_ids.append(current_user.id)
+        
+        posts = PostMain.query.filter(PostMain.user_id.in_(followed_user_ids)).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=5)
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
         return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies)
     
@@ -402,25 +406,53 @@ def delete_post(post_id):
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
+        
         return redirect(url_for("pages.main"))
+
     if user == current_user:
+        
         return redirect(url_for("pages.account", username=username))
 
     current_user.follow(user)
     db.session.commit()
 
-    return redirect(url_for("pages.user_profile", username=username))
+    redirect_url = request.form.get('redirect_url')
+    if redirect_url:
+        return redirect(redirect_url)
+    else:
+        return redirect(request.referrer)
 
 @pages.route("/unfollow/<username>", methods=["POST"])
 @login_required
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
+        
         return redirect(url_for("pages.main"))
+
     if user == current_user:
+        
         return redirect(url_for("pages.account", username=username))
 
     current_user.unfollow(user)
     db.session.commit()
-    
-    return redirect(url_for("pages.user_profile", username=username))
+
+    redirect_url = request.form.get('redirect_url')
+    if redirect_url:
+        return redirect(redirect_url)
+    else:
+        return redirect(request.referrer)
+
+@pages.route("/followers/<username>")
+@login_required
+def followers(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    followers = user.followers.all()
+    return render_template("user_list.html", title="Followers", users=followers)
+
+@pages.route("/followings/<username>")
+@login_required
+def followings(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    followings = user.followed.all()
+    return render_template("user_list.html", title="Following", users=followings)

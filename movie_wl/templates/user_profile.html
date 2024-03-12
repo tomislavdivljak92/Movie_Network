@@ -20,7 +20,14 @@
             <div class="heading-container">
                 <h2 class="account-heading">{{ user.username }}</h2>
                 <p class="text-secondary">{{ user.email }}</p>
+                
             </div>
+
+            <div class="follower-following-container">
+                <p class="follow-count"><a href="{{ url_for('pages.followers', username=user.username) }}">Followers: <strong>{{ user.followers.count() }}</strong></a></p>
+                <p class="follow-count"><a href="{{ url_for('pages.followings', username=user.username) }}">Following: <strong>{{ user.followed.count() }}</strong></a></p>
+            </div>
+
             <div class="follow-unfollow--style">
             {% if current_user != user %}
                 {% if current_user.is_following(user) %}
@@ -43,17 +50,23 @@
     <div class="post-container-acc"> 
         <div class="login-header-login-user_profile">User Posts</div>
         <div class="neon-line"></div>
-        {% for post in user_posts %}
-            <div class="post-acc">
-                <div class="post-acc-header">
-                    <a href="{{ url_for('pages.user_profile', username=user.username) }}" class="post-acc-header a">
-                        <img src="{{ url_for('static', filename='profile_pics/' + post.user.image_file) }}" alt="Profile Picture" class="post-header-img-acc"> 
-                        <h3 class="post-username-acc">{{ post.user.username }}</h3>
-                    </a>
+        {% if current_user.is_following(user) %}
+            {% for post in user_posts %}
+                <div class="post-acc">
+                    <div class="post-acc-header">
+                        <a href="{{ url_for('pages.user_profile', username=user.username) }}" class="post-acc-header a">
+                            <img src="{{ url_for('static', filename='profile_pics/' + post.user.image_file) }}" alt="Profile Picture" class="post-header-img-acc"> 
+                            <h3 class="post-username-acc">{{ post.user.username }}</h3>
+                        </a>
+                    </div>
                     <p class="post-date-acc">{{ post.date_posted.strftime('%d %b %Y') }}</p>
+                    <p class="post-content-acc">{{ post.content }}</p>
                 </div>
-                <p class="post-content-acc">{{ post.content }}</p>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+        <div class="follow_to_see_posts_text">
+            <p>Follow user to see posts.</p>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

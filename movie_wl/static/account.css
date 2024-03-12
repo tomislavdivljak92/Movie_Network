@@ -40,7 +40,7 @@
     align-self: center;
     border-radius: 50%;
     margin-bottom: 15px;
-    margin-top: 20px;
+    margin-top: 40px;
      /* Adjust the negative margin-top to move the image up */
     box-shadow: 0 0 10px var(--shadow-color-image);
 }
@@ -114,7 +114,7 @@
     width: 60%;
     margin: 310px auto 3rem; /* Adjust margin-top to move the container down */
     position: relative; /* Add relative positioning */
-    height: 123px; /* Increase the margin to create a larger distance */
+    height: auto; /* Increase the margin to create a larger distance */
 }
 
 .post-acc {
@@ -123,9 +123,9 @@
     border: 1px solid;
     border-radius: 5px;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
-    max-width: 500px;
+    
     margin-left: auto;
     margin-right: auto;
     border:1px var(--border) solid transparent;
@@ -135,6 +135,13 @@
     box-sizing: border-box; /* Ensure border is included in width/height */
     box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--shadow-color-image);
 }
+
+.post-acc:hover {
+    
+    box-shadow: 0.75rem 0.75rem 10px -0.5rem var(--accent-colour); /* Light box shadow on hover */
+    
+}
+
 
 .post-acc-header {
     display: flex;
@@ -160,7 +167,7 @@
 }
 
 .post-date-acc {
-    font-size: 10px; /* Set font size for date */
+    font-size: 12px; /* Set font size for date */
     color: #666; /* Set text color for date */
     position: absolute; /* Position the date in the top right corner */
     top: 5px; /* Adjust top position */
@@ -176,12 +183,6 @@
 }
 
 
-@media screen and (max-width: 768px) {
-    .post-acc {
-        width: 80%; /* Set a smaller width for smaller screens */
-        height: 60%; /* Set a smaller height for smaller screens */
-    }
-}
 
 
 
@@ -266,19 +267,3 @@
 
 
 
-.follow-btn, .unfollow-btn {
-    display: inline-block;
-    padding: 8px 16px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff; /* Blue color */
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.follow-btn:hover, .unfollow-btn:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
-}

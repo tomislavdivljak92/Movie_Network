@@ -170,6 +170,11 @@
     margin-bottom: 5px; /* Add space between each member */
 }
 
+.member-list-item:hover {
+    color: var(--accent-colour);
+    transition: 0.3s ease; /* Add space between each member */
+}
+
 
 .right-container h2 {
     font-family: "Public Sans", sans-serif; /* Specify the font family */

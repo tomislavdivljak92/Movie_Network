@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='members.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
-    
 {% endblock %}
 
 {% block main_content %}
@@ -13,14 +12,27 @@
     <ul class="member-list">
         {% for member in members %}
         <li class="member-list-item">
-            <a href="#" class="member-list-item a">
+            <a href="{{ url_for('pages.user_profile', username=member.username)}}" class="member-list-item a">
                 <img src="{{ url_for('static', filename='profile_pics/' + member.image_file) }}" alt="Profile Photo" class="member-list-item img">
-                {{ member.username }}
+                <span class="username">{{ member.username }}</span>
             </a>
+            <div class="membersfollow-unfollow--style">
+            {% if current_user != member %}
+                {% if current_user.is_following(member) %}
+                    <form action="{{ url_for('pages.unfollow', username=member.username) }}" method="post">
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        <button type="submit" class="membersunfollow-btn">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{{ url_for('pages.follow', username=member.username) }}" method="post">
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        <button type="submit" class="membersfollow-btn">Follow</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+            </div>
         </li>
         {% endfor %}
     </ul>
 </div>
-    
-    
 {% endblock %}
