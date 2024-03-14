@@ -10,7 +10,7 @@
 
 {% block main_content %}
 
-    {% if movie_data %}
+    {% if movie_data and movie_data.items %}
    
     <form id="sort-form" action="{{ url_for('pages.watchlist') }}" method="get">
         <div class="sort-dropdown">

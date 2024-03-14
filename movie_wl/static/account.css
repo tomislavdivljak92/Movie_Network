@@ -1,6 +1,6 @@
 .content-section {
     width: 768px;
-    height: 260px !important;
+    
     flex-direction: column;
     display: flex;
     height: 145px; /* Set the height to 125px */

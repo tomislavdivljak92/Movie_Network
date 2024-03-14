@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+<div class="chat-section" id="chat-section">
+    <nav class="sidebar" id="sidebar">
+        <h4>ROOMS</h4>
+        {% for room in rooms %}
+
+            <p class="select-room">{{ room|title }}</p>
+
+        {% endfor %}
+
+
+        <ul class="chatted-users-list" id="chatted-users-list">
+            {% for user in chatted_usernames %}
+                <li>{{ user }}</li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <div class="rightside-pannel" id="rightside-pannel">
+        
+        <div class="display-message-section" id="display-message-section">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div class="input-area" id="input-area">
+            <textarea class="user_message" id="user_message" placeholder="Type here..." rows="1"></textarea>
+            <button type="button" class="send_message" id="send_message">SEND</button>
+        </div>
+        
+        <script>
+            document.getElementById('user_message').addEventListener('input', function() {
+                const textarea = this;
+                const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight);
+                const paddingHeight = parseInt(window.getComputedStyle(textarea).paddingTop) + parseInt(window.getComputedStyle(textarea).paddingBottom);
+                const scrollHeight = textarea.scrollHeight - paddingHeight;
+        
+                if (scrollHeight > lineHeight) {
+                    textarea.rows = Math.ceil(scrollHeight / lineHeight);
+                } else {
+                    textarea.rows = 1;
+                }
+            });
+        </script>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const username = `{{ username }}`;
+</script>
+
+<script src="{{ url_for('static', filename='scripts/chat_page.js') }}"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+<script src="{{ url_for('static', filename='scripts/socketio.js') }}"></script>
+{% endblock %}

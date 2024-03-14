@@ -1,0 +1,152 @@
+/* Layout styles */
+.chat-section {
+    width: 768px;
+    height: 400px !important;
+    
+    display: flex;
+    
+    margin: auto; /* Center horizontally */
+    position: absolute; /* Position absolutely */
+    top: 55%; /* Align to the vertical center */
+    left: 50%; /* Align to the horizontal center */
+    transform: translate(-50%, -50%); 
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--shadow-color-image);
+    background-color: var(--background-color);
+    
+    box-sizing: border-box; /* Ensure border is included in width/height */
+    
+    
+}
+
+@media screen and (max-width: 768px) {
+    .chat-section {
+        width: 80%; /* Set a smaller width for smaller screens */
+        height: 60%; /* Set a smaller height for smaller screens */
+    }
+}
+
+.sidebar {
+    width: 200px;
+    border-right: 2px solid var(--accent-colour);
+    padding: 30px;
+    height: 100%; /* Take full height of chat-section */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 22px; /* Take full height of chat-section */
+}
+
+/* Display message section styles */
+.display-message-section {
+    
+    padding: 10px;
+    margin-left: 10px; /* Add margin to separate from sidebar */
+    margin-right: 10px; /* Add margin to separate from input area */
+    margin-bottom: 10px;
+    max-height: 100%; /* Adjust height to fit remaining space */
+    overflow-y: auto;
+    flex: 1; /* Expand to fill available space */
+}
+
+/* Right-side panel styles */
+.rightside-pannel {
+    display: flex;
+    
+    flex-direction: column;
+    justify-content: space-between; /* Align items with space between them */
+    width: calc(100% - 200px); /* Set width to fill remaining space */
+}
+
+/* Input area styles */
+.input-area {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    padding: 10px;
+    border-top: 2px solid var(--accent-colour);
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.input-area:hover {
+    
+    box-shadow: 0 0 10px var(--accent-colour);
+}
+
+
+
+.user_message {
+    margin-right: 10px; /* Add space between input and button */
+    padding: 5px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.user_message:focus-within {
+    outline: none; /* Remove outline on focus */
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: box-shadow 0.3s ease;
+}
+
+
+.send_message {
+    padding: 5px 10px;
+    width: 8rem;
+    background-color: var(--accent-colour); /* Use the accent colour defined in your root variables */
+    color: var(--text-light); /* Use the light text colour defined in your root variables */
+    border: none;
+    
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease,box-shadow 0.3s ease;
+}
+
+.send_message:hover {
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: 0.1s ease;
+}
+
+/* Chatted users list styles */
+.chatted-users-list {
+    list-style: none;
+    padding: 0;
+}
+
+.chatted-users-list li {
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.chatted-users-list li:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+/* Conversations section styles */
+.conversations-section {
+    padding: 10px;
+    margin-left: 10px; /* Add margin to separate from sidebar */
+    margin-right: 10px; /* Add margin to separate from input area */
+    margin-bottom: 10px;
+    max-height: 10%; /* Adjust height to fit remaining space */
+    overflow-y: auto;
+    flex: 1; /* Expand to fill available space */
+}
+
+/* Conversations list styles */
+.conversations-list {
+    list-style: none;
+    padding: 0;
+}
+
+.conversations-list li {
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.conversations-list li:hover {
+    text-decoration: underline;
+}

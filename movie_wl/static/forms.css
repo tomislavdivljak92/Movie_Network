@@ -57,6 +57,24 @@
 }
 
 
+.login-header-login-search {
+    font-size: 1.2rem; /* Adjust font size as needed */
+    color: #f7f7f7; /* Adjust color as needed */
+    text-align: left;
+    font-weight: bold; /* Example: make the text bold */
+    margin: 0 auto;
+    background-image: var(--login-gradient-dark);
+    /* Linear gradient background */
+    
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    transition: transform 0.3s ease; /* Linear gradient background */
+}
+
+.login-header-login-search:hover {
+    transform: translateX(5px); /* Scale up the header on hover */
+}
+
+
 
 
 /* following media queries allow for more padding inside the form as the window size increases */

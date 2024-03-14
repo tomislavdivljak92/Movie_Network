@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>Messages</h1>
+
+  <!-- Display the user's messages -->
+  <h2>Messages</h2>
+  <ul>
+    {% for message in messages %}
+      <li>{{ message.sender.username }}: {{ message.content }}</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Display the user's conversations -->
+  <h2>Conversations</h2>
+  <ul>
+    {% for conversation in conversations %}
+      <li>{{ conversation.other_user.username }}</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Form to send a new message -->
+  <h2>Send Message</h2>
+  <form action="{{ url_for('pages.send_message') }}" method="post">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.recipient.label }} {{ form.recipient(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.content.label }} {{ form.content(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+  </form>
+{% endblock %}

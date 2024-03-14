@@ -1,13 +1,16 @@
 from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
-from movie_wl import db, bcrypt, mail
-from movie_wl.models import Post, User, PostMain
-from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm
+from time import localtime, strftime
+from movie_wl import db, bcrypt, mail, socketio, ROOMS
+from movie_wl.models import Post, User, PostMain, Messages
+from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, SendMessageForm
 import secrets
 from PIL import Image
 import os
 from flask_mail import Message
+from flask_socketio import send, emit, SocketIO, join_room, leave_room
+
 
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
 
@@ -456,3 +459,52 @@ def followings(username):
     user = User.query.filter_by(username=username).first_or_404()
     followings = user.followed.all()
     return render_template("user_list.html", title="Following", users=followings)
+
+
+
+
+
+
+
+@socketio.on('message')
+def message(data):
+
+    
+    print(f"/n/n{data}/n/n")
+    send({'msg': data['msg'], 'username': data['username'], 'time_stamp': 
+          strftime('%b-%d %I:%M%p', localtime())}, room=data['room'])
+    
+
+
+
+
+
+@pages.route("/chat", methods=["GET", "POST"])
+def chat():
+    # Fetch all unique users the current user has chatted with
+    chatted_users = db.session.query(Messages.recipient_id).filter(Messages.sender_id == current_user.id).distinct().all()
+    chatted_users.extend(db.session.query(Messages.sender_id).filter(Messages.recipient_id == current_user.id).distinct().all())
+
+    # Fetch usernames of the chatted users
+    chatted_usernames = [user.username for user in User.query.filter(User.id.in_(chatted_users)).all()]
+
+    return render_template("chat.html", username=current_user.username, chatted_usernames=chatted_usernames, rooms=ROOMS)
+
+
+
+
+
+@socketio.on("join")
+def join(data):
+
+    join_room(data['room'])
+
+    send({'msg': data['username'] + "has joined the " + data['room'] + "room."}, room=data['room'])
+
+
+
+@socketio.on('leave')
+def leave(data):
+
+    leave_room(data['room'])
+    send({'msg': data['username'] + "hasleft the " +data['room'] + "room. "}, room=data['room'])
