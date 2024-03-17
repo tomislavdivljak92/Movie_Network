@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app
+from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app, jsonify
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
+import time
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
 from movie_wl.models import Post, User, PostMain, Messages
@@ -472,25 +473,32 @@ def message(data):
     
     print(f"/n/n{data}/n/n")
     send({'msg': data['msg'], 'username': data['username'], 'time_stamp': 
-          strftime('%b-%d %I:%M%p', localtime())}, room=data['room'])
-    
-
+        strftime('%b-%d %I:%M%p', localtime())}, room=data['room'])
 
 
 
 
 @pages.route("/chat", methods=["GET", "POST"])
+@login_required
 def chat():
     # Fetch all unique users the current user has chatted with
     chatted_users = db.session.query(Messages.recipient_id).filter(Messages.sender_id == current_user.id).distinct().all()
-    chatted_users.extend(db.session.query(Messages.sender_id).filter(Messages.recipient_id == current_user.id).distinct().all())
+    chatted_users_extend = db.session.query(Messages.sender_id).filter(Messages.recipient_id == current_user.id).distinct().all()
+
+    # Extract sender and recipient IDs
+    chatted_users_sender_ids = [user[0] for user in chatted_users]
+    chatted_users_recipient_ids = [user[0] for user in chatted_users_extend]
+
+    # Combine sender and recipient IDs and remove duplicates
+    chatted_users_ids = list(set(chatted_users_sender_ids + chatted_users_recipient_ids))
 
     # Fetch usernames of the chatted users
-    chatted_usernames = [user.username for user in User.query.filter(User.id.in_(chatted_users)).all()]
+    chatted_usernames = [user.username for user in User.query.filter(User.id.in_(chatted_users_ids)).all()]
+    
+    # Fetch followed users
+    followed_users = current_user.followed.all()
 
-    return render_template("chat.html", username=current_user.username, chatted_usernames=chatted_usernames, rooms=ROOMS)
-
-
+    return render_template("chat.html", username=current_user.username, chatted_usernames=chatted_usernames, followed_users=followed_users, rooms=ROOMS)
 
 
 
@@ -499,7 +507,7 @@ def join(data):
 
     join_room(data['room'])
 
-    send({'msg': data['username'] + "has joined the " + data['room'] + "room."}, room=data['room'])
+    send({'msg': data['username'] + " has joined the " + data['room'] + " room."}, room=data['room'])
 
 
 
@@ -507,4 +515,67 @@ def join(data):
 def leave(data):
 
     leave_room(data['room'])
-    send({'msg': data['username'] + "hasleft the " +data['room'] + "room. "}, room=data['room'])
+    send({'msg': data['username'] + " has left the " + data['room'] + " room."}, room=data['room'])
+
+
+
+
+
+
+
+@pages.route("/direct_message")
+@login_required
+def direct_message():
+    followed_users = current_user.followed.all()
+    return render_template("direct_message.html", followed_users=followed_users)
+
+@pages.route("/send_direct_message", methods=["POST"])
+@login_required
+def send_direct_message():
+    recipient_id = request.form.get("recipient_id")
+    message_content = request.form.get("message")
+
+    if recipient_id and message_content:
+        new_message = Messages(sender_id=current_user.id, recipient_id=recipient_id, content=message_content, timestamp=datetime.utcnow())
+        db.session.add(new_message)
+        db.session.commit()
+        return "Message sent successfully", 200
+    else:
+        return "Recipient ID or message content is empty", 400
+
+@pages.route("/fetch_direct_messages", methods=["GET"])
+@login_required
+def fetch_direct_messages():
+    user_id = request.args.get("user_id")
+    
+    # Fetch messages and join with the User table to get the sender's username
+    messages = db.session.query(Messages, User.username).join(User, Messages.sender_id == User.id).filter(
+        ((Messages.sender_id == current_user.id) & (Messages.recipient_id == user_id)) |
+        ((Messages.sender_id == user_id) & (Messages.recipient_id == current_user.id))
+    ).order_by(Messages.timestamp).all()
+    
+    # Prepare message data including sender's username
+    message_data = [{"sender_username": sender_username, "content": message.content, "timestamp": message.timestamp} for message, sender_username in messages]
+    
+    return jsonify(message_data)
+
+
+@pages.route("/search_users", methods=["GET"])
+@login_required
+def search_users():
+    term = request.args.get("term")
+    # Perform search for users matching the term
+    users = User.query.filter(User.username.ilike(f"%{term}%")).all()
+    # Prepare data in the required format for autocomplete
+    users_data = [{"label": user.username, "value": user.username, "id": user.id} for user in users]
+    return jsonify(users_data)
+
+
+@pages.route("/fetch_chatted_users", methods=["GET"])
+@login_required
+def fetch_chatted_users():
+    # Fetch the list of chatted users from the database
+    chatted_users = current_user.chatted_users.all()
+    # Prepare data in the required format
+    chatted_users_data = [{"id": user.id, "username": user.username} for user in chatted_users]
+    return jsonify(chatted_users_data)

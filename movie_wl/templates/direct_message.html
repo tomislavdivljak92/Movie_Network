@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block main_content %}
+<div class="chat-section" id="chat-section">
+    <nav class="sidebar" id="sidebar">
+        
+
+        <h4>INBOX</h4>
+        <div class="chatted-users-list" id="chatted-users-list">
+            {% if chatted_users %}
+            <ul>
+                
+                {% for user in chatted_users %}
+                    <li class="select-user" data-user-id="{{ user.id }}">{{ user }}</li>
+                {% endfor %}
+                
+                
+                
+            </ul>
+            {% endif %}
+        </div>
+        
+    </nav>
+
+    
+    <div class="rightside-pannel" id="rightside-pannel">
+
+        <input type="hidden" id="recipient_id" value="">
+        <input class="select-user-input" type="text" id="recipient_name" placeholder="Send To">
+        <div class="display-message-section" id="display-message-section">
+            <!-- Messages will be displayed here -->
+            {% for message in messages %}
+            <div class="message">
+                <span class="username">{{ message.sender_username }}</span> <!-- Display sender's username -->
+                <p>{{ message.content }}</p>
+                <span class="time">{{ message.timestamp }}</span> <!-- Display message timestamp -->
+            </div>
+            {% endfor %}
+        </div>
+    
+    
+    <div class="input-area" id="input-area">
+        
+        <textarea class="user_message" id="user_message" placeholder="Type here..." rows="2"></textarea>
+        <button type="button" class="send_message" id="send_message">SEND</button>
+    </div>
+        <script>
+            document.getElementById('user_message').addEventListener('input', function() {
+                const textarea = this;
+                const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight);
+                const paddingHeight = parseInt(window.getComputedStyle(textarea).paddingTop) + parseInt(window.getComputedStyle(textarea).paddingBottom);
+                const scrollHeight = textarea.scrollHeight - paddingHeight;
+        
+                if (scrollHeight > lineHeight) {
+                    textarea.rows = Math.ceil(scrollHeight / lineHeight);
+                } else {
+                    textarea.rows = 1;
+                }
+            });
+        </script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="{{ url_for('static', filename='scripts/direct_message.js') }}"></script>
+
+
+        
+
+
+    
+    </div>
+</div>
+{% endblock %}

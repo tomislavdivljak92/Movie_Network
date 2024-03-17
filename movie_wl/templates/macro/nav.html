@@ -7,8 +7,13 @@
         <a href="{{ url_for('pages.main') }}" class="header__logo">
             <svg xmlns="http://www.w3.org/2000/svg" class="logo__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-</svg> <span class="logo__name">Movie social Network</span>
+</svg> <span class="logo__name">Moviesphere Network</span>
         </a>
+
+
+        
+
+
         <nav class="nav">
             {% if not current_user.is_authenticated %}
                 <a
@@ -25,7 +30,23 @@
                 </a>
 
             {% else %}
+
+            <a href="{{ url_for('pages.chat') }}" class="settings_icon">
+                <img src="{{ url_for('static', filename='settings.png') }}" alt="Chat Icon" title="Settings" class="settings_icon_img">
+                <!-- You can add a caption if needed -->
+                <!-- Caption: Click me -->
+            </a>
+            <a href="{{ url_for('pages.direct_message') }}" class="messages_icon">
+                <img src="{{ url_for('static', filename='messages.png') }}" alt="Chat Icon" title="Messages" class="messages_icon_img">
+                <!-- You can add a caption if needed -->
+                <!-- Caption: Click me -->
+            </a>
             
+            <a href="{{ url_for('pages.chat') }}" class="chat_icon">
+                <img src="{{ url_for('static', filename='chat_icon.png') }}" alt="Chat Icon" title="Chat Rooms" class="chat_icon_img">
+                <!-- You can add a caption if needed -->
+                <!-- Caption: Click me -->
+            </a>
                 <form action="{{ url_for('pages.search') }}" method="GET" class="nav__search-form">
                     
                     <i class="fas fa-search nav__search-icon"></i>

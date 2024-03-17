@@ -47,7 +47,7 @@
     margin: 0 auto;
     background-image: var(--login-gradient-dark);
     /* Linear gradient background */
-    
+    border-radius: 5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
     transition: transform 0.3s ease; /* Linear gradient background */
 }
@@ -55,6 +55,13 @@
 .login-header-login-watchlist:hover {
     transform: translateX(5px); /* Scale up the header on hover */
 }
+
+
+
+
+
+
+
 
 
 .login-header-login-search {

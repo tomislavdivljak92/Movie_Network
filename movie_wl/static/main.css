@@ -353,7 +353,7 @@ body {
 
 
 .nav__search-form {
-    margin-right: 4.5rem; /* Adjust margin to position the search bar more to the left */
+    margin-right: 3.8rem; /* Adjust margin to position the search bar more to the left */
     display: flex;
     position: relative;
     align-items: center;
@@ -370,6 +370,7 @@ body {
 .nav__search-input {
     padding: 8px;
     padding-left: 30px;
+    
     border-radius: 4px;
     border: 1px solid; /* Set the default border to transparent */
     font-size: 14px;
@@ -414,3 +415,107 @@ body {
 
 
 
+
+
+
+.chat_icon {
+    
+    margin-top: 27px;
+    margin-right: 35px;
+    margin-bottom: 0;
+    
+    
+    
+    display: flex;
+    height: 2rem;
+    width: 2rem;
+    
+    border-radius: 50%;
+    transition: 0.3s ease;
+    text-decoration: none;
+    
+    /* Ensure it appears above other content */
+}
+
+
+.chat_icon:hover {
+    
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+
+}
+.chat_icon_img {
+     /* Adjust the width as needed */
+    height: auto;
+    color: var(--accent-colour);
+}
+
+
+
+.settings_icon {
+    
+    margin-top: 27px;
+    margin-right: 20px;
+    margin-bottom: 0;
+    
+    
+    
+    display: flex;
+    height: 2rem;
+    width: 2rem;
+    
+    border-radius: 50%;
+    transition: 0.3s ease;
+    text-decoration: none;
+    
+    /* Ensure it appears above other content */
+}
+
+
+.settings_icon:hover {
+    
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+
+}
+.settings_icon_img {
+     /* Adjust the width as needed */
+    height: auto;
+    color: var(--accent-colour);
+}
+
+
+.messages_icon {
+    
+    margin-top: 27px;
+    margin-right: 20px;
+    margin-bottom: 0;
+    
+    
+    
+    display: flex;
+    height: 2rem;
+    width: 2rem;
+    
+    border-radius: 50%;
+    transition: 0.3s ease;
+    text-decoration: none;
+    
+    /* Ensure it appears above other content */
+}
+
+
+.messages_icon:hover {
+    
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+
+}
+.messages_icon_img {
+     /* Adjust the width as needed */
+    height: auto;
+    color: var(--accent-colour);
+}

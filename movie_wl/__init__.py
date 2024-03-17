@@ -14,7 +14,7 @@ mail = Mail()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 socketio = SocketIO()
-ROOMS = ["news", "movies", "games", "coding"]
+ROOMS = ["NEWS", "MOVIES", "GAMES", "MUSIC"]
 
 login_manager.login_view = 'pages.login'
 login_manager.login_message_category = 'info'

@@ -11,18 +11,14 @@
         <h4>ROOMS</h4>
         {% for room in rooms %}
 
-            <p class="select-room">{{ room|title }}</p>
+        <p class="select-room{% if room == active_room %} active-room{% endif %}">{{ room|title }}</p>
 
         {% endfor %}
 
-
-        <ul class="chatted-users-list" id="chatted-users-list">
-            {% for user in chatted_usernames %}
-                <li>{{ user }}</li>
-            {% endfor %}
-        </ul>
+        
+       
     </nav>
-
+    
     <div class="rightside-pannel" id="rightside-pannel">
         
         <div class="display-message-section" id="display-message-section">

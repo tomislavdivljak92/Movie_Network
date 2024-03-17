@@ -13,12 +13,17 @@
 
     <!-- Content specific to the main page -->
     <div class="input-container">
+        
         <form method="post" action="{{ url_for('pages.create_post') }}">
             {{ form.hidden_tag() }}
             <div class="styled-input">
                 <textarea id="content" name="content" placeholder="Write something..." class="wide-input"></textarea>
             </div>
             <button type="submit" class="post-button">Post</button> <!-- Add the button here -->
+
+            
+
+
         </form>
         
     </div>
@@ -110,5 +115,8 @@
         </li>
         {% endfor %}
     </ul>
+    
 </div>
+
+
 {% endblock %}

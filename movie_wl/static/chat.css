@@ -29,13 +29,37 @@
 .sidebar {
     width: 200px;
     border-right: 2px solid var(--accent-colour);
-    padding: 30px;
-    height: 100%; /* Take full height of chat-section */
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+    height: 100%;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-size: 22px; /* Take full height of chat-section */
+    font-size: 28px; /* Take full height of chat-section */
 }
+
+
+
+.sidebar h4 {
+    padding: 10px;
+    border-top: 1px solid var(--accent-colour);
+    border-bottom: 1px solid var(--accent-colour);
+    
+    color: #f7f7f7;
+    border-radius: 5px;
+    background-image: var(--login-gradient-dark);
+}
+
+
+
+
 
 /* Display message section styles */
 .display-message-section {
@@ -63,7 +87,9 @@
     display: flex;
     align-items: center; /* Align items vertically */
     padding: 10px;
+    margin-left: 1rem;
     border-top: 2px solid var(--accent-colour);
+    border-left: 2px solid var(--accent-colour);
     border-radius: 10px;
     transition: box-shadow 0.3s ease;
 }
@@ -108,8 +134,13 @@
 
 /* Chatted users list styles */
 .chatted-users-list {
-    list-style: none;
     padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 20px;
+    transition: 0.3s ease;
+    position: absolute;
+    top: 25%; 
 }
 
 .chatted-users-list li {
@@ -149,4 +180,168 @@
 
 .conversations-list li:hover {
     text-decoration: underline;
+}
+
+
+.select-room {
+    padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 20px;
+    transition: 0.3s ease;
+}
+
+
+.sidebar .select-room:last-child {
+    margin-bottom: 100px;
+}
+
+
+
+
+.select-room:hover {
+    
+    border-right: var(--accent-colour);
+    border-radius: 5px;
+    transition: 0.3s ease;
+    
+    transform: translateX(5px);
+}
+
+
+
+.select-user {
+padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 20px;
+    transition: 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.select-user:hover {
+    
+    border-right: var(--accent-colour);
+    border-radius: 5px;
+    transition: 0.3s ease;
+    
+    transform: translateX(5px);
+}
+
+.sidebar .select-user:last-child {
+    margin-bottom: 20px;
+}
+
+
+
+.active-room {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    color: #f7f7f7;
+    font-weight: bold;
+    
+    border-radius: 5px;
+   
+    background-image: var(--login-gradient-dark); /* Set the text color for the active room */
+}
+
+
+.active-user {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    color: #f7f7f7;
+    font-weight: bold;
+    
+    border-radius: 5px;
+   
+    background-image: var(--login-gradient-dark); /* Set the text color for the active room */
+}
+
+
+.login-header-login-chat {
+    font-size: 1.8rem; /* Adjust font size as needed */
+    color: #f7f7f7; /* Adjust color as needed */
+    text-align: right;
+    display: flex;
+    
+    padding: 10px;
+    width: 56%;
+    margin-left: 20px;
+    margin-right: auto;
+    
+    background-image: var(--login-gradient-dark);
+    border-radius: 10px;
+    font-weight: bold; /* Example: make the text bold */
+    border-top: 1px solid var(--accent-colour);
+    box-shadow: 0 0 0px var(--shadow-color-image);
+    /* Linear gradient background */
+    
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text-shadow for a subtle glow effect */
+    transition: transform 0.3s ease; /* Linear gradient background */
+}
+
+
+
+/* Chat message styles */
+.display-message-section p {
+    font-size: 16px; /* Adjust the font size for the chat messages as needed */
+}
+
+/* Username styles */
+.display-message-section p span.username {
+    transition: 0.3s ease; /* Set the username color to the accent color */
+    font-size: 14; /* Inherit the font size from the parent (16px) */
+    cursor: pointer;
+    color: var(--accent-colour);
+}
+
+
+
+/* Time and date styles */
+.display-message-section p span.time {
+    font-size: 10px;
+    color: var(--delete-color); /* Adjust the font size for the time and date */
+}
+
+/* System message styles */
+.display-message-section .system-message {
+    font-size: 10px;
+    color: var(--delete-color);  /* Adjust the font size for the system messages as needed */
+}
+
+
+
+
+.select-user-input {
+    margin-top: 15px;
+    margin-left: 20px;
+    height: 30px;
+    font-size: 16px;
+    width: 160px;
+    
+}
+
+
+
+
+
+
+
+/* Username styles */
+.display-message-section .message .username {
+    transition: 0.3s ease;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--accent-colour); /* Adjust the color as needed */
+}
+
+/* Message content styles */
+.display-message-section .message p {
+    font-size: 16px; /* Adjust the font size for the message */
+    margin: 0; /* Remove default margin */
+}
+
+/* Time and date styles */
+.display-message-section .message .time {
+    font-size: 10px;
+    color: var(--delete-color); /* Adjust the color as needed */
+    margin-top: 4px; /* Adjust the spacing between message and timestamp */
 }
