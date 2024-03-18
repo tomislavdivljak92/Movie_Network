@@ -5,7 +5,7 @@ import time
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
 from movie_wl.models import Post, User, PostMain, Messages
-from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, SendMessageForm
+from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, ChangeEmailForm,ChangePasswordForm
 import secrets
 from PIL import Image
 import os
@@ -579,3 +579,46 @@ def fetch_chatted_users():
     # Prepare data in the required format
     chatted_users_data = [{"id": user.id, "username": user.username} for user in chatted_users]
     return jsonify(chatted_users_data)
+
+
+
+
+@pages.route("/settings")
+def settings():
+    return render_template("settings.html")
+
+
+
+
+
+@pages.route('/change_email', methods=['GET', 'POST'])
+def change_email():
+    form = ChangeEmailForm()
+    if form.validate_on_submit():
+        # Handle form submission
+        new_email = form.new_email.data
+        password = form.password.data
+        # Perform necessary actions (e.g., validation, updating database)
+        # Simulate success for demonstration purposes
+        flash('Email successfully changed.', 'success')
+        return redirect(url_for('.settings'))
+    return render_template('change_email.html', form=form)
+
+
+
+@pages.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        # Handle form submission
+        current_password = form.current_password.data
+        new_password = form.new_password.data
+        # Perform necessary actions (e.g., validation, updating database)
+        # Simulate success for demonstration purposes
+        flash('Password successfully changed.', 'success')
+        return redirect(url_for('.settings'))
+    return render_template('change_password.html', form=form)
+
+@pages.route('/success')
+def success():
+    return render_template('success.html')

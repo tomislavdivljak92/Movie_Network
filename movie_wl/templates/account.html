@@ -12,9 +12,9 @@
 {% block main_content %}
     <div class="content-section">
         <div class="media">
-            <div class="follower-following-container">
-                <p class="follow-count"><a href="{{ url_for('pages.followers', username=current_user.username) }}">Followers: <strong>{{ current_user.followers.count() }}</strong></a></p>
-                <p class="follow-count"><a href="{{ url_for('pages.followings', username=current_user.username) }}">Following: <strong>{{ current_user.followed.count() }}</strong></a></p>
+            <div class="accfollower-following-container">
+                <p class="accfollow-count"><a href="{{ url_for('pages.followers', username=current_user.username) }}">Followers: <strong>{{ current_user.followers.count() }}</strong></a></p>
+                <p class="accfollow-count"><a href="{{ url_for('pages.followings', username=current_user.username) }}">Following: <strong>{{ current_user.followed.count() }}</strong></a></p>
             </div>
             <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Picture">
             <div class="movie__name">

@@ -1,29 +1,6 @@
-.content-section {
-    width: 768px;
-    
-    flex-direction: column;
-    display: flex;
-    height: 145px; /* Set the height to 125px */
-    margin: auto; /* Center horizontally */
-    position: absolute; /* Position absolutely */
-    top: 45%; /* Align to the vertical center */
-    left: 50%; /* Align to the horizontal center */
-    transform: translate(-50%, -50%); 
-    border-radius: 10px;
-    box-shadow: 0 0 8px var(--shadow-color-image);
-    background-color: var(--background-color);
-    
-    box-sizing: border-box; /* Ensure border is included in width/height */
-    
-    padding-bottom: 10%;
-}
 
-@media screen and (max-width: 768px) {
-    .content-section {
-        width: 80%; /* Set a smaller width for smaller screens */
-        height: 60%; /* Set a smaller height for smaller screens */
-    }
-}
+
+
 
 .media {
     display: flex;
@@ -264,6 +241,45 @@
     color: var(--accent-colour);
 }
 
+
+
+
+
+.accfollower-following-container {
+    position: absolute;
+    top: 35%; /* Adjust the vertical position */
+    left: 5%; /* Adjust the horizontal position */
+    transform: translateY(-50%); /* Center vertically */
+    text-align: left; /* Align text to the left */
+}
+
+
+/* Adjustments for follow-count and follow-count strong classes if needed */
+.accfollow-count {
+    font-size: 20px; /* Adjust font size as needed */
+    color: var(--text-secondary); /* Adjust color as needed */
+    margin-bottom: 10px; /* Add margin for separation */
+}
+
+.accfollow-count a{
+    text-decoration: none;
+    font-size: 20px; /* Adjust font size as needed */
+    color: var(--text-secondary); /* Adjust color as needed */
+    margin-bottom: 10px; /* Add margin for separation */
+}
+
+.accfollow-count strong {
+    font-weight: bold; /* Make the count text bold */
+    color: var(--accent-colour);
+}
+
+
+
+.accfollow-count:hover {
+    font-weight: bold; /* Make the count text bold */
+    color: var(--accent-colour);
+    transition: 0.3s ease; /* Adjust color for the count text */
+}
 
 
 

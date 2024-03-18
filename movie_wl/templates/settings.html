@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='settings.css') }}" />
+ 
+{% endblock %}
+
+{% block main_content %}
+    <div class="settings-content-section">
+        <h1>SETTINGS</h1>
+        <h2>Account Settings</h2>
+
+        <div class="settings-media">
+            <ul>
+                <li><a href="{{ url_for('pages.change_email') }}">Change Email</a>
+                    </li>
+
+
+                <li><a href="{{ url_for('pages.change_password') }}">Change Password</a>
+                
+                    </li>
+                <!-- Add more options here if needed -->
+            </ul>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            {% if category == 'success' %}
+                <span class="sform__flash sform__flash--{{ category }}">{{ message }}</span>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+        </div>
+    
+
+    <div class="settings-1">
+        <h2>Edit Profile</h2>
+        <a href="{{ url_for('pages.edit_profile') }}">Edit Profile</a>
+        
+    </div>
+
+    
+</div>
+{% endblock %}

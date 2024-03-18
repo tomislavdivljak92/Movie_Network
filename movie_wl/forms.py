@@ -122,3 +122,18 @@ class SendMessageForm(FlaskForm):
     recipient = StringField("Recipient Username", validators=[DataRequired()])
     content = TextAreaField("Message", validators=[DataRequired()])
     submit = SubmitField("Send")
+
+
+
+
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField('Current Password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired()])
+    confirm_new_password = PasswordField('Confirm New Password', validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Submit')
+
+
+class ChangeEmailForm(FlaskForm):
+    new_email = StringField('New Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Submit')
