@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='user_list.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+<div class="user-list-container">
+    <h2>Likes</h2>
+    <ul class="user-list-list">
+        {% if likes|length > 0 %}
+            {% for like in likes %}
+                <li class="user-list-list-item">
+                    <a href="{{ url_for('pages.user_profile', username=like.user.username) }}" class="user-list-list-item a">
+                        <img src="{{ url_for('static', filename='profile_pics/' + like.user.image_file) }}" alt="Profile Photo" class="user-list-list-item img">
+                        <span class="user-list-username">{{ like.user.username }}</span>
+                    </a>
+                    <div class="user-listfollow-unfollow--style">
+                        {% if current_user != like.user %}
+                            {% if current_user.is_following(like.user) %}
+                                <form action="{{ url_for('pages.unfollow', username=like.user.username) }}" method="post">
+                                    <button type="submit" class="user-listunfollow-btn">Unfollow</button>
+                                </form>
+                            {% else %}
+                                <form action="{{ url_for('pages.follow', username=like.user.username) }}" method="post">
+                                    <button type="submit" class="user-listfollow-btn">Follow</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+        <p class="no-users-message">No Likes Yet.</p>
+        {% endif %}
+    </ul>
+    
+</div>
+{% endblock %}

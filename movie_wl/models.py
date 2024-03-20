@@ -101,6 +101,21 @@ class PostMain(db.Model):
     
     
 
+class Like(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post_main.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    post = db.relationship('PostMain')
+    user = db.relationship('User')
+
+    def __repr__(self):
+        return f"Like('{self.post_id}', '{self.user_id}')"
+
+
+
+
+
 
 class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)

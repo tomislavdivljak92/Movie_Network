@@ -2,9 +2,10 @@ from flask import Blueprint, render_template, redirect, session, request, url_fo
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
 import time
+from flask_wtf.csrf import generate_csrf
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
-from movie_wl.models import Post, User, PostMain, Messages
+from movie_wl.models import Post, User, PostMain, Messages, Like
 from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, ChangeEmailForm,ChangePasswordForm
 import secrets
 from PIL import Image
@@ -20,14 +21,24 @@ def main():
     if current_user.is_authenticated:
         page = request.args.get("page", 1, type=int)
         form = PostForm()
-        top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
+       
 
         followed_user_ids = [user.id for user in current_user.followed]
         followed_user_ids.append(current_user.id)
         
+        # Query top-rated movies from the current user and the users they follow
+        top_movies = Post.query.filter(Post.user_id.in_(followed_user_ids)).order_by(Post.rate.desc()).limit(10).all()
+        
+
         posts = PostMain.query.filter(PostMain.user_id.in_(followed_user_ids)).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=5)
+
+        post_likes = {}  # Dictionary to store likes for each post
+        for post in posts.items:
+            post_likes[post.id] = Like.query.filter_by(post_id=post.id).count()
+
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
-        return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies)
+        csrf_token = generate_csrf()  # Generate CSRF token
+        return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes)
     
     # If user is not authenticated, redirect to login
     return redirect(url_for(".login"))
@@ -388,7 +399,13 @@ def members():
 @login_required
 def top_rated_movies():
 
-    top_movies = Post.query.order_by(Post.rate.desc()).limit(10).all()
+     # Get the IDs of the current user and the users they follow
+    followed_user_ids = [user.id for user in current_user.followed]
+    followed_user_ids.append(current_user.id)
+
+    # Query top-rated movies from the current user and the users they follow
+    top_movies = Post.query.filter(Post.user_id.in_(followed_user_ids)).order_by(Post.rate.desc()).limit(10).all()
+    
     return render_template("top_rated_movies.html", top_movies = top_movies)
 
 
@@ -619,6 +636,31 @@ def change_password():
         return redirect(url_for('.settings'))
     return render_template('change_password.html', form=form)
 
-@pages.route('/success')
-def success():
-    return render_template('success.html')
+
+
+
+
+@pages.route('/like/<int:post_id>', methods=['POST'])
+@login_required
+def like_post(post_id):
+    post = PostMain.query.get_or_404(post_id)
+    like_exists = Like.query.filter_by(user_id=current_user.id, post_id=post.id).first()
+
+    if like_exists:
+        db.session.delete(like_exists)
+    else:
+        like = Like(post_id=post.id, user_id=current_user.id)
+        db.session.add(like)
+
+    db.session.commit()
+
+    likes_count = post.likes.count()
+    return jsonify({'likes': likes_count})
+
+
+
+@pages.route('/post-likes/<int:post_id>')
+def post_likes(post_id):
+    post = PostMain.query.get_or_404(post_id)
+    likes = Like.query.filter_by(post_id=post_id).all()
+    return render_template('post_likes.html', post=post, likes=likes)

@@ -290,7 +290,7 @@
 
 
 .left-container h2:hover::after {
-    width: 100%; /* Expand the width to the right side */
+    width: 98%; /* Expand the width to the right side */
 }
 
 
@@ -481,6 +481,59 @@
 
 
 
+/* Styles for the post actions */
+.post-actions {
+    
+    display: flex;
+    justify-content: flex-end; /* Align child elements to the right */
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Styles for the post actions */
+.post-actions a{
+    text-decoration: none;
+     /* Align child elements vertically */
+}
+
+
+/* Styles for the like button */
+.like-button {
+    background-color: transparent;
+    border: none;
+    color: var(--text-dark); /* Default color */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-right: 5px;
+}
+.like-button a {
+    text-decoration: none;
+}
+
+.like-button:hover,
+.like-button:active {
+    color: var(--accent-colour); /* Accent color */
+}
+
+/* Styles for the likes count */
+.likes-count {
+    color: var(--text-dark); /* Default color */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 12px;
+    
+}
+
+.likes-count a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent */
+}
+
+
+.likes-count:hover {
+    color: var(--accent-colour);
+    text-decoration: underline; /* Accent color */
+}
 
 
 

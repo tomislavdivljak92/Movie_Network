@@ -3,6 +3,22 @@
 {% from "macro/svgs.html" import star, pencil %}
 
 {% block head_content %}
+<script>
+    function likePost(postId) {
+    fetch(`/like/${postId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({})
+    })
+    .then(() => {
+        window.location.reload(); // Reload the page after the request is completed
+    })
+    .catch(error => console.error('Error:', error));
+}
+</script>
     <link rel="stylesheet" href="{{ url_for('static', filename='main_page.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='movie_details.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
@@ -56,6 +72,14 @@
             
             <p class="post-content">{{ post.content }}</p>
             <p class="post-date">{{ post.date_posted.strftime('%d %b %Y') }}</p> <!-- Display the date_posted -->
+            <div class="post-actions">
+                <button class="like-button" onclick="likePost('{{ post.id }}')">Like</button>
+                <a href="{{ url_for('pages.post_likes', post_id=post.id) }}">
+                    {% if post_likes.get(post.id, 0) > 0 %}
+                        <span class="likes-count">{{ post_likes.get(post.id, 0) }}</span>
+                    {% endif %}
+                </a>
+            </div>
         </div>
         {% endfor %}
         <div class="pagination-container">
