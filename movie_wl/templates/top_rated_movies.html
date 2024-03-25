@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='members.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='main_page.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='settings.css') }}" />
     
 {% endblock %}
 
@@ -24,9 +25,27 @@
                     {% endfor %}
             </div>
             </a>
+            {% if movie.author.id != current_user.id %}
+    {% if movie in current_user.watchlist %}
+        <!-- Display a confirmation message if the movie is already in the watchlist -->
+        <p class="already-added-message">Movie already added.</p>
+    {% else %}
+        <!-- Display the "Add to Watchlist" button if the movie is not in the watchlist -->
+        <form action="{{ url_for('pages.add_to_watchlist', post_id=movie.id ) }}" method="post">
+            <button type="submit" class="add-to-list-button">Add to Watchlist</button>
+        </form>
+    {% endif %}
+{% endif %}
         </li>
         {% endfor %}
     </ul>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+        {% if category == 'success' %}
+            <span class="sform__flash sform__flash--{{ category }}">{{ message }}</span>
+        {% endif %}
+    {% endfor %}
+{% endwith %}
 </div>
 {% endblock %}
     

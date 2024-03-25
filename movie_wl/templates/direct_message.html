@@ -17,7 +17,10 @@
             <ul>
                 
                 {% for user in chatted_users %}
-                    <li class="select-user" data-user-id="{{ user.id }}">{{ user }}</li>
+                <li class="select-user" data-user-id="{{ user.id }}">
+                {{ user.username }}
+                <a href="{{ url_for('pages.delete_chat', user_id=user.id) }}" class="delete-btn">Delete</a>
+                </li>
                 {% endfor %}
                 
                 
@@ -68,6 +71,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="{{ url_for('static', filename='scripts/direct_message.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/chat_page.js') }}"></script>
 
 
         

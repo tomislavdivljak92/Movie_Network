@@ -194,3 +194,30 @@
 .button--form:hover {
     background: var(--background-color-hover);
 }
+
+
+
+.button--google {
+        width: 50%;
+        color: var(--accent-colour);
+        align-items: center;
+        display: flex; /* Enable flexbox */
+        justify-content: center;
+        
+        
+        margin: auto;
+        
+        text-decoration: none;
+    
+}
+
+
+.button--google a {
+    color: var(--accent-colour);
+    border: none;
+}
+
+.button--google:hover {
+    color: var(--text-dark);
+
+}

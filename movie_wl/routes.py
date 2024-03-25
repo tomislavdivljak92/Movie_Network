@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app, jsonify
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
-import time
+from google_auth_oauthlib.flow import Flow
 from flask_wtf.csrf import generate_csrf
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
@@ -10,27 +10,49 @@ from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, 
 import secrets
 from PIL import Image
 import os
+import pathlib
+from sqlalchemy import func, or_
+from google.auth.transport import requests as google_requests
+from google.oauth2 import id_token
+
+
 from flask_mail import Message
 from flask_socketio import send, emit, SocketIO, join_room, leave_room
 
 
+GOOGLE_CLIENT_ID = "462416296701-f57a04flfhr3e7iv93gsvl1e971os8jo.apps.googleusercontent.com"
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file, scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"], redirect_uri="https://127.0.0.1:443/callback" )                                    
+                                     
+                                    
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
 
 @pages.route('/')
 def main():
     if current_user.is_authenticated:
         page = request.args.get("page", 1, type=int)
+        sort_option = request.args.get("sort_option", "Newest")  # Default sorting option is "Date"
         form = PostForm()
-       
-
+        
         followed_user_ids = [user.id for user in current_user.followed]
         followed_user_ids.append(current_user.id)
         
         # Query top-rated movies from the current user and the users they follow
         top_movies = Post.query.filter(Post.user_id.in_(followed_user_ids)).order_by(Post.rate.desc()).limit(10).all()
         
-
-        posts = PostMain.query.filter(PostMain.user_id.in_(followed_user_ids)).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=5)
+        # Determine the sorting method based on the selected option
+        if sort_option == "Oldest":
+            posts = PostMain.query.filter(PostMain.user_id.in_(followed_user_ids)).order_by(PostMain.date_posted.asc()).paginate(page=page, per_page=5)
+        elif sort_option == "Most Liked":
+            # Join the Like table and count the number of likes for each post
+            posts = PostMain.query \
+                .outerjoin(Like, PostMain.id == Like.post_id) \
+                .filter(PostMain.user_id.in_(followed_user_ids)) \
+                .group_by(PostMain.id) \
+                .order_by(func.count(Like.id).desc()) \
+                .paginate(page=page, per_page=5)
+        else:
+            posts = PostMain.query.filter(PostMain.user_id.in_(followed_user_ids)).order_by(PostMain.date_posted.desc()).paginate(page=page, per_page=5)
 
         post_likes = {}  # Dictionary to store likes for each post
         for post in posts.items:
@@ -38,7 +60,7 @@ def main():
 
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
         csrf_token = generate_csrf()  # Generate CSRF token
-        return render_template("main.html", title="MS Network", form=form, posts=posts, members = members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes)
+        return render_template("main.html", title="MS Network", form=form, posts=posts, members=members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes, sort_option=sort_option)
     
     # If user is not authenticated, redirect to login
     return redirect(url_for(".login"))
@@ -67,15 +89,31 @@ def create_post():
 def watchlist():
     sort_option = request.args.get("sort_option", "Date")  # Default sorting option is "Date"
     page = request.args.get("page", 1, type=int)
+
+    # Fetch all movies posted by the user
+    user_movies = Post.query.filter_by(user_id=current_user.id)
+
+    # Fetch all movie IDs from the watchlist
+    watchlist_movie_ids = [movie.id for movie in current_user.watchlist]
+
+    # Query all movies from the watchlist based on their IDs
+    watchlist_movies = Post.query.filter(Post.id.in_(watchlist_movie_ids))
+
+    # Combine both lists
+    all_movies = user_movies.union(watchlist_movies)
+
+    # Apply sorting based on the selected option directly in the database query
     if sort_option == "Year":
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.year.desc()).paginate(page=page, per_page=5)
+        all_movies = all_movies.order_by(Post.year.desc())
     elif sort_option == "Rate":
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.rate.desc()).paginate(page=page, per_page=5)
-    elif sort_option == "Alphabetical":  # Handle alphabetical sorting
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.title).paginate(page=page, per_page=5)
+        all_movies = all_movies.order_by(Post.rate.desc())
+    elif sort_option == "Alphabetical":
+        all_movies = all_movies.order_by(Post.title)
     else:
-        # Default sorting by date_posted
-        movie_data = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+        all_movies = all_movies.order_by(Post.date_posted.desc())
+
+    # Paginate the sorted list
+    movie_data = all_movies.paginate(page=page, per_page=5)
 
     return render_template("watchlist.html", title="Movies Watchlist", movie_data=movie_data, sort_option=sort_option)
 
@@ -208,12 +246,27 @@ def edit_movie(post_id):
 @pages.route("/movie/<int:post_id>/delete", methods=["POST"])
 @login_required
 def delete_movie(post_id):
+    # Attempt to get the movie from the Post database
     post = Post.query.get_or_404(post_id)
+    
+    # Check if the movie with the specified post_id exists in the current user's watchlist
+    watchlist_movie = None
+    for movie in current_user.watchlist:
+        if movie.id == post_id:
+            watchlist_movie = movie
+            break
+    
+    # If the current user is not the author of the movie, remove it from their watchlist only
     if post.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    return redirect(url_for(".watchlist", post_id=post_id))
+        if watchlist_movie:
+            current_user.watchlist.remove(watchlist_movie)
+            db.session.commit()  # Commit the removal from the watchlist
+    else:
+        # If the current user is the author of the movie, delete it entirely from the database
+        db.session.delete(post)
+        db.session.commit()
+    
+    return redirect(url_for(".watchlist"))
 
 
 
@@ -410,12 +463,25 @@ def top_rated_movies():
 
 
 
+
+@pages.route("/add_to_watchlist/<int:post_id>", methods=["POST"])
+@login_required
+def add_to_watchlist(post_id):
+    post = Post.query.get_or_404(post_id)
+    current_user.add_to_watchlist(post)  # Invoke the add_to_watchlist method
+    flash('Movie has been added to your watchlist!', 'success')
+    return redirect(url_for('.top_rated_movies'))
+
 @pages.route("/post<int:post_id>/delete_post", methods=["POST"])
 @login_required
 def delete_post(post_id):
     post = PostMain.query.get_or_404(post_id)
     if post.user_id != current_user.id:
         abort(403)
+
+# Delete associated likes first
+    Like.query.filter_by(post_id=post_id).delete()
+
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for(".main"))
@@ -599,6 +665,41 @@ def fetch_chatted_users():
 
 
 
+@pages.route("/delete_chat/<int:user_id>", methods=["GET", "POST"])
+@login_required
+def delete_chat(user_id):
+    if user_id:
+        # Delete chat history with the specified user
+        Messages.query.filter((Messages.sender_id == current_user.id) & (Messages.recipient_id == user_id)).delete()
+        Messages.query.filter((Messages.sender_id == user_id) & (Messages.recipient_id == current_user.id)).delete()
+        db.session.commit()
+        return "Chatted history deleted successfully", 200
+    else:
+        return "User ID is empty", 400
+
+
+
+@pages.route('/start_conversation/<int:user_id>', methods=['POST'])
+@login_required
+def start_conversation(user_id):
+    # Check if a conversation already exists with the user
+    conversation = Messages.query.filter(
+        ((Messages.sender_id == current_user.id) & (Messages.recipient_id == user_id)) |
+        ((Messages.sender_id == user_id) & (Messages.recipient_id == current_user.id))
+    ).first()
+
+    if conversation:
+        # Conversation already exists, redirect to direct_message page with conversation_id
+        return redirect(url_for('.direct_message', conversation_id=conversation.id))
+    else:
+        # Create a new conversation
+        new_conversation = Messages(sender_id=current_user.id, recipient_id=user_id, content="", timestamp=datetime.utcnow())
+        db.session.add(new_conversation)
+        db.session.commit()
+        # Redirect to direct_message page with the newly created conversation_id
+        return redirect(url_for('.direct_message', conversation_id=new_conversation.id))
+
+
 
 @pages.route("/settings")
 def settings():
@@ -664,3 +765,60 @@ def post_likes(post_id):
     post = PostMain.query.get_or_404(post_id)
     likes = Like.query.filter_by(post_id=post_id).all()
     return render_template('post_likes.html', post=post, likes=likes)
+
+
+
+
+
+
+@pages.route("/google-login")
+def google_login():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+
+
+@pages.route("/callback")
+def callback():
+    try:
+        # Fetch token using the authorization response from the callback URL
+        flow.fetch_token(authorization_response=request.url)
+        
+        # Verify state
+        if session.get("state") != request.args.get("state"):
+            raise Exception("State mismatch")
+
+        # Get credentials and token request
+        credentials = flow.credentials
+        token_request = google_requests.Request()
+
+        # Verify ID token
+        id_info = id_token.verify_oauth2_token(
+            id_token=credentials.id_token,
+            request=token_request,
+            audience=GOOGLE_CLIENT_ID
+        )
+
+        # Get user email from ID token
+        email = id_info.get("email")
+
+        # Check if user with the email exists in the database
+        user = User.query.filter_by(email=email).first()
+        
+        # If user doesn't exist, create a new user
+        if not user:
+            user = User(email=email)
+            db.session.add(user)
+            db.session.commit()
+
+        # Log in the user
+        login_user(user)
+
+        # Redirect to the main page after successful login
+        return redirect(url_for("pages.main"))
+
+    except Exception as e:
+        # Handle errors gracefully
+        print(f"Error in callback: {e}")
+        abort(500)  # Return a 500 Internal Server Error status

@@ -44,9 +44,27 @@
         
     </div>
     
+        
     
     <div class="post-container">
         <div class="neon-line-main"></div>
+        <form id="sort-form" action="{{ url_for('pages.main') }}" method="get">
+            <div class="sort-dropdown-main">
+                <label for="sort-option">Sort by:</label>
+                <select id="sort-option" name="sort_option" onchange="handleSortOption()">
+                    <option value="Newest">Newest</option>
+                    <option value="Oldest" {% if sort_option == "Oldest" %} selected {% endif %}>Oldest</option>
+                    <option value="Most Liked" {% if sort_option == "Most Liked" %} selected {% endif %}>Most Liked</option>
+                </select>
+            </div>
+        </form>
+    
+    
+        <script>
+            function handleSortOption() {
+                document.getElementById("sort-form").submit();
+            }
+        </script>
         {% for post in posts.items %}
         <div class="post">
             <div class="post-header">

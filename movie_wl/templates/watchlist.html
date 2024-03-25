@@ -47,7 +47,7 @@
                 </tr>
             </thead>
             <tbody>              
-                    {% for movie in movie_data %}
+                    {% for movie in movie_data.items %}
                         <tr>
                             <td class="table__cell">
                                 <a href="{{ url_for('pages.movie', post_id=movie.id)}}" class="table__link">

@@ -17,7 +17,17 @@
             {% endfor %}
         {% endwith %}
         <div class="form__container">
-            <div class="login-header-login">LOGIN</div>    
+
+            
+                  
+               
+            
+
+
+            <div class="login-header-login">LOGIN</div>   
+            <a href="{{ url_for('pages.google_login') }}" class="button button--google">Sign in with Google</a>
+            
+
             {{ form.hidden_tag() }}
             {{ render_text_field(form.email) }}
             {{ render_text_field(form.password) }}
@@ -32,6 +42,7 @@
                 {{ form.submit(class_="button button--form") }}
             </div>
         </div>
+        
         
         
        

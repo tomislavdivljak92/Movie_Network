@@ -50,7 +50,7 @@
                 <form action="{{ url_for('pages.search') }}" method="GET" class="nav__search-form">
                     
                     <i class="fas fa-search nav__search-icon"></i>
-                    <input type="text" name="q" placeholder="Search" class="nav__search-input" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target="#results">
+                    <input type="text" name="q" placeholder="Search Watchlist" class="nav__search-input" hx-get="/search" hx-trigger="keyup changed delay:500ms" hx-target="#results">
                     
                    
                 </form>
@@ -59,19 +59,31 @@
                     href="{{ url_for('pages.watchlist') }}"
                     class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.watchlist') }}"
                 >
-                    <span class="nav__item">Movies</span>
+                    <span class="nav__item">Watchlist</span>
                 </a>
                 <a
                     href="{{ url_for('pages.members') }}"
                     class="nav__link"
                 >   
-                    <span class="nav__item">Members</span>
-                <a
-                    href="{{ url_for('pages.about') }}"
-                    class="nav__link"
-                >   
-                    <span class="nav__item">About</span>
-                </a>
+                    <span class="nav__item">Store</span>
+
+                </a>  
+                    <div class="nav__profile2">
+                        <a href="{{ url_for('pages.account') }}"></a>  
+                            <img src="{{ url_for('static', filename='dropdown_icon.png') }}" alt="Dropdown Icon" class="nav__image2">
+                        
+                            <div class="nav__dropdown2">
+                                <a href="{{ url_for('pages.members') }}" class="nav__dropdown2-item">Members</a>
+                                <a href="{{ url_for('pages.top_rated_movies') }}" class="nav__dropdown2-item">Top Movies</a>                 
+                                <a href="{{ url_for('pages.direct_message') }}" class="nav__dropdown2-item">Messages</a>
+                                <a href="{{ url_for('pages.chat') }}" class="nav__dropdown2-item">Chat</a>
+                                <a href="{{ url_for('pages.settings') }}" class="nav__dropdown2-item">Settings</a>
+                                <a href="{{ url_for('pages.about') }}" class="nav__dropdown2-item">About</a>
+                            </div>
+                    </div>
+                    
+                
+                    
                 
 
                 <div class="nav__profile">

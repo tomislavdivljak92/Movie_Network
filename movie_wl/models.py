@@ -5,6 +5,12 @@ from flask_login import UserMixin
 from itsdangerous import URLSafeTimedSerializer as Serializer
 
 
+# Define the association table for the watchlist
+watchlist = db.Table(
+    'watchlist',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True)
+)
 
 
 
@@ -29,7 +35,20 @@ class User(db.Model, UserMixin):
     posts = db.relationship("Post", backref="author", lazy=True)
     followed = db.relationship("User", secondary=followers, primaryjoin=(followers.c.follower_id == id), secondaryjoin=(followers.c.followed_id ==id),
     backref = db.backref("followers", lazy="dynamic"),lazy="dynamic")
-    
+    # Define the watchlist relationship
+    watchlist = db.relationship("Post", secondary=watchlist,
+                                backref=db.backref('watchlist_users', lazy=True))
+
+    def add_to_watchlist(self, post):
+        try:
+            if post not in self.watchlist:
+                self.watchlist.append(post)
+                db.session.add(self)  # Add the user instance to the session
+                db.session.commit()  # Commit the changes to the database 
+        except Exception as e:
+            db.session.rollback()  # Rollback changes if an error occurs
+            print(f"An error occurred while adding movie to watchlist: {e}")
+
 
     def follow(self, user):
         if not self.is_following(user):
@@ -80,7 +99,6 @@ class Post(db.Model):
     video_link = db.Column(db.String(255), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     
-
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"    
     
@@ -91,7 +109,6 @@ class PostMain(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     comments = db.Column(db.Text, nullable=True)
-    likes = db.Column(db.Integer, nullable=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     user = db.relationship('User')
@@ -106,7 +123,7 @@ class Like(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post_main.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    post = db.relationship('PostMain')
+    post = db.relationship('PostMain', backref=db.backref('likes', cascade='all, delete-orphan'))
     user = db.relationship('User')
 
     def __repr__(self):
@@ -126,3 +143,7 @@ class Messages(db.Model):
 
     sender = db.relationship('User', foreign_keys=[sender_id])
     recipient = db.relationship('User', foreign_keys=[recipient_id])
+
+
+
+

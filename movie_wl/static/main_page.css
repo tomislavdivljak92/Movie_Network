@@ -417,6 +417,7 @@
 .pagination-container {
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
     
     
 }
@@ -537,3 +538,110 @@
 
 
 
+
+
+
+.sort-dropdown-main {
+    position: absolute;
+    right: 17.6%;
+    top: 20em;
+    transform: translateX(-50%);
+    z-index: 1;
+   
+    
+    
+  }
+  
+  .sort-dropdown-main label {
+    font-size: 0.9rem; /* Adjust font size as needed */
+    margin-right: 0.5rem;
+    font-family: "Public Sans", sans-serif;
+    vertical-align: middle;
+    
+     /* Adjust spacing between label and select */
+  }
+  
+  .sort-dropdown-main select {
+    font-size: 0.7rem; /* Adjust font size to make it smaller */
+    padding: 0.25rem 0.25rem; /* Adjust padding to make it smaller */
+    width: 80px;
+    max-width: 100px;
+    height: 25px;
+    outline: none;
+    font-family: "Public Sans", sans-serif;
+    vertical-align: middle;
+    background-color: var(--background-color);
+    color: var(--accent-colour);
+    transition: 0.8s ease;
+  }
+  
+  
+  
+  .sort-dropdown-main select:focus {
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    font-size: 0.7rem;
+    outline: none;
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: box-shadow 0.2s ease;
+  
+  }
+  
+  
+  .sort-dropdown-main select option:hover {
+    background-color: var(--accent-colour);
+    color: var(--text-light);
+    
+  }
+  
+  
+ 
+  
+  
+  @media screen and (min-width: 50em) {
+    .sort-dropdown-main select {
+      width: 110px; /* Increase width for larger screens */
+      max-width: 110px; /* Increase width for larger screens */
+      visibility: visible; /* Ensure select element is visible */
+      opacity: 1; /* Ensure select element is fully visible */
+    }
+  }
+  
+  
+  @media screen and (min-width: 50em) {
+    .sort-dropdown-main label {
+        font-size: 0.8rem;
+        width: 100px;
+    }
+  
+  }
+
+
+
+  @media screen and (max-width: 768px) {
+    .left-container,
+    .right-container {
+        width: 54%; /* Adjust the width for smaller screens */
+        max-width: 54%; /* Set a maximum width */
+        margin: 0 auto; /* Center the containers */
+        position: relative; /* Reset position */
+        top: 0; /* Reset top position */
+        left: 0; /* Reset left position */
+        right: 0; /* Reset right position */
+        border-radius: 0; /* Reset border-radius */
+        box-shadow: none; /* Remove box-shadow */
+        padding: 1rem; /* Add padding */
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .left-container {
+        width: 14rem; /* Reset width for larger screens */
+        right: 35px; /* Adjust right position */
+    }
+
+    .right-container {
+        width: 12rem; /* Reset width for larger screens */
+        left: 35px; /* Adjust left position */
+    }
+}

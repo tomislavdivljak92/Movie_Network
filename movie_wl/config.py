@@ -9,6 +9,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
+    
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ['EMAIL_USER_MN']
     MAIL_PASSWORD = os.environ['MAIL_APP_PASSWORD_MN']
