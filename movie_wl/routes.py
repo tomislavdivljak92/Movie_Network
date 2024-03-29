@@ -1,11 +1,13 @@
-from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app, jsonify
+from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app, jsonify, send_from_directory
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
+from werkzeug.utils import secure_filename
+from movie_wl.config import Config
 from google_auth_oauthlib.flow import Flow
 from flask_wtf.csrf import generate_csrf
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
-from movie_wl.models import Post, User, PostMain, Messages, Like
+from movie_wl.models import Post, User, PostMain, Messages, Like, UploadMusic
 from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, ChangeEmailForm,ChangePasswordForm
 import secrets
 from PIL import Image
@@ -822,3 +824,70 @@ def callback():
         # Handle errors gracefully
         print(f"Error in callback: {e}")
         abort(500)  # Return a 500 Internal Server Error status
+
+
+
+
+
+@pages.route('/store')
+def store():
+    # Query the database to retrieve the list of uploaded music files
+    music_files = UploadMusic.query.all()
+    return render_template('store.html', music_files=music_files)
+
+
+@pages.route('/upload', methods=['POST'])
+@login_required  # Make sure only logged-in users can upload files
+def upload_file():
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+
+    file = request.files['file']
+
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+
+    if file:
+        filename = secure_filename(file.filename)
+        # Save the file to the UPLOAD_FOLDER directory
+        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+        flash('File uploaded successfully')
+
+        # Save information about the uploaded file to the database
+        new_upload = UploadMusic(filename=filename, uploader_username=current_user.username, file_path=file_path)
+        db.session.add(new_upload)
+        db.session.commit()
+
+        return redirect(request.url)
+    
+
+@pages.route('/download/<filename>')
+def download_file(filename):
+    # Ensure the requested file exists in the UploadMusic folder
+    music_folder = os.path.join(current_app.root_path, 'UploadMusic')
+    if os.path.exists(os.path.join(music_folder, filename)):
+        # Send the file to the user for download
+        return send_from_directory(music_folder, filename, as_attachment=True)
+    else:
+        # If the file doesn't exist, return a 404 error
+        return 'File not found', 404
+    
+
+@pages.route('/uploads/<filename>')
+def serve_file(filename):
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+
+
+
+
+@pages.route('/delete/<int:id>', methods=['POST'])
+@login_required
+def delete_file(id):
+    music_file = UploadMusic.query.get_or_404(id)
+    db.session.delete(music_file)
+    db.session.commit()
+    flash('File deleted successfully', 'success')
+    return redirect(url_for('pages.store'))

@@ -147,33 +147,3 @@
 
 
 
-/* top rated movies */
-
-/* Styles for the add to watchlist button */
-.add-to-list-button {
-    position: absolute;
-    border: 2px solid var(--accent-colour);
-    border-radius: 5px;
-    background-color: transparent; /* Make the background transparent */
-    color: var(--text-dark);
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-block;
-    padding: 4px 8px;
-    
-}
-
-
-/* Additional styles for button hover effect */
-.add-to-list-button:hover {
-    box-shadow: 0 0 10px var(--shadow-color-image);
-    transition: 0.1s ease;
-}
-
-/* Style for the confirmation message */
-.already-added-message {
-  color: var(--accent-colour-2); /* Green color, adjust as needed */
-  font-size: 12px;
-  margin-top: 8px;
-}

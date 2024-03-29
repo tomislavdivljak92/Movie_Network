@@ -1,0 +1,99 @@
+.top-rated-container {
+    max-width: 500px;
+    margin: 25px auto 0;
+    padding: 10px 2rem;
+    background-color: var(--background-color);
+    border-radius: 5px;
+    box-shadow: 0 0 8px var(--shadow-color-image);
+}
+
+.top-rated-container h2 {
+    font-family: "Public Sans", sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    text-align: center;
+    position: relative;
+}
+
+.top-rated-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+}
+
+.top-rated-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Public Sans", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: var(--text-dark);
+}
+
+.top-rated-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.movie-list-item {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.top-rated-movie-rating {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.top-rated-movie-rating .star {
+    width: 1em;
+    height: 1em;
+    fill: none;
+}
+
+.top-rated-movie-rating .star--filled {
+    fill: #ffdb2a;
+    stroke: var(--stroke-main-star);
+}
+
+.add-to-list-button {
+    border: 2px solid var(--accent-colour);
+    border-radius: 5px;
+    background-color: transparent;
+    color: var(--text-dark);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 8px;
+}
+
+.add-to-list-button:hover {
+    box-shadow: 0 0 10px var(--shadow-color-image);
+    transition: 0.1s ease;
+}
+
+.already-added-message {
+    color: var(--delete-color);
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.top-rated-button-container {
+    display: flex;
+    align-items: center;
+    margin-top: -5px; /* Adjust the margin as needed */
+}

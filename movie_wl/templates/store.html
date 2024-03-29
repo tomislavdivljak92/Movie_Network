@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+<div class="music-container">
+    <h2>MUSIC</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button class="upload-btn"type="submit">Upload</button>
+    </form>
+    <ul>
+        {% for music_file in music_files %}
+        {% if music_file.filename %}
+    <li class="song-item">
+        <div>
+            <span class="song-title">{{ music_file.filename }}</span> <!-- Display filename as song title -->
+            <audio controls>
+                <source src="{{ url_for('pages.serve_file', filename=music_file.filename) }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <span class="username">{{ music_file.uploader_username }}</span>
+            <a href="{{ url_for('pages.download_file', filename=music_file.filename) }}" download>Free Download</a>
+            
+                <a href="{{ url_for('pages.delete_file', id=music_file.id) }}" method="post" class="delete-btn" type="submit">Delete</a>
+            
+        </div>
+        
+    </li>
+{% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

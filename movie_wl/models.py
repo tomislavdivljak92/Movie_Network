@@ -147,3 +147,11 @@ class Messages(db.Model):
 
 
 
+class UploadMusic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(256), nullable=False)
+    uploader_username = db.Column(db.String(64), nullable=False)
+    file_path = db.Column(db.String(256), nullable=False)
+
+    def __repr__(self):
+        return f"<MusicFile {self.filename}>"

@@ -13,3 +13,6 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ['EMAIL_USER_MN']
     MAIL_PASSWORD = os.environ['MAIL_APP_PASSWORD_MN']
+
+
+    UPLOAD_FOLDER = 'C:/Users/Mir/UploadMusic'

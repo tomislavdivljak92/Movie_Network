@@ -1,23 +1,22 @@
 {% extends "layout.html" %}
 
 {% block head_content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='members.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='main_page.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='settings.css') }}" />
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='top_rated_movies.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}" />
     
 {% endblock %}
 
 {% block main_content %}
-<div class="member-container">
+<div class="top-rated-container">
     <h2>TOP RATED MOVIES</h2>
-    <ul class="movie-list">
+    <ul class="top-rated-list">
         <!-- Movie list items go here -->
         {% for movie in top_movies %}
-        <li class="movie-list-item">
+        <li class="top-rated-list-item">
             <a href="{{ url_for('pages.top_rated_movies') }}" class="movie-list-item a">
             {{ movie.title }}
-            <div class="movie-rating">
+            <div class="top-rated-movie-rating">
                 {% for i in range(1, 6) %}
                         <svg class="star {% if movie.rate and movie.rate >= i %}star--filled{% endif %}" viewBox="0 0 24 24">
                             <path d="M12 2l2.35 7.24h7.65l-6.19 4.49 2.35 7.26L12 17.36l-6.16 4.63 2.35-7.26-6.19-4.49h7.65z"></path>
@@ -25,6 +24,7 @@
                     {% endfor %}
             </div>
             </a>
+            <div class="top-rated-button-container">
             {% if movie.author.id != current_user.id %}
     {% if movie in current_user.watchlist %}
         <!-- Display a confirmation message if the movie is already in the watchlist -->
@@ -36,16 +36,11 @@
         </form>
     {% endif %}
 {% endif %}
+</div>
         </li>
         {% endfor %}
     </ul>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% for category, message in messages %}
-        {% if category == 'success' %}
-            <span class="sform__flash sform__flash--{{ category }}">{{ message }}</span>
-        {% endif %}
-    {% endfor %}
-{% endwith %}
+    
 </div>
 {% endblock %}
     
