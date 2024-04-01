@@ -1,13 +1,20 @@
-/* Custom container styles */
-.music-container {
-    max-width: 600px;
-    margin: 25px auto 0;
-    padding: 10px 2rem;
-    background-color: var(--background-color);
-    border-radius: 5px;
-    box-shadow: 0 0 8px var(--shadow-color-image);
+/* Styles for content container */
+.content-container {
+    max-width: 50rem;
+    width: 100%;
+    margin: 0 auto;
+    
 }
-.music-container h2{
+
+/* Styles for music container */
+.music-container {
+    background-color: var(--background-color); /* Adjust background color */
+    padding: 20px; /* Add padding for better appearance */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Add box shadow for depth */
+}
+
+.music-container h2 {
     font-family: "Public Sans", sans-serif;
     font-size: 2em;
     font-weight: bold;
@@ -15,7 +22,6 @@
     color: var(--text-dark);
     text-align: center;
     position: relative;
-
 }
 
 .music-container h2::after {
@@ -30,89 +36,93 @@
 }
 
 
-.music-item {
+/* Styles for upload form */
+.upload-form {
     display: flex;
-    justify-content: space-between; /* Aligns items with space between them */
-    align-items: center; /* Centers items vertically */
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 10px;
 }
 
-/* Styles for forms */
-form {
-    margin-bottom: 40px;
-}
-
-
+/* Styles for file input label */
 .upload-btn {
-    border: 2px solid var(--accent-colour);
     border-radius: 5px;
+    border: 2px solid var(--shadow-color-image);
     background-color: transparent;
     color: var(--text-dark);
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     padding: 6px 10px;
-    
+    transition: box-shadow 0.3s ease;
 }
 
+/* Styles for file input label hover */
 .upload-btn:hover {
     box-shadow: 0 0 10px var(--shadow-color-image);
-    transition: 0.1s ease;
 }
 
-/* Styles for list items */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 35px;
-}
-
-/* Styles for audio player */
-audio {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-/* Styles for download links */
-a {
-    color: var(--link-color);
+/* Styles for upload button */
+.upload-form button.upload-btn {
+    border-radius: 5px;
+    border: 2px solid var(--accent-colour);
+    background-color: transparent;
+    color: var(--text-dark);
+    text-align: center;
     text-decoration: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: box-shadow 0.3s ease;
     margin-left: 10px;
-    font-size: 12px;
 }
 
-a:hover {
-    text-decoration: underline;
+/* Hover effect for upload button */
+.upload-form button.upload-btn:hover {
+    box-shadow: 0 0 10px var(--shadow-color-image);
 }
 
+/* Styles for song list */
+.song-list {
+    margin-bottom: 20px;
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove default padding */
+}
+
+
+
+/* Styles for song details */
 
 
 /* Styles for audio player */
-audio {
+.audio-player {
     width: 100%;
     margin-bottom: 10px;
     border: 2px solid var(--accent-colour); /* Border with accent color */
     border-radius: 30px;
-    background-color: var(--background-color); /* Background color */
+   
     padding: 5px; /* Padding for better spacing */
-    transition: 0.3s ease;
+    transition: box-shadow 0.3s ease; /* Added transition for hover effect */
 }
-/* Styles for audio player */
-audio:hover {
+
+/* Styles for audio player hover */
+.audio-player:hover {
     box-shadow: 0 0 10px var(--shadow-color-image); /* Optional: Add shadow for depth */
 }
 
+.action-buttons {
+    display: flex;
+    align-items: baseline; /* Align items along their baselines */
+    gap: 10px; /* Adjust the gap between buttons *//* Adjust the gap between buttons */
+}
 
-/* Style for username */
+/* Styles for username */
 .username {
     font-weight: bold;
     color: var(--text-dark);
     font-size: 16px;
 }
 
-/* Style for song title */
+/* Styles for song title */
 .song-title {
     display: block;
     margin-bottom: 10px;
@@ -120,28 +130,29 @@ audio:hover {
     font-size: 1.2em; /* You can adjust the font size as needed */
 }
 
+/* Styles for download button */
+.btn-link {
+    color: var(--link-color);
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
 
 /* Styles for delete button */
 .delete-btn {
-    border-radius: 5px;
-    color: var(--text-dark);
-    text-align: center;
-    text-decoration: none;
+    background-color: transparent; /* Set background color to transparent */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+    font-size: 14px;
+    margin-left: 8px; /* Add some margin for spacing */
     cursor: pointer;
-    padding: 2px 8px;
-    transition: 0.3s ease;
-}
-
-
-
-/* Styles for delete button */
-.delete-btn a {
-    
-    text-decoration: none;
-    
+    color: var(--delete-color);
 }
 
 .delete-btn:hover {
     color: var(--accent-colour); /* Change to desired hover color */
 }
-
