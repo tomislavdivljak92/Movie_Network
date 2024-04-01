@@ -611,8 +611,8 @@ def leave(data):
 @pages.route("/direct_message")
 @login_required
 def direct_message():
-    followed_users = current_user.followed.all()
-    return render_template("direct_message.html", followed_users=followed_users)
+    
+    return render_template("direct_message.html")
 
 @pages.route("/send_direct_message", methods=["POST"])
 @login_required
@@ -718,8 +718,7 @@ def change_email():
         # Handle form submission
         new_email = form.new_email.data
         password = form.password.data
-        # Perform necessary actions (e.g., validation, updating database)
-        # Simulate success for demonstration purposes
+        
         flash('Email successfully changed.', 'success')
         return redirect(url_for('.settings'))
     return render_template('change_email.html', form=form)
@@ -733,8 +732,7 @@ def change_password():
         # Handle form submission
         current_password = form.current_password.data
         new_password = form.new_password.data
-        # Perform necessary actions (e.g., validation, updating database)
-        # Simulate success for demonstration purposes
+        
         flash('Password successfully changed.', 'success')
         return redirect(url_for('.settings'))
     return render_template('change_password.html', form=form)
