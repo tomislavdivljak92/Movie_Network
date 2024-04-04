@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    var socket = io.connect('https://' + document.location.hostname + ':' + location.port);
+    var socket = io.connect('http://' + document.location.hostname + ':' + location.port);
 
     let room = "NEWS";
     joinRoom("NEWS");
