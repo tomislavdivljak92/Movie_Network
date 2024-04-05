@@ -29,6 +29,18 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
+
+
+.main {
+    flex-grow: 1;
+    padding: 3rem 1.5rem 2rem 1.5rem;
+  }
+
+@media screen and (min-width: 30em) {
+    .main {
+    padding-top: 5rem;
+    }
+}
 /* improve media defaults
 */
 img,

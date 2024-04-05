@@ -24,7 +24,7 @@ from flask_socketio import send, emit, SocketIO, join_room, leave_room
 
 GOOGLE_CLIENT_ID = "462416296701-f57a04flfhr3e7iv93gsvl1e971os8jo.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
-flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file, scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"], redirect_uri="https://127.0.0.1:443/callback" )                                    
+flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file, scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"], redirect_uri="https://moviesphere-network.com/callback" )                                    
                                      
                                     
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
@@ -816,7 +816,7 @@ def callback():
         login_user(user)
 
         # Redirect to the main page after successful login
-        return redirect(url_for("pages.main"))
+        return redirect(url_for(".main"))
 
     except Exception as e:
         # Handle errors gracefully
