@@ -100,9 +100,11 @@ def watchlist():
 
     # Query all movies from the watchlist based on their IDs
     watchlist_movies = Post.query.filter(Post.id.in_(watchlist_movie_ids))
+    
 
     # Combine both lists
     all_movies = user_movies.union(watchlist_movies)
+    
 
     # Apply sorting based on the selected option directly in the database query
     if sort_option == "Year":
@@ -116,6 +118,7 @@ def watchlist():
 
     # Paginate the sorted list
     movie_data = all_movies.paginate(page=page, per_page=5)
+    print(movie)
 
     return render_template("watchlist.html", title="Movies Watchlist", movie_data=movie_data, sort_option=sort_option)
 

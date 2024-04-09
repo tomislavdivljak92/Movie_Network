@@ -31,16 +31,19 @@
             
             <!-- JavaScript code for adjusting background image height -->
             <script>
-            $(window).on('resize', function() {
-                var windowHeight = $(window).height();
-                var imagePath = '/static/cnmtc.jpg'; // Adjust the path accordingly
-                $('.background__image').css('background-image', 'url(' + imagePath + ')');
-                $('.background__image').height(windowHeight);
-            });
+                function adjustBackgroundImageHeight() {
+                    var windowHeight = $(window).height();
+                    var imagePath = '/static/cnmtc.jpg'; // Adjust the path accordingly
+                    $('.background__image').css('background-image', 'url(' + imagePath + ')');
+                    $('.background__image').height(windowHeight);
+                }
             
-            // Trigger resize event on page load
-            $(window).resize();
-            </script> 
+                // Call the function to adjust background image height
+                adjustBackgroundImageHeight();
+            
+                // Trigger resize event to adjust background image height dynamically
+                $(window).on('resize', adjustBackgroundImageHeight);
+            </script>
             
             {{ header(session.get("theme"), current_user) }}
 

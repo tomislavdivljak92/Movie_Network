@@ -69,25 +69,21 @@ html {
     font-size: 12px;
 }
 
-/* when the screen width hits 960px, we increase the global font size to 14px.
-this changes the scale of all o our relative units, keeping everything in proportion */
-
-@media screen and (min-width: 60em) {
+/* When the screen width hits 960px, we increase the global font size to 14px. This changes
+   the scale of all of our relative units (the rems), keeping everything in proportion */
+   @media screen and (min-width: 60em) {
     html {
-        font-size: 14px;
-        
+      font-size: 14px;
     }
-}
-
-/* when screen width hits 1200px, we once again increase the global font size,
-this time to 16px.
-*/
-@media screen and (min-width: 75em) {
+  }
+  
+  /* When the screen width hits 1200px, we once again increase the global font size, this time to 16px */
+  @media screen and (min-width: 75em) {
     html {
-        font-size: 18px;
+      font-size: 18px;
     }
-}
-
+  }
+  
 
 
 
@@ -136,47 +132,15 @@ body {
 
 
 
-
-
-/* Media query for mobile devices */
-@media screen and (max-width: 768px) {
-    .nav-container {
-        flex-direction: row;
-        justify-content: space-between; /* Align items to the start and end */
-        align-items: center; /* Center items vertically */
-    }
-
-    .nav__links {
-        display: none; /* Hide links */
-    }
-
-    .nav__profile,
-    .nav__toggle-button {
-        display: flex;
-        display: none; /* Display profile picture and toggle button */
-    }
-
-    .header__logo {
-        margin-right: auto; /* Push logo to the left */
-    }
-
-    .nav__search-form {
-        display: none; /* Hide search form */
-    }
-
-    .chat_icon,
-    .settings_icon,
-    .messages_icon {
-        display: none; /* Hide icons */
-    }
-
-}
 .nav-container {
     display: flex;
     justify-content: space-between;
     max-width: 75rem;
     margin: 0 auto;
 }
+
+
+
 
 
 
