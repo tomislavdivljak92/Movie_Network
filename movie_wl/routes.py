@@ -430,7 +430,7 @@ def edit_profile():
             current_user.image_file = picture_file
 
         current_user.username = form.username.data
-        current_user.email = form.email.data
+        
         db.session.commit()
         
         return redirect(url_for(".account"))
