@@ -24,7 +24,7 @@ from flask_socketio import send, emit, SocketIO, join_room, leave_room
 
 GOOGLE_CLIENT_ID = "462416296701-f57a04flfhr3e7iv93gsvl1e971os8jo.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
-flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file, scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"], redirect_uri="https://moviesphere-network.com/callback" )                                    
+flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file, scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"], redirect_uri="https://localhost:5000/callback" )                                    
                                      
                                     
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
@@ -784,6 +784,7 @@ def google_login():
 
 @pages.route("/callback")
 def callback():
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     try:
         # Fetch token using the authorization response from the callback URL
         flow.fetch_token(authorization_response=request.url)
@@ -868,7 +869,8 @@ def upload_file():
 @pages.route('/download/<filename>')
 def download_file(filename):
     # Ensure the requested file exists in the UploadMusic folder
-    music_folder = os.path.join(current_app.root_path, 'UploadMusic')
+    music_folder = current_app.config['UPLOAD_FOLDER']
+    print(music_folder)
     if os.path.exists(os.path.join(music_folder, filename)):
         # Send the file to the user for download
         return send_from_directory(music_folder, filename, as_attachment=True)

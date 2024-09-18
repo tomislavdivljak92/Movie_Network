@@ -5,9 +5,59 @@
 
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}" />
+    <style>
+        #volume_container {
+            width: 200px; /* Adjust width as needed */
+            height: 20px;
+            margin: 0 auto; /* Center horizontally */
+            text-align: center;
+            margin-bottom: 10px; /* Add some space between volume control and forms */
+        }
+        #volume_control {
+            width: 100%; /* Full width */
+            display: inline-block;
+            vertical-align: middle;
+            background-color: black;
+            /* Remove default styling */
+            
+        /* Remove track and thumb default styles */
+        border: none;
+        }
+
+/* Style for Firefox */
+        #volume_control::-moz-range-thumb {
+            background-color: black;
+            border: none;
+        }
+        /* Style for Webkit-based browsers */
+        #volume_control::-webkit-slider-thumb {
+            background-color: black;
+            border: none;
+        }
+
+    </style>
+    
 {% endblock %}
 
 {% block main_content %}
+<audio id="background_music" autoplay loop>
+    <source src="{{ url_for('static', filename='background_music/MSNIntro.mp3') }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<div id="volume_container">
+    <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume_control">
+</div>
+<script>
+    var backgroundMusic = document.getElementById("background_music");
+    var volumeControl = document.getElementById("volume_control");
+
+    volumeControl.addEventListener("input", function() {
+        backgroundMusic.volume = volumeControl.value;
+        if (volumeControl.value === "0") {
+            backgroundMusic.volume = 0;
+        }
+    });
+</script>
 
     <form name="login" method="post" novalidate class="form">
         
@@ -25,7 +75,7 @@
 
 
             <div class="login-header-login">LOGIN</div>   
-            <a href="#" class="button button--google">Sign in with Google</a>
+            <a href="{{ url_for('pages.callback') }}" class="button button--google">Sign in with Google</a>
             
 
             {{ form.hidden_tag() }}
