@@ -8,7 +8,7 @@
 <div class="content-container">
     <div class="music-container">
         <h2>MUSIC</h2>
-        <form class="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <form class="upload-form" action="{{ url_for('pages.upload_file') }}" method="post" enctype="multipart/form-data">
             <label class="upload-btn">
                 Choose File
                 <input type="file" name="file" style="display: none;">
@@ -21,20 +21,19 @@
                 {% if music_file.filename %}
                     <li class="song-item">
                         <div class="song-details">
-                            <span class="song-title">{{ music_file.filename }}</span> <!-- Display filename as song title -->
+                            <span class="song-title">{{ music_file.filename }}</span>
                             <audio controls class="audio-player">
                                 <source src="{{ url_for('pages.serve_file', filename=music_file.filename) }}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                             <div class="action-buttons">
-                            <span class="username">{{ music_file.uploader_username }}</span>
-                            
-                            <a href="{{ url_for('pages.download_file', filename=music_file.filename) }}" download class="btn-link">Free Download mp3</a>
-                            <form action="{{ url_for('pages.delete_file', id=music_file.id) }}" method="post">
-                                <button class="delete-btn" type="submit">Delete</button>
-                            </form>
+                                <span class="username">{{ music_file.uploader_username }}</span>
+                                <a href="{{ url_for('pages.download_file', filename=music_file.filename) }}" download class="btn-link">Free Download mp3</a>
+                                <form action="{{ url_for('pages.delete_file', id=music_file.id) }}" method="post">
+                                    <button class="delete-btn" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     </li>
                 {% endif %}
             {% endfor %}

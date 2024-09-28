@@ -1,0 +1,199 @@
+[33mcommit 799502d095df8b960569d7edb1e643eaf35593f0[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Merge: 1a2120d e908045
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Thu Sep 19 00:35:57 2024 +0200
+
+    Merge branch 'main' of https://github.com/tomislavdivljak92/Movie_Network
+
+[33mcommit 1a2120dee9766fb809dee918ee82f0eb35c0990a[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Thu Sep 19 00:34:34 2024 +0200
+
+    Log In page - Sound Intro Added.
+
+[33mcommit e908045f1f8b416224e1758922a37902143830f7[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Tomislav Divljak <134211432+tomislavdivljak92@users.noreply.github.com>
+Date:   Thu Sep 12 18:30:06 2024 +0200
+
+    README.md
+
+[33mcommit e14be556889b5a236d504b60e79746f206e39dd1[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Thu Apr 11 17:14:30 2024 +0200
+
+    edit_profile fixed
+
+[33mcommit 54b302e7d0bd977d14b19fd6192a37f5932a5967[m
+Merge: b757424 223d775
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Wed Apr 10 00:17:52 2024 +0200
+
+    Merge branch 'main' of https://github.com/tomislavdivljak92/Movie_Network
+
+[33mcommit 223d775526978f8b57a98c30418033836fa0df58[m
+Author: Tomislav Divljak <134211432+tomislavdivljak92@users.noreply.github.com>
+Date:   Wed Apr 10 00:17:13 2024 +0200
+
+    README.md
+
+[33mcommit ee44d87a071276e2ddc5453822e82c4855f825f8[m
+Author: Tomislav Divljak <134211432+tomislavdivljak92@users.noreply.github.com>
+Date:   Wed Apr 10 00:13:18 2024 +0200
+
+    Delete README.md
+
+[33mcommit b757424abb0a9446623ece6212dc42fe4577a0d3[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Wed Apr 10 00:10:40 2024 +0200
+
+    new one.
+
+[33mcommit 578d4ce9d3138aecee30553f52c15db98c35f314[m
+Author: Tomislav Divljak <134211432+tomislavdivljak92@users.noreply.github.com>
+Date:   Tue Apr 9 23:45:05 2024 +0200
+
+    MSN README.md
+
+[33mcommit 0ebfb05d1bed41b5dacaa2aa61da16a2e3e2117a[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Tue Apr 9 23:10:53 2024 +0200
+
+    changes for sharing on linkedin
+
+[33mcommit 2fbe98169f56026a19bcfbcaba20b247f1b7d97d[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Fri Apr 5 16:55:42 2024 +0200
+
+    making google auth works on domain name
+
+[33mcommit ccc828d30a4b41fedb49091dad0c765240e63d2b[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Fri Apr 5 02:15:23 2024 +0200
+
+    SSL security added
+
+[33mcommit 83d6ec7f53cee78dc0103fcf262984afa1b1dcf0[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Fri Apr 5 01:39:31 2024 +0200
+
+    domain name implemented successfully
+
+[33mcommit b9c6d57c70b7996f41a5652888525aa7a55f4923[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Tue Apr 2 01:02:48 2024 +0200
+
+    Music page upgraded
+
+[33mcommit 9b136e901de348b7e0634aed00b0c9bcdaddd058[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Mon Apr 1 02:30:55 2024 +0200
+
+    waitress is ready
+
+[33mcommit acbaafc4380f74e554d56e6cb9beea4c11387b46[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Mon Apr 1 02:22:52 2024 +0200
+
+    requirements.txt
+
+[33mcommit 6175c80a426ea4437badb9379497e5f5fc7069b2[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Mon Apr 1 01:53:58 2024 +0200
+
+    deploying, installed waitress
+
+[33mcommit d7b4ea909f258ff6df0687c744a831f382914b9f[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Fri Mar 29 01:41:54 2024 +0100
+
+    Music page Integrated
+
+[33mcommit 0382dbe05bc6346e82a347c48191449875714470[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Mon Mar 25 01:26:44 2024 +0100
+
+    sign in with google added. Second dropdown menu added. Add to watchlist functionality.. Sort by added to posts.
+
+[33mcommit 40a805bfc34f0932d3ed1f49a8835828c1f3735a[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Wed Mar 20 23:44:02 2024 +0100
+
+    Added like option
+
+[33mcommit c2ec858cdd8770acdea1255194bed7d24cba1e32[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Mon Mar 18 23:16:12 2024 +0100
+
+    settings page added with functionality
+
+[33mcommit c7fd4d3f1c87d3762319b0ffb2c9a26342b67328[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Mon Mar 18 00:13:12 2024 +0100
+
+    direct messaging added and styled page
+
+[33mcommit 6ddebd3b59c4f1d9dd3d96091b1ed62c0f261d87[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Fri Mar 15 00:52:50 2024 +0100
+
+    chat funcionality added
+
+[33mcommit f293a5593ad3b153e6ff72c068b408c999f3dd5b[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Tue Mar 12 22:13:57 2024 +0100
+
+    follow option integrated fully
+
+[33mcommit 443d854b0feec9bd7d8ca9b1c300a181d1af1c34[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Tue Mar 12 04:22:35 2024 +0100
+
+    Follow/Unfollow option added... account and user_profile changed
+
+[33mcommit d0dfad748a6b97c9f8faf90be881a0fc6b3cce87[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Sun Mar 10 22:01:19 2024 +0100
+
+    Password Reset Request Added
+
+[33mcommit e7bf7053d81487858b50cb001e4c81ea31115540[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Sun Mar 10 00:11:40 2024 +0100
+
+    Paginate added
+
+[33mcommit fb0d077aa7e2143caa535b7a6b953d1e61162867[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Sat Mar 9 02:30:15 2024 +0100
+
+    sort by option added to watchlist..changed style of watchlist table
+
+[33mcommit a13caf0462c0853ed8ddc3ac38dbfb49f378e9d9[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Thu Mar 7 15:22:51 2024 +0100
+
+    added edit and delete options to posts
+
+[33mcommit 23f08276c20dc52ffdc7324539eb99fa772f3e43[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Wed Mar 6 03:46:58 2024 +0100
+
+    top_rated, members and about pages added
+
+[33mcommit 77832542c96c074d5c70852f00f6c88730102154[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Tue Mar 5 16:11:18 2024 +0100
+
+    top rated movies filter added
+
+[33mcommit a05ab512537fe458131e12a53263803a43c36a34[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Tue Mar 5 14:25:44 2024 +0100
+
+    updated account page and left container has been created
+
+[33mcommit f15db9f38af6273280d65631be6a081922b15b09[m
+Author: Blueline Learning <tomislavdivljak92@gmail.com>
+Date:   Sun Mar 3 00:14:34 2024 +0100
+
+    first commit

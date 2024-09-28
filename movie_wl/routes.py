@@ -16,16 +16,14 @@ import pathlib
 from sqlalchemy import func, or_
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token
+from movie_wl.drive_utils import upload_to_drive
+from google.oauth2 import service_account
 
 
 from flask_mail import Message
 from flask_socketio import send, emit, SocketIO, join_room, leave_room
 
 
-GOOGLE_CLIENT_ID = "462416296701-f57a04flfhr3e7iv93gsvl1e971os8jo.apps.googleusercontent.com"
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
-flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file, scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"], redirect_uri="https://localhost:5000/callback" )                                    
-                                     
                                     
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
 
@@ -774,16 +772,16 @@ def post_likes(post_id):
 
 
 
-@pages.route("/google-login")
-def google_login():
+#@pages.route("/google-login")
+#def google_login():
     authorization_url, state = flow.authorization_url()
     session["state"] = state
     return redirect(authorization_url)
 
 
 
-@pages.route("/callback")
-def callback():
+#@pages.route("/callback")
+#def callback():
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     try:
         # Fetch token using the authorization response from the callback URL
@@ -830,16 +828,14 @@ def callback():
 
 
 
-
 @pages.route('/store')
 def store():
     # Query the database to retrieve the list of uploaded music files
     music_files = UploadMusic.query.all()
+    print(music_files)  # Debugging line
     return render_template('store.html', music_files=music_files)
 
-
 @pages.route('/upload', methods=['POST'])
-@login_required  # Make sure only logged-in users can upload files
 def upload_file():
     if 'file' not in request.files:
         flash('No file part')
@@ -853,18 +849,27 @@ def upload_file():
 
     if file:
         filename = secure_filename(file.filename)
-        # Save the file to the UPLOAD_FOLDER directory
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-        flash('File uploaded successfully')
 
-        # Save information about the uploaded file to the database
-        new_upload = UploadMusic(filename=filename, uploader_username=current_user.username, file_path=file_path)
-        db.session.add(new_upload)
-        db.session.commit()
+        try:
+            # Upload the file to Google Drive and get the file ID
+            file_id = upload_to_drive(file_path)  # Ensure you're passing the correct file path
+            flash(f'File uploaded to Google Drive successfully. File ID: {file_id}')
 
-        return redirect(request.url)
-    
+            # Save information about the uploaded file to the database
+            new_upload = UploadMusic(
+                filename=filename,
+                drive_file_id=file_id  # Store the Google Drive file ID here
+            )
+            db.session.add(new_upload)
+            db.session.commit()
+
+        except Exception as e:
+            flash(f'An error occurred: {e}')
+            return redirect(request.url)
+
+        return redirect(url_for('pages.store'))
 
 @pages.route('/download/<filename>')
 def download_file(filename):
@@ -877,20 +882,25 @@ def download_file(filename):
     else:
         # If the file doesn't exist, return a 404 error
         return 'File not found', 404
-    
 
 @pages.route('/uploads/<filename>')
 def serve_file(filename):
-    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
-
-
+    music_folder = current_app.config['UPLOAD_FOLDER']
+    if os.path.exists(os.path.join(music_folder, filename)):
+        return send_from_directory(music_folder, filename)
+    else:
+        abort(404)  # Raise a 404 error if the file doesn't exist
 
 
 @pages.route('/delete/<int:id>', methods=['POST'])
 @login_required
 def delete_file(id):
-    music_file = UploadMusic.query.get_or_404(id)
-    db.session.delete(music_file)
-    db.session.commit()
-    flash('File deleted successfully', 'success')
+    try:
+        music_file = UploadMusic.query.get_or_404(id)
+        db.session.delete(music_file)
+        db.session.commit()
+        flash('File deleted successfully', 'success')
+    except Exception as e:
+        flash(f'An error occurred while deleting the file: {e}', 'error')
+
     return redirect(url_for('pages.store'))
