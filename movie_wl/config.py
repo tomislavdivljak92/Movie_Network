@@ -14,10 +14,7 @@ class Config:
     MAIL_USERNAME = os.environ['EMAIL_USER_MN']
     MAIL_PASSWORD = os.environ['MAIL_APP_PASSWORD_MN']
 
-    CLIENT_ID = os.environ.get("CLIENT_ID")
-    CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-    PROJECT_ID = os.environ.get("PROJECT_ID")
-    REDIRECT_URI = os.environ.get("REDIRECT_URI")
+    
     GOOGLE_CREDENTIALS_PATH = os.environ.get("GOOGLE_CREDENTIALS_PATH")
 
 
