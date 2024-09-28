@@ -16,7 +16,7 @@ import pathlib
 from sqlalchemy import func, or_
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token
-from movie_wl.drive_utils import upload_to_drive
+from movie_wl.drive_utils import upload_to_drive, get_drive_service
 from google.oauth2 import service_account
 
 
@@ -848,19 +848,15 @@ def upload_file():
         return redirect(request.url)
 
     if file:
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
-
         try:
             # Upload the file to Google Drive and get the file ID
-            file_id = upload_to_drive(file_path)  # Ensure you're passing the correct file path
+            file_id = upload_to_drive(file)  # Pass the file object directly
             flash(f'File uploaded to Google Drive successfully. File ID: {file_id}')
 
             # Save information about the uploaded file to the database
             new_upload = UploadMusic(
-                filename=filename,
-                drive_file_id=file_id  # Store the Google Drive file ID here
+                filename=file.filename,
+                drive_file_id=file_id  # Store the Google Drive file ID
             )
             db.session.add(new_upload)
             db.session.commit()
@@ -871,32 +867,41 @@ def upload_file():
 
         return redirect(url_for('pages.store'))
 
-@pages.route('/download/<filename>')
-def download_file(filename):
-    # Ensure the requested file exists in the UploadMusic folder
-    music_folder = current_app.config['UPLOAD_FOLDER']
-    print(music_folder)
-    if os.path.exists(os.path.join(music_folder, filename)):
-        # Send the file to the user for download
-        return send_from_directory(music_folder, filename, as_attachment=True)
-    else:
-        # If the file doesn't exist, return a 404 error
-        return 'File not found', 404
+@pages.route('/download/<int:id>')
+@login_required
+def download_file(id):
+    music_file = UploadMusic.query.get_or_404(id)
+    drive_file_id = music_file.drive_file_id
 
-@pages.route('/uploads/<filename>')
-def serve_file(filename):
-    music_folder = current_app.config['UPLOAD_FOLDER']
-    if os.path.exists(os.path.join(music_folder, filename)):
-        return send_from_directory(music_folder, filename)
-    else:
-        abort(404)  # Raise a 404 error if the file doesn't exist
+    # Generate a shareable link
+    shareable_link = f'https://drive.google.com/uc?id={drive_file_id}'
 
+    # Redirect to the Google Drive link or use it to embed the file
+    return redirect(shareable_link)
+
+@pages.route('/uploads/<int:id>')
+def serve_file(id):
+    # Get the music file entry from the database
+    music_file = UploadMusic.query.get_or_404(id)
+    drive_file_id = music_file.drive_file_id
+
+    # Generate a shareable link to the Google Drive file
+    shareable_link = f'https://drive.google.com/uc?id={drive_file_id}'
+
+    # Redirect to the Google Drive link
+    return redirect(shareable_link)
 
 @pages.route('/delete/<int:id>', methods=['POST'])
 @login_required
 def delete_file(id):
     try:
         music_file = UploadMusic.query.get_or_404(id)
+        
+        # Delete the file from Google Drive
+        drive_service = get_drive_service()
+        drive_service.files().delete(fileId=music_file.drive_file_id).execute()
+
+        # Now delete the record from the database
         db.session.delete(music_file)
         db.session.commit()
         flash('File deleted successfully', 'success')

@@ -18,4 +18,8 @@ class Config:
     GOOGLE_CREDENTIALS_PATH = os.environ.get("GOOGLE_CREDENTIALS_PATH")
 
 
-    UPLOAD_FOLDER = 'C:/Users/Mir/UploadMusic'
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+
+    # Ensure the upload directory exists
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
