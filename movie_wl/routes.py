@@ -847,6 +847,13 @@ def upload_file():
         flash('No selected file')
         return redirect(request.url)
 
+    # Retrieve the music title from the form
+    music_title = request.form.get('title')  # Assuming the title field is named 'title'
+
+    if not music_title:
+        flash('Music title is required')
+        return redirect(request.url)
+
     if file:
         try:
             # Upload the file to Google Drive and get the file ID
@@ -855,7 +862,9 @@ def upload_file():
 
             # Save information about the uploaded file to the database
             new_upload = UploadMusic(
+                music_title=music_title,  # Store the music title
                 filename=file.filename,
+                uploader_username=session.get('username'),  # Ensure you get the uploader's username from the session or elsewhere
                 drive_file_id=file_id  # Store the Google Drive file ID
             )
             db.session.add(new_upload)

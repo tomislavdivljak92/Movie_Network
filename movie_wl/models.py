@@ -149,6 +149,7 @@ class Messages(db.Model):
 
 class UploadMusic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    music_title = db.Column(db.String(256), nullable=False)
     filename = db.Column(db.String(256), nullable=False)
     uploader_username = db.Column(db.String(64), nullable=False)
     # Change file_path to drive_file_id to clarify its purpose

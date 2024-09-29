@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="form__container">  <!-- Moved this div to wrap the entire form -->
-        <h2>Upload Music</h2>
+    <div class="form__container">  <!-- Wrapper for form elements -->
+        <div class="login-header-login">Upload Music</div>  <!-- Added login header -->
         <form name="upload_music" action="{{ url_for('pages.upload_file') }}" method="post" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
 
