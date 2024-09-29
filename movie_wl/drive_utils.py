@@ -36,8 +36,24 @@ def upload_to_drive(file):
 
         # Upload the file to Google Drive
         uploaded_file = drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+        
+        # Get the uploaded file ID
+        file_id = uploaded_file.get('id')
 
-        return uploaded_file.get('id')  # Return the Google Drive file ID
+        # Set permissions to allow anyone with the link to view
+        permission = {
+            'type': 'anyone',  # Allow anyone to access
+            'role': 'reader'   # Set role to reader
+        }
+
+        # Apply the permission to the uploaded file
+        drive_service.permissions().create(
+            fileId=file_id,
+            body=permission,
+            fields='id'
+        ).execute()
+
+        return file_id  # Return the Google Drive file ID
 
     except Exception as e:
         print(f"An error occurred during file upload: {e}")

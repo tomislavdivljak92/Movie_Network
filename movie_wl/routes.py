@@ -895,24 +895,19 @@ def serve_file(id):
     # Redirect to the Google Drive link
     return redirect(shareable_link)
 
-@pages.route('/delete/<int:id>', methods=['POST'])
-@login_required
+@pages.route('/delete_file/<int:id>', methods=['POST'])
 def delete_file(id):
-    try:
-        music_file = UploadMusic.query.get_or_404(id)
-        
-        # Delete the file from Google Drive
+    music_file = UploadMusic.query.get_or_404(id)  # Retrieve the music file or return 404 if not found
+
+    # Check if the logged-in user is the uploader
+    if music_file and music_file.uploader_username == current_user.username:  # Compare with current_user.username
         drive_service = get_drive_service()
-        drive_service.files().delete(fileId=music_file.drive_file_id).execute()
+        drive_service.files().delete(fileId=music_file.drive_file_id).execute()  # Delete from Google Drive
+        db.session.delete(music_file)  # Delete from your database
+        db.session.commit()  # Commit changes to the database
+        flash('File deleted successfully!', 'success')  # Flash success message
+    else:
+        flash('You do not have permission to delete this file.', 'error')  # Flash error message
 
-        # Now delete the record from the database
-        db.session.delete(music_file)
-        db.session.commit()
-        flash('File deleted successfully', 'success')
-    except Exception as e:
-        flash(f'An error occurred while deleting the file: {e}', 'error')
-
-    return redirect(url_for('pages.store'))
-
-
+    return redirect(url_for('pages.store'))  # Redirect back to the store page
 
