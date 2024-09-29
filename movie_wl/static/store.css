@@ -83,6 +83,8 @@
 
 /* Styles for song list */
 .song-list {
+    
+    margin-top: 20px;
     margin-bottom: 20px;
     list-style-type: none; /* Remove default list style */
     padding: 0; /* Remove default padding */
@@ -126,7 +128,7 @@
 .song-title {
     display: block;
     margin-bottom: 10px;
-    color: var(--accent-colour); /* You can adjust the color as needed */
+    color: var(--text-dark); /* You can adjust the color as needed */
     font-size: 1.2em; /* You can adjust the font size as needed */
 }
 

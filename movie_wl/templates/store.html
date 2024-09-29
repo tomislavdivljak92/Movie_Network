@@ -20,14 +20,14 @@
                 {% if music_file.filename %}
                     <li class="song-item">
                         <div class="song-details">
-                            <span class="song-title">{{ music_file.filename }}</span>
+                            <span class="song-title">{{ music_file.music_title }}</span>
                             <audio controls class="audio-player">
                                 <source src="https://drive.google.com/uc?id={{ music_file.drive_file_id }}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                             <div class="action-buttons">
                                 <span class="username">{{ music_file.uploader_username }}</span>
-                                <a href="{{ url_for('pages.download_file', filename=music_file.filename) }}" download class="btn-link">Free Download mp3</a>
+                                <a href="{{ url_for('pages.download_file', id=music_file.id) }}" download class="btn-link">Free Download mp3</a>
                                 <form action="{{ url_for('pages.delete_file', id=music_file.id) }}" method="post">
                                     <button class="delete-btn" type="submit">Delete</button>
                                 </form>
