@@ -10,7 +10,7 @@
         <h2>MUSIC</h2>
 
         <!-- Upload Music Button (leads to the new upload page) -->
-        <a href="{{ url_for('pages.upload_file') }}" class="upload-btn">
+        <a href="{{ url_for('pages.upload_page') }}" class="upload-btn">
             Upload Music
         </a>
 
@@ -22,7 +22,7 @@
                         <div class="song-details">
                             <span class="song-title">{{ music_file.filename }}</span>
                             <audio controls class="audio-player">
-                                <source src="{{ url_for('pages.serve_file', filename=music_file.filename) }}" type="audio/mpeg">
+                                <source src="https://drive.google.com/uc?id={{ music_file.drive_file_id }}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                             <div class="action-buttons">

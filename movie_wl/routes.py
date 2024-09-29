@@ -835,46 +835,41 @@ def store():
     print(music_files)  # Debugging line
     return render_template('store.html', music_files=music_files)
 
-@pages.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
+@pages.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload_page():
+    form = UploadMusicForm()  # Create an instance of the form
 
-    file = request.files['file']
+    if form.validate_on_submit():
+        title = form.title.data
+        music_file = form.file.data  # Access the uploaded file
+        uploader_username = current_user.username
 
-    if file.filename == '':
-        flash('No selected file')
-        return redirect(request.url)
-
-    # Retrieve the music title from the form
-    music_title = request.form.get('title')  # Assuming the title field is named 'title'
-
-    if not music_title:
-        flash('Music title is required')
-        return redirect(request.url)
-
-    if file:
         try:
-            # Upload the file to Google Drive and get the file ID
-            file_id = upload_to_drive(file)  # Pass the file object directly
-            flash(f'File uploaded to Google Drive successfully. File ID: {file_id}')
-
-            # Save information about the uploaded file to the database
-            new_upload = UploadMusic(
-                music_title=music_title,  # Store the music title
-                filename=file.filename,
-                uploader_username=session.get('username'),  # Ensure you get the uploader's username from the session or elsewhere
-                drive_file_id=file_id  # Store the Google Drive file ID
+            # Logic to upload the file to Google Drive
+            drive_file_id = upload_to_drive(music_file)  # Your function to handle the upload
+            
+            # Create a new UploadMusic instance
+            new_music = UploadMusic(
+                music_title=title,  # Store the music title
+                filename=music_file.filename,
+                uploader_username=uploader_username,
+                drive_file_id=drive_file_id  # Store the Google Drive file ID
             )
-            db.session.add(new_upload)
+
+            # Add the new music entry to the database
+            db.session.add(new_music)
             db.session.commit()
 
-        except Exception as e:
-            flash(f'An error occurred: {e}')
-            return redirect(request.url)
+            flash('Music uploaded successfully!', 'success')
+            return redirect(url_for('pages.store'))  # Redirect to the store page after upload
 
-        return redirect(url_for('pages.upload'))
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            flash(f'An error occurred: {e}', 'error')
+            return redirect(request.url)  # Redirect back to the upload page if an error occurs
+
+    return render_template('upload.html', form=form)  # Render the upload form
 
 @pages.route('/download/<int:id>')
 @login_required
@@ -920,27 +915,4 @@ def delete_file(id):
     return redirect(url_for('pages.store'))
 
 
-@pages.route('/upload', methods=['GET', 'POST'])
-@login_required
-def upload_page():
-    form = UploadMusicForm()  # Create an instance of the form
 
-    if form.validate_on_submit():
-        title = form.title.data
-        music_file = form.file.data  # Correctly refer to 'file' instead of 'music_file'
-        uploader_username = current_user.username
-        
-        # Logic to upload the file to Google Drive
-        drive_file_id = upload_to_drive(music_file)  # Your function to handle the upload
-        
-        # Create a new UploadMusic instance
-        new_music = UploadMusic(filename=title, uploader_username=uploader_username, drive_file_id=drive_file_id)
-        
-        # Add the new music entry to the database
-        db.session.add(new_music)
-        db.session.commit()
-        
-        flash('Music uploaded successfully!', 'success')
-        return redirect(url_for('pages.store'))  # Redirect after upload
-
-    return render_template('upload.html', form=form)
