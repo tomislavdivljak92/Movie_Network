@@ -136,3 +136,9 @@ class ChangeEmailForm(FlaskForm):
     new_email = StringField('New Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class UploadMusicForm(FlaskForm):
+    title = StringField("Song Title", validators=[DataRequired()])
+    file = FileField("Choose Music File", validators=[DataRequired(), FileAllowed(['mp3', 'wav'], 'Music files only!')])
+    submit = SubmitField("Upload Music")

@@ -8,14 +8,13 @@
 <div class="content-container">
     <div class="music-container">
         <h2>MUSIC</h2>
-        <form class="upload-form" action="{{ url_for('pages.upload_file') }}" method="post" enctype="multipart/form-data">
-            <label class="upload-btn">
-                Choose File
-                <input type="file" name="file" style="display: none;">
-            </label>
-            <button class="upload-btn" type="submit">Upload</button>
-        </form>
-        
+
+        <!-- Upload Music Button (leads to the new upload page) -->
+        <a href="{{ url_for('pages.upload_file') }}" class="upload-btn">
+            Upload Music
+        </a>
+
+        <!-- Display list of songs -->
         <ul class="song-list">
             {% for music_file in music_files %}
                 {% if music_file.filename %}

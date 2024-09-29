@@ -8,7 +8,7 @@ from flask_wtf.csrf import generate_csrf
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
 from movie_wl.models import Post, User, PostMain, Messages, Like, UploadMusic
-from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, ChangeEmailForm,ChangePasswordForm
+from movie_wl.forms import MovieForm, RegistrationForm, LoginForm, EditDetails, PostForm, EditProfileForm, EditPost, ResetPasswordForm, RequestResetForm, ChangeEmailForm,ChangePasswordForm, UploadMusicForm
 import secrets
 from PIL import Image
 import os
@@ -865,7 +865,7 @@ def upload_file():
             flash(f'An error occurred: {e}')
             return redirect(request.url)
 
-        return redirect(url_for('pages.store'))
+        return redirect(url_for('pages.upload'))
 
 @pages.route('/download/<int:id>')
 @login_required
@@ -909,3 +909,29 @@ def delete_file(id):
         flash(f'An error occurred while deleting the file: {e}', 'error')
 
     return redirect(url_for('pages.store'))
+
+
+@pages.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload_page():
+    form = UploadMusicForm()  # Create an instance of the form
+
+    if form.validate_on_submit():
+        title = form.title.data
+        music_file = form.file.data  # Correctly refer to 'file' instead of 'music_file'
+        uploader_username = current_user.username
+        
+        # Logic to upload the file to Google Drive
+        drive_file_id = upload_to_drive(music_file)  # Your function to handle the upload
+        
+        # Create a new UploadMusic instance
+        new_music = UploadMusic(filename=title, uploader_username=uploader_username, drive_file_id=drive_file_id)
+        
+        # Add the new music entry to the database
+        db.session.add(new_music)
+        db.session.commit()
+        
+        flash('Music uploaded successfully!', 'success')
+        return redirect(url_for('pages.store'))  # Redirect after upload
+
+    return render_template('upload.html', form=form)

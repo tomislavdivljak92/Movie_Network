@@ -1,0 +1,27 @@
+{% from "macro/fields.html" import render_text_field, render_edit_field %}  <!-- Import macros -->
+
+{% extends "layout.html" %}
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+    <div class="form__container">  <!-- Moved this div to wrap the entire form -->
+        <h2>Upload Music</h2>
+        <form name="upload_music" action="{{ url_for('pages.upload_file') }}" method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <!-- Render the title field for the song -->
+            {{ render_text_field(form.title) }}
+
+            <!-- Render the file field for the music upload -->
+            {{ render_edit_field(form.file) }}
+
+            <!-- Submit Button -->
+            <div class="form__group">
+                {{ form.submit(class_="button button--form", value="Upload Music") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
