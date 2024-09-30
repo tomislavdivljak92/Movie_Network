@@ -772,61 +772,6 @@ def post_likes(post_id):
 
 
 
-#@pages.route("/google-login")
-#def google_login():
-    authorization_url, state = flow.authorization_url()
-    session["state"] = state
-    return redirect(authorization_url)
-
-
-
-#@pages.route("/callback")
-#def callback():
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-    try:
-        # Fetch token using the authorization response from the callback URL
-        flow.fetch_token(authorization_response=request.url)
-        
-        # Verify state
-        if session.get("state") != request.args.get("state"):
-            raise Exception("State mismatch")
-
-        # Get credentials and token request
-        credentials = flow.credentials
-        token_request = google_requests.Request()
-
-        # Verify ID token
-        id_info = id_token.verify_oauth2_token(
-            id_token=credentials.id_token,
-            request=token_request,
-            audience=GOOGLE_CLIENT_ID
-        )
-
-        # Get user email from ID token
-        email = id_info.get("email")
-
-        # Check if user with the email exists in the database
-        user = User.query.filter_by(email=email).first()
-        
-        # If user doesn't exist, create a new user
-        if not user:
-            user = User(email=email)
-            db.session.add(user)
-            db.session.commit()
-
-        # Log in the user
-        login_user(user)
-
-        # Redirect to the main page after successful login
-        return redirect(url_for(".main"))
-
-    except Exception as e:
-        # Handle errors gracefully
-        print(f"Error in callback: {e}")
-        abort(500)  # Return a 500 Internal Server Error status
-
-
-
 
 @pages.route('/store')
 def store():
