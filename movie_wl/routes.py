@@ -822,10 +822,10 @@ def download_file(id):
     music_file = UploadMusic.query.get_or_404(id)
     drive_file_id = music_file.drive_file_id
 
-    # Generate a shareable link
-    shareable_link = f'https://drive.google.com/uc?id={drive_file_id}'
+    # Generate a direct download link from Google Drive
+    shareable_link = f'https://drive.google.com/uc?export=download&id={drive_file_id}'
 
-    # Redirect to the Google Drive link or use it to embed the file
+    # Return a redirect to the download link
     return redirect(shareable_link)
 
 @pages.route('/uploads/<int:id>')
