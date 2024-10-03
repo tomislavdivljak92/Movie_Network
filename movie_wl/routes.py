@@ -817,15 +817,15 @@ def upload_page():
     return render_template('upload.html', form=form)  # Render the upload form
 
 @pages.route('/download/<int:id>')
-@login_required
+@login_required  # If you want to enforce login
 def download_file(id):
     music_file = UploadMusic.query.get_or_404(id)
     drive_file_id = music_file.drive_file_id
 
-    # Generate a direct download link from Google Drive
-    shareable_link = f'https://drive.google.com/uc?export=download&id={drive_file_id}'
+    # Create the direct download link from Google Drive
+    shareable_link = f'https://drive.google.com/uc?id={drive_file_id}&export=download'
 
-    # Return a redirect to the download link
+    # Redirect the user to the download link
     return redirect(shareable_link)
 
 @pages.route('/uploads/<int:id>')
