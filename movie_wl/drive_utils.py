@@ -1,4 +1,5 @@
 import os
+import json
 import tempfile
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
@@ -8,10 +9,19 @@ from werkzeug.utils import secure_filename
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
 
 def get_drive_service():
-    credentials = service_account.Credentials.from_service_account_file(
-        os.environ.get("GOOGLE_CREDENTIALS_SA"),
-        scopes=SCOPES
-    )
+    # Check if running in a production environment (Render)
+    if os.getenv("RENDER") is not None:  # You can use a specific environment variable set in Render
+        # Load credentials from the environment variable
+        service_account_info = json.loads(os.environ['GOOGLE_APPLICATION_CREDENTIALS_JSON'])
+        credentials = service_account.Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
+    else:
+        # Load credentials from the file path for local development
+        credentials = service_account.Credentials.from_service_account_file(
+            os.environ.get("GOOGLE_CREDENTIALS_SA"),
+            scopes=SCOPES
+        )
+    
+    # Create the Drive service
     drive_service = build('drive', 'v3', credentials=credentials)
     return drive_service
 
