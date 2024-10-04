@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app, jsonify, send_from_directory
+from flask import Blueprint, render_template, redirect, session, request, url_for, flash, abort, current_app, jsonify, send_file
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -18,7 +18,8 @@ from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token
 from movie_wl.drive_utils import upload_to_drive, get_drive_service
 from google.oauth2 import service_account
-
+import requests
+import io
 
 from flask_mail import Message
 from flask_socketio import send, emit, SocketIO, join_room, leave_room
@@ -856,3 +857,9 @@ def delete_file(id):
 
     return redirect(url_for('pages.store'))  # Redirect back to the store page
 
+@pages.route('/audio/<drive_file_id>')
+def audio(drive_file_id):
+    file_url = f"https://drive.google.com/uc?export=download&id={drive_file_id}"
+    response = requests.get(file_url)
+    # Save the file temporarily, or stream directly
+    return send_file(io.BytesIO(response.content), mimetype='audio/mpeg')

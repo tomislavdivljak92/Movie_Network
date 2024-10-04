@@ -22,7 +22,7 @@
                         <div class="song-details">
                             <span class="song-title">{{ music_file.music_title }}</span>
                             <audio controls class="audio-player">
-                                <source src="https://drive.google.com/uc?id={{ music_file.drive_file_id }}" type="audio/mpeg">
+                                <source src="{{ url_for('pages.audio', drive_file_id=music_file.drive_file_id) }}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                             <div class="action-buttons">
