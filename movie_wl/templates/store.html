@@ -2,6 +2,7 @@
 
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='members.css') }}" />
 {% endblock %}
 
 {% block main_content %}
@@ -26,7 +27,12 @@
                                 Your browser does not support the audio element.
                             </audio>
                             <div class="action-buttons">
-                                <span class="username">{{ music_file.uploader_username }}</span>
+                                <span class="username">
+                                    
+                                    <a href="{{ url_for('pages.user_profile', username=music_file.uploader_username) }}">
+                                        {{ music_file.uploader_username }}
+                                    </a>
+                                </span>
                                 <a href="{{ url_for('pages.download_file', id=music_file.id) }}" download class="btn-link">Free Download mp3</a>
                                 <form action="{{ url_for('pages.delete_file', id=music_file.id) }}" method="post">
                                     <button class="delete-btn" type="submit">Delete</button>

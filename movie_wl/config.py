@@ -15,7 +15,7 @@ class Config:
     MAIL_PASSWORD = os.environ['MAIL_APP_PASSWORD_MN']
 
     
-    GOOGLE_CREDENTIALS_PATH = os.environ.get("GOOGLE_CREDENTIALS_PATH")
+    
 
 
     UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')

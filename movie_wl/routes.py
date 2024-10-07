@@ -20,6 +20,7 @@ from movie_wl.drive_utils import upload_to_drive, get_drive_service
 from google.oauth2 import service_account
 import requests
 import io
+from movie_wl.google_login_utils import initiate_google_login, handle_google_callback
 
 from flask_mail import Message
 from flask_socketio import send, emit, SocketIO, join_room, leave_room
@@ -863,3 +864,30 @@ def audio(drive_file_id):
     response = requests.get(file_url)
     # Save the file temporarily, or stream directly
     return send_file(io.BytesIO(response.content), mimetype='audio/mpeg')
+
+
+
+@pages.route("/login/google")
+def google_login():
+    """Initiates the Google login process."""
+    return initiate_google_login()  # Call the utility function to start Google login
+
+@pages.route("/google/callback")
+def google_callback():
+    """Handles the Google callback after user authentication."""
+    user_info = handle_google_callback()  # Call the utility function to process user info
+
+    if user_info:
+        # Check if user already exists in the database
+        user = User.query.filter_by(email=user_info['email']).first()
+        if not user:
+            # Create a new user if they don't exist
+            user = User(username=user_info['name'], email=user_info['email'])
+            db.session.add(user)
+            db.session.commit()
+
+        # Log the user in
+        login_user(user)  # Use Flask-Login to log the user in
+        return redirect(url_for('.main'))  # Redirect to the main page after login
+
+    return redirect(url_for('.login'))  # Redirect to login if user info is not available
