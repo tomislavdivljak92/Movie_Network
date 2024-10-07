@@ -34,9 +34,11 @@
                                     </a>
                                 </span>
                                 <a href="{{ url_for('pages.download_file', id=music_file.id) }}" download class="btn-link">Free Download mp3</a>
+                                {% if music_file.uploader_username == current_user.username %}  
                                 <form action="{{ url_for('pages.delete_file', id=music_file.id) }}" method="post">
                                     <button class="delete-btn" type="submit">Delete</button>
                                 </form>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
