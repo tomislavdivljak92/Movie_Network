@@ -7,23 +7,39 @@ from movie_wl import db
 from movie_wl.models import User
 from google_auth_oauthlib.flow import Flow
 
-# Function to determine the credentials file based on the environment
+# Function to determine the credentials based on the environment
 def get_google_oauth_credentials():
     if os.getenv('RENDER'):  # Render.com (Production)
+        # Load credentials from the environment variable as a dictionary
         return json.loads(os.environ['GOOGLE_CREDENTIAL_OAUTH_PROD'])
     else:  # Local development
         credentials_path = os.getenv('GOOGLE_CREDENTIAL_OAUTH_LOCAL')
-    return credentials_path
+        return credentials_path  # Return path for local
 
 # Setup Google OAuth Flow
 def get_google_auth_flow():
-    credentials_path = get_google_oauth_credentials()
+    credentials = get_google_oauth_credentials()
 
-    flow = Flow.from_client_secrets_file(
-        credentials_path,
-        scopes=['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid'],
-        redirect_uri=url_for('pages.google_callback', _external=True)
-    )
+    # Check if credentials are a dict (for production) or a file path (for local)
+    if isinstance(credentials, dict):
+        # Use from_client_config if credentials are passed as a dict
+        flow = Flow.from_client_config(
+            credentials,
+            scopes=['https://www.googleapis.com/auth/userinfo.email',
+                    'https://www.googleapis.com/auth/userinfo.profile',
+                    'openid'],
+            redirect_uri=url_for('pages.google_callback', _external=True)
+        )
+    else:
+        # Use from_client_secrets_file if credentials are loaded from a file
+        flow = Flow.from_client_secrets_file(
+            credentials,
+            scopes=['https://www.googleapis.com/auth/userinfo.email',
+                    'https://www.googleapis.com/auth/userinfo.profile',
+                    'openid'],
+            redirect_uri=url_for('pages.google_callback', _external=True)
+        )
+
     return flow
 
 # Initiates the Google login process
