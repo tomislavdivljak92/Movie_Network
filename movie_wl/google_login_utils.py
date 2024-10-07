@@ -1,4 +1,5 @@
 import os
+import json
 from flask import session, redirect, url_for, request
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
@@ -9,7 +10,7 @@ from google_auth_oauthlib.flow import Flow
 # Function to determine the credentials file based on the environment
 def get_google_oauth_credentials():
     if os.getenv('RENDER'):  # Render.com (Production)
-        credentials_path = os.getenv('GOOGLE_CREDENTIAL_OAUTH_PROD')
+        return json.loads(os.environ['GOOGLE_CREDENTIAL_OAUTH_PROD'])
     else:  # Local development
         credentials_path = os.getenv('GOOGLE_CREDENTIAL_OAUTH_LOCAL')
     return credentials_path
