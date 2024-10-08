@@ -7,9 +7,10 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="form__container">  <!-- Wrapper for form elements -->
-        <div class="login-header-login">Upload Instrumental</div>  <!-- Added login header -->
-        <form name="upload_music" action="{{ url_for('pages.upload_page') }}" method="post" enctype="multipart/form-data">
+    
+        <form name="upload_music" action="{{ url_for('pages.upload_page') }}" novalidate class="form" method="post" enctype="multipart/form-data">
+        <div class="form__container">  <!-- Wrapper for form elements -->
+            <div class="login-header-login">Upload Music</div>  <!-- Added login header -->
             {{ form.hidden_tag() }}
 
             <!-- Render the title field for the song -->
@@ -19,9 +20,11 @@
             {{ render_edit_field(form.file) }}
 
             <!-- Submit Button -->
-            <div class="form__group">
+            <div>
                 {{ form.submit(class_="button button--form", value="Upload Music") }}
             </div>
+        </div>
         </form>
-    </div>
+    
+    
 {% endblock %}
