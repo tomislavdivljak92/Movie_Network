@@ -7,6 +7,9 @@ from movie_wl import db
 from movie_wl.models import User
 from google_auth_oauthlib.flow import Flow
 
+
+
+
 # Function to determine the credentials based on the environment
 def get_google_oauth_credentials():
     if os.getenv('RENDER'):  # Render.com (Production)
@@ -28,7 +31,8 @@ def get_google_auth_flow():
             scopes=['https://www.googleapis.com/auth/userinfo.email',
                     'https://www.googleapis.com/auth/userinfo.profile',
                     'openid'],
-            redirect_uri=url_for('pages.google_callback', _external=True)
+            # Force HTTPS for the redirect URI
+            redirect_uri=url_for('pages.google_callback', _external=True, _scheme='https')
         )
     else:
         # Use from_client_secrets_file if credentials are loaded from a file
@@ -37,7 +41,7 @@ def get_google_auth_flow():
             scopes=['https://www.googleapis.com/auth/userinfo.email',
                     'https://www.googleapis.com/auth/userinfo.profile',
                     'openid'],
-            redirect_uri=url_for('pages.google_callback', _external=True)
+            redirect_uri=url_for('pages.google_callback', _external=True, _scheme='https')
         )
 
     return flow
@@ -53,8 +57,10 @@ def initiate_google_login():
 def handle_google_callback():
     flow = get_google_auth_flow()
 
+    # Fetch the token from the Google response
     flow.fetch_token(authorization_response=request.url)
 
+    # CSRF protection: Check if the state matches
     if not session['state'] == request.args['state']:
         return redirect(url_for('pages.login'))  # CSRF protection fail
 
@@ -65,7 +71,7 @@ def handle_google_callback():
     user_info = id_token.verify_oauth2_token(credentials.id_token, request_session)
 
     if user_info:
-        # Check if user already exists in the database
+        # Check if the user already exists in the database
         user = User.query.filter_by(email=user_info['email']).first()
         if not user:
             # Create a new user if they don't exist
