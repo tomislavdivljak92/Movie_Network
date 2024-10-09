@@ -5,6 +5,7 @@ MovieSphere Network is a Flask-based web application designed for movie enthusia
 ## Features
 
 - **User Authentication**: Secure user registration and login with Flask-Login and bcrypt for password hashing.
+- **User Authentication using Google Sign-In**: Users can sign in using their Google account via OAuth 2.0 integration using Google Cloud Platform (GCP). If a user is not registered, they are automatically added to the database as a new user upon signing in with Google.
 - **Real-time Chat**: Implemented using Flask-SocketIO, allowing users to communicate instantly in various chat rooms (NEWS, MOVIES, GAMES, MUSIC).
 - **Music Upload & Download**: Users can upload music files, which are securely stored in Google Drive using the Google Drive API (GCP service account). Files are available for download from the music store.
 - **Movie Posts**: Users can create, edit, and delete movie posts, like and comment on them.
