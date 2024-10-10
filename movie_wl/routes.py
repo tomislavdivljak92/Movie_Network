@@ -779,32 +779,32 @@ def post_likes(post_id):
 def store():
     # Query the database to retrieve the list of uploaded music files
     music_files = UploadMusic.query.all()
-    print(music_files)  # Debugging line
+#    print(music_files)  # Debugging line
     return render_template('store.html', music_files=music_files)
 
 @pages.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_page():
-    form = UploadMusicForm()  # Create an instance of the form
+    form = UploadMusicForm()  
 
     if form.validate_on_submit():
         title = form.title.data
-        music_file = form.file.data  # Access the uploaded file
+        music_file = form.file.data  
         uploader_username = current_user.username
 
         try:
-            # Logic to upload the file to Google Drive
-            drive_file_id = upload_to_drive(music_file)  # Your function to handle the upload
+            
+            drive_file_id = upload_to_drive(music_file)  
             
             # Create a new UploadMusic instance
             new_music = UploadMusic(
-                music_title=title,  # Store the music title
+                music_title=title,  
                 filename=music_file.filename,
                 uploader_username=uploader_username,
-                drive_file_id=drive_file_id  # Store the Google Drive file ID
+                drive_file_id=drive_file_id 
             )
 
-            # Add the new music entry to the database
+            
             db.session.add(new_music)
             db.session.commit()
 
@@ -816,10 +816,10 @@ def upload_page():
             flash(f'An error occurred: {e}', 'error')
             return redirect(request.url)  # Redirect back to the upload page if an error occurs
 
-    return render_template('upload.html', form=form)  # Render the upload form
+    return render_template('upload.html', form=form)  
 
 @pages.route('/download/<int:id>')
-@login_required  # If you want to enforce login
+@login_required 
 def download_file(id):
     music_file = UploadMusic.query.get_or_404(id)
     drive_file_id = music_file.drive_file_id
@@ -832,7 +832,7 @@ def download_file(id):
 
 @pages.route('/uploads/<int:id>')
 def serve_file(id):
-    # Get the music file entry from the database
+    
     music_file = UploadMusic.query.get_or_404(id)
     drive_file_id = music_file.drive_file_id
 
@@ -847,16 +847,16 @@ def delete_file(id):
     music_file = UploadMusic.query.get_or_404(id)  # Retrieve the music file or return 404 if not found
 
     # Check if the logged-in user is the uploader
-    if music_file and music_file.uploader_username == current_user.username:  # Compare with current_user.username
+    if music_file and music_file.uploader_username == current_user.username:  
         drive_service = get_drive_service()
         drive_service.files().delete(fileId=music_file.drive_file_id).execute()  # Delete from Google Drive
-        db.session.delete(music_file)  # Delete from your database
-        db.session.commit()  # Commit changes to the database
-        flash('File deleted successfully!', 'success')  # Flash success message
+        db.session.delete(music_file)  
+        db.session.commit()  
+        flash('File deleted successfully!', 'success')  
     else:
-        flash('You do not have permission to delete this file.', 'error')  # Flash error message
+        flash('You do not have permission to delete this file.', 'error')  
 
-    return redirect(url_for('pages.store'))  # Redirect back to the store page
+    return redirect(url_for('pages.store'))  
 
 @pages.route('/audio/<drive_file_id>')
 def audio(drive_file_id):

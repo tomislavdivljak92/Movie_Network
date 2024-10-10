@@ -31,8 +31,6 @@ MovieSphere Network is a Flask-based web application designed for movie enthusia
 
 ## Application Structure
 
-The application is structured into several modules:
-
 - **Authentication & User Management**:
   - `flask_login`: Handles user authentication and session management.
   - `bcrypt`: Provides password hashing for secure storage.
@@ -70,6 +68,7 @@ The application uses environment variables for sensitive configurations. These i
 - `EMAIL_USER_MN`: Email username for sending notifications.
 - `MAIL_APP_PASSWORD_MN`: App password for sending emails.
 - `GOOGLE_CREDENTIALS_PATH`: Path to the Google Drive API service account credentials.
+- `GOOGLE_CREDENTIAL_OAUTH_PROD`: Path to the Client ID secrets (json file).
 
 ## Deployment
 
