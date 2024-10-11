@@ -612,3 +612,15 @@ body {
     height: auto;
     color: var(--accent-colour);
 }
+
+.no-rating-message {
+    color: var(--accent-colour);            /* Set the text color to red */
+    font-weight: bold;     /* Make the text bold */
+    font-size: 1.2em;      /* Increase font size for better visibility */
+    margin-top: 20px;      /* Add space above the message */
+    text-align: center;    /* Center the message horizontally */
+    font-family: inherit; /* Optional: Set a clean, readable font */
+    padding: 10px;         /* Add padding for some space around the text */
+    background-color: var(--background-color); /* Optional: Light red background for emphasis */
+    border-radius: 5px;    /* Optional: Rounded corners for a softer look */
+}

@@ -60,7 +60,7 @@ def main():
         for post in posts.items:
             post_likes[post.id] = Like.query.filter_by(post_id=post.id).count()
 
-        members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
+        members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).limit(10).all()
         csrf_token = generate_csrf()  # Generate CSRF token
         return render_template("main.html", title="MS Network", form=form, posts=posts, members=members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes, sort_option=sort_option)
     
