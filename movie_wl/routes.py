@@ -3,7 +3,7 @@ from flask_login import login_required, current_user, LoginManager, login_user, 
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from movie_wl.config import Config
-from google_auth_oauthlib.flow import Flow
+from imdb import IMDb
 from flask_wtf.csrf import generate_csrf
 from time import localtime, strftime
 from movie_wl import db, bcrypt, mail, socketio, ROOMS
@@ -60,9 +60,14 @@ def main():
         for post in posts.items:
             post_likes[post.id] = Like.query.filter_by(post_id=post.id).count()
 
+        # Fetch top and bottom 10 movies using IMDbPY
+        imdb_top_10 = get_top_10_movies()
+        imdb_bottom_10 = get_bottom_10_movies()
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).limit(10).all()
         csrf_token = generate_csrf()  # Generate CSRF token
-        return render_template("main.html", title="MS Network", form=form, posts=posts, members=members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes, sort_option=sort_option)
+        return render_template("main.html", title="MS Network", form=form, posts=posts, members=members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes, sort_option=sort_option,
+            imdb_top_10=imdb_top_10,
+            imdb_bottom_10=imdb_bottom_10)
     
     # If user is not authenticated, redirect to login
     return redirect(url_for(".login"))
@@ -891,3 +896,21 @@ def google_callback():
         return redirect(url_for('.main'))  # Redirect to the main page after login
 
     return redirect(url_for('.login'))  # Redirect to login if user info is not available
+
+
+
+# Function to retrieve top 10 movies
+def get_top_10_movies():
+    ia = IMDb()
+    
+    top_movies = ia.get_top250_movies()
+   
+    return top_movies[:10]
+
+# Function to retrieve bottom 10 movies
+def get_bottom_10_movies():
+    ia = IMDb()
+    
+    bottom_movies = ia.get_bottom100_movies()
+    
+    return bottom_movies[:10]
