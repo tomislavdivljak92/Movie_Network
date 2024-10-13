@@ -134,19 +134,41 @@
         {% endfor %}
     </ul>
 </div>
-<!-- Container for top movies 
+<!-- Container for top movies  -->
 <div class="movie-container">
-    <h2>TOP MOVIES</h2>
+    <a href="https://www.imdb.com/list/ls003992425/" target="_blank" class="top-movies-link">
+        <h2>TOP IMDB MOVIES</h2>
+    </a>
     <ul class="movie-list">
         {% if imdb_top_10 %}
             {% for movie in imdb_top_10 %}
                 <li class="movie-list-item">
-                    {{ movie.title }} 
+                    {{ movie.title }} ({{ movie.year }})
                 </li>
             {% endfor %}
-       {% endif %}
+        {% else %}
+            <li>No top movies available at the moment.</li>
+        {% endif %}
     </ul>
-</div>-->
+</div>
+
+<!-- Container for bottom movies -->
+<div class="movie-container-2">
+    <a href="https://www.imdb.com/chart/bottom" target="_blank" class="bottom-movies-link">
+        <h2>LOWEST RATED IMDB</h2>
+    </a>
+    <ul class="movie-list">
+        {% if imdb_bottom_10 %}
+            {% for movie in imdb_bottom_10 %}
+                <li class="movie-list-item">
+                    {{ movie.title }} ({{ movie.year }})
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No bottom movies available at the moment.</li>
+        {% endif %}
+    </ul>
+</div>
 
 
 <div class="left-container">

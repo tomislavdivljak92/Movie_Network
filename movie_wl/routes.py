@@ -61,8 +61,8 @@ def main():
             post_likes[post.id] = Like.query.filter_by(post_id=post.id).count()
 
         # Fetch top and bottom 10 movies using IMDbPY
-        imdb_top_10 = get_top_10_movies(10)
-        imdb_bottom_10 = get_bottom_10_movies(10)
+        imdb_top_10 = get_top_10_movies()
+        imdb_bottom_10 = get_bottom_10_movies()
         members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).limit(10).all()
         csrf_token = generate_csrf()  # Generate CSRF token
         return render_template("main.html", title="MS Network", form=form, posts=posts, members=members, top_movies=top_movies, csrf_token=csrf_token, post_likes=post_likes, sort_option=sort_option,

@@ -139,7 +139,7 @@
     width: 12rem; /* Adjust width as needed */
     height: auto; /* Allow the height to adjust based on content */
     overflow-y: auto; /* Add vertical scrollbar if needed */
-    padding: 10px 2rem; /* Add padding for better appearance */
+    padding: 10px 1rem; /* Add padding for better appearance */
     background-color: var(--background-color); /* Add background color */
     border-radius: 5px; /* Add border radius for rounded corners */
     position: absolute; /* Position the container absolutely */
@@ -200,7 +200,7 @@
     position: absolute;
     left: 0;
     bottom: -5px;
-    width: 71%;
+    width: 59%;
     height: 2px;
     background-color: var(--accent-colour);
     box-shadow: 0 0 10px var(--accent-colour);
@@ -240,9 +240,9 @@
 .left-container {
     width: 14rem;
     text-decoration: none !important; /* Adjust width as needed */
-    height: auto; /* Allow height to adjust based on content */
+    height: 420px; /* Allow height to adjust based on content */
     overflow-y: auto; /* Add vertical scrollbar if needed */
-    padding: 10px 2rem; /* Add padding for better appearance */
+    padding: 10px 1rem; /* Add padding for better appearance */
     background-color: var(--background-color); /* Add background color */
     border-radius: 5px; /* Add border radius for rounded corners */
     position: absolute; /* Position the container absolutely */
@@ -281,7 +281,7 @@
     position: absolute;
     left: 0;
     bottom: -5px;
-    width: 55%;
+    width: 47%;
     height: 2px;
     background-color: var(--accent-colour);
     box-shadow: 0 0 10px var(--accent-colour);
@@ -644,4 +644,120 @@
         width: 12rem; /* Reset width for larger screens */
         left: 35px; /* Adjust left position */
     }
+}
+
+
+
+.movie-container {
+    width: 12rem; /* Adjust width as needed */
+    height: auto; /* Allow the height to adjust based on content */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
+    padding: 10px 1rem; /* Add padding for better appearance */
+    background-color: var(--background-color); /* Add background color */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    position: absolute; /* Position the container absolutely */
+    top: 630px; /* Adjust top position */
+    left:35px;
+    
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Add shadow */
+}
+
+.movie-container a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove underline */
+    /* Add other styles as needed */
+}
+
+
+.movie-container h2 {
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 18px; /* Specify the font size */
+    font-weight: bold; /* Specify the font weight */
+    margin-bottom: 20px;
+    margin-left: 0;
+     /* Add space below the heading */
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+
+    position: relative;
+
+}
+
+.movie-container h2:hover {
+    color: var(--accent-colour); /* Change color on hover */
+}
+
+.movie-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 49%;
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    transition: width 0.5s ease; /* Smooth transition for width */
+}
+
+
+.movie-container h2:hover::after {
+    width: 98%; /* Expand the width to the right side */
+}
+
+
+
+.movie-container-2 {
+    width: 14rem;
+    text-decoration: none !important; /* Adjust width as needed */
+    height: auto; /* Allow height to adjust based on content */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
+    padding: 10px 1rem; /* Add padding for better appearance */
+    background-color: var(--background-color); /* Add background color */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    position: absolute; /* Position the container absolutely */
+    top: 630px; /* Adjust top position */
+    right: 35px; /* Position to the right side */
+    box-shadow: 0 0 10px var(--shadow-color-image); /* Add shadow */
+}
+
+.movie-container-2 a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove underline */
+    /* Add other styles as needed */
+}
+
+
+.movie-container-2 h2 {
+    font-family: "Public Sans", sans-serif; /* Specify the font family */
+    font-size: 18px; /* Specify the font size */
+    font-weight: bold; /* Specify the font weight */
+    margin-bottom: 20px;
+    margin-left: 0;
+     /* Add space below the heading */
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+
+    position: relative;
+
+}
+
+.movie-container-2 h2:hover {
+    color: var(--accent-colour); /* Change color on hover */
+}
+
+.movie-container-2 h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 65%;
+    height: 2px;
+    background-color: var(--accent-colour);
+    box-shadow: 0 0 10px var(--accent-colour);
+    transition: width 0.5s ease; /* Smooth transition for width */
+}
+
+
+.movie-container-2 h2:hover::after {
+    width: 98%; /* Expand the width to the right side */
 }
