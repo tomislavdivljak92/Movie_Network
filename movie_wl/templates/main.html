@@ -134,6 +134,20 @@
         {% endfor %}
     </ul>
 </div>
+<!-- Container for top movies 
+<div class="movie-container">
+    <h2>TOP MOVIES</h2>
+    <ul class="movie-list">
+        {% if imdb_top_10 %}
+            {% for movie in imdb_top_10 %}
+                <li class="movie-list-item">
+                    {{ movie.title }} 
+                </li>
+            {% endfor %}
+       {% endif %}
+    </ul>
+</div>-->
+
 
 <div class="left-container">
     <a href="{{ url_for('pages.top_rated_movies') }}">
