@@ -65,7 +65,6 @@ pyRFC3339==1.1
 python-engineio==4.9.0
 python-socketio==5.11.1
 pytz==2024.1
-pywin32==306
 requests==2.31.0
 requests-oauthlib==1.4.0
 rsa==4.9
