@@ -14,6 +14,7 @@ MovieSphere Network is a Flask-based web application designed for movie enthusia
 - **Personal Movie Watchlist**: Users can create their own movie watchlists where they can add details such as a YouTube trailer link, movie description, and other relevant information. Additionally, users can add movies from other users' watchlists to their own.
 - **Email Notifications**: Email notifications for password resets and other user-related events using Flask-Mail.
 - **Secure File Uploads**: User-uploaded files are stored securely using Google Drive integration with service accounts.
+- **IMDB Data Integration**: User can access IMDb data which is displayed on main page using the Cinemagoer (imdbPY) package (TOP 10 and BOTTOM movies)
 
 ## Tech Stack
 
