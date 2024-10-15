@@ -1,6 +1,6 @@
 from imdb import Cinemagoer
 
-# Create an instance of the Cinemagoer class
+
 ia = Cinemagoer()
 
 def get_top_10_movies():

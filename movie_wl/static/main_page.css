@@ -172,7 +172,7 @@
 
 .member-list-item:hover {
     color: var(--accent-colour);
-    transition: 0.3s ease; /* Add space between each member */
+    transition: 0.3s ease; 
 }
 
 
@@ -316,6 +316,11 @@
     color: inherit; /* Inherit text color */
     display: flex; /* Align image and movie details horizontally */
     align-items: center;
+}
+
+.movie-list-item:hover {
+    color: var(--accent-colour);
+    transition: 0.3s ease; 
 }
 
 .movie-info {
