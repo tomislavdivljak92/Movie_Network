@@ -53,7 +53,7 @@
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    padding: 6px 10px;
+    padding: 6px 15px;
     transition: box-shadow 0.3s ease;
 }
 
@@ -84,12 +84,19 @@
 /* Styles for song list */
 .song-list {
     
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 20px;
     list-style-type: none; /* Remove default list style */
     padding: 0; /* Remove default padding */
 }
 
+.download-note {
+    text-align: center; /* Center the text */
+    color: inherit; /* Inherit the color from the parent element */
+    font-size: 0.875rem; /* Adjust the size as needed */
+    margin-top: -10px; /* Adjust spacing if needed */
+    margin-bottom: 15px; /* Adjust spacing if needed */
+}
 
 
 /* Styles for song details */
