@@ -46,16 +46,19 @@
     
     
     {% if movie_data.video_link %}
-        <iframe
-            class="movie__video"
-            src="{{ movie_data.video_link }}"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-ritek; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-
-    {% endif %}
+    <iframe
+        class="movie__video"
+        src="{{ movie_data.video_link }}"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+{% else %}
+    <p class="no-video-message">
+        No video link provided. Please add a YouTube "src" video link to display the trailer.
+    </p>
+{% endif %}
 
     {% if movie_data.description %}
         <p class="movie__description">{{ movie_data.description }}</p>
