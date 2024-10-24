@@ -103,7 +103,9 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 }
-
+.no-video-message {
+    font-size: 0.75rem; /* Adjust this value as needed */
+}
 
 .movie__video {
     width: 100%;
