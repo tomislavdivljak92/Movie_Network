@@ -210,15 +210,18 @@ def rate_movie(post_id):
     
     return redirect(url_for(".movie", post_id=post_id))
 
-@pages.route("/movie/<int:post_id>/watch", methods=["GET","POST"])
+@pages.route("/movie/<int:post_id>/watch", methods=["GET", "POST"])
 @login_required
 def watch_today(post_id):
-    post = Post.query.get_or_404(post_id)
-
-    post.last_watched = datetime.now()
-    db.session.commit()
-
-
+    try:
+        post = Post.query.get_or_404(post_id)
+        post.last_watched = datetime.now()
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        flash("An error occurred while updating the watch time.", "error")
+        return redirect(url_for("pages.error"))
+    
     return redirect(url_for(".movie", post_id=post_id))
 
 @pages.route("/edit_movie/<int:post_id>/edit_movie", methods=["GET","POST"])
