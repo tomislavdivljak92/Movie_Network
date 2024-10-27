@@ -456,10 +456,14 @@ def about():
 @pages.route("/members")
 @login_required
 def members():
-
-    members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
-    return render_template("members.html", members = members)
-
+    try:
+        members = User.query.filter(User.id != current_user.id).order_by(User.username.desc()).all()
+        return render_template("members.html", members=members)
+    except Exception as e:
+        # Log the exception or handle it as needed
+        print(f"An error occurred: {e}")
+        flash("An error occurred while fetching members. Please try again later.", "error")
+        return redirect(url_for("pages.main"))
 
 @pages.route("/top_rated_movies")
 @login_required
