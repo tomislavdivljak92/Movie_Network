@@ -450,7 +450,10 @@ def edit_profile():
 
 @pages.route("/about")
 def about():
-    return render_template("about.html")
+    try:
+        return render_template("about.html")
+    except Exception:
+        return "<h1>Something went wrong. Please try again later.</h1>", 500
 
 
 @pages.route("/members")
