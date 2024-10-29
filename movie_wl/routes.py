@@ -723,7 +723,12 @@ def start_conversation(user_id):
 
 @pages.route("/settings")
 def settings():
-    return render_template("settings.html")
+    try:
+        return render_template("settings.html")
+    except Exception as e:
+        # Log the error if necessary, then return a generic error message.
+        print(f"Error loading settings page: {e}")
+        return "An error occurred while loading the settings page.", 500
 
 
 
