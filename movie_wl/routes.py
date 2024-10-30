@@ -195,8 +195,12 @@ def add_movie():
 @pages.get("/movie/<int:post_id>")
 @login_required
 def movie(post_id):
-    movie_data = Post.query.get_or_404(post_id)
-    return render_template("movie_details.html", title="Movie Details", movie_data=movie_data)
+    try:
+        movie_data = Post.query.get_or_404(post_id)
+        return render_template("movie_details.html", title="Movie Details", movie_data=movie_data)
+    except Exception as e:
+        
+        abort(500)
 
 @pages.get("/movie/<int:post_id>/rate")
 @login_required
