@@ -475,16 +475,19 @@ def members():
 @pages.route("/top_rated_movies")
 @login_required
 def top_rated_movies():
+    try:
+        # Get the IDs of the current user and the users they follow
+        followed_user_ids = [user.id for user in current_user.followed]
+        followed_user_ids.append(current_user.id)
 
-     # Get the IDs of the current user and the users they follow
-    followed_user_ids = [user.id for user in current_user.followed]
-    followed_user_ids.append(current_user.id)
-
-    # Query top-rated movies from the current user and the users they follow
-    top_movies = Post.query.filter(Post.user_id.in_(followed_user_ids)).order_by(Post.rate.desc()).limit(10).all()
+        # Query top-rated movies from the current user and the users they follow
+        top_movies = Post.query.filter(Post.user_id.in_(followed_user_ids)).order_by(Post.rate.desc()).limit(10).all()
+        
+        return render_template("top_rated_movies.html", top_movies=top_movies)
     
-    return render_template("top_rated_movies.html", top_movies = top_movies)
-
+    except Exception as e:
+        # Handle exceptions by aborting with a 500 error code
+        abort(500)
 
 
 
