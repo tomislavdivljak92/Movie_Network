@@ -494,10 +494,14 @@ def top_rated_movies():
 @pages.route("/add_to_watchlist/<int:post_id>", methods=["POST"])
 @login_required
 def add_to_watchlist(post_id):
-    post = Post.query.get_or_404(post_id)
-    current_user.add_to_watchlist(post)  # Invoke the add_to_watchlist method
-    flash('Movie has been added to your watchlist!', 'success')
+    try:
+        post = Post.query.get_or_404(post_id)
+        current_user.add_to_watchlist(post)  # Invoke the add_to_watchlist method
+        flash('Movie has been added to your watchlist!', 'success')
+    except Exception as e:
+        flash('An error occurred while adding the movie to your watchlist.', 'danger')
     return redirect(url_for('.top_rated_movies'))
+
 
 @pages.route("/post<int:post_id>/delete_post", methods=["POST"])
 @login_required
