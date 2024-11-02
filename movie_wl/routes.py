@@ -506,16 +506,25 @@ def add_to_watchlist(post_id):
 @pages.route("/post<int:post_id>/delete_post", methods=["POST"])
 @login_required
 def delete_post(post_id):
-    post = PostMain.query.get_or_404(post_id)
-    if post.user_id != current_user.id:
-        abort(403)
+    try:
+        post = PostMain.query.get_or_404(post_id)
+        
+        # Check if the current user is the owner of the post
+        if post.user_id != current_user.id:
+            abort(403)
+        Like.query.filter_by(post_id=post_id).delete()
 
-# Delete associated likes first
-    Like.query.filter_by(post_id=post_id).delete()
+        db.session.delete(post)
+        db.session.commit()
+        
+        return redirect(url_for(".main"))
 
-    db.session.delete(post)
-    db.session.commit()
-    return redirect(url_for(".main"))
+    except Exception as e:
+        # Rollback the session in case of any errors
+        db.session.rollback()     
+        flash("An error occurred while deleting the post. Please try again later.", "error")
+ 
+        return redirect(url_for(".main"))
 
 
 
