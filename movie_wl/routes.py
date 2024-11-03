@@ -570,12 +570,18 @@ def unfollow(username):
     else:
         return redirect(request.referrer)
 
+from flask import flash, redirect, url_for
+
 @pages.route("/followers/<username>")
 @login_required
 def followers(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    followers = user.followers.all()
-    return render_template("user_list.html", title="Followers", users=followers)
+    try:
+        user = User.query.filter_by(username=username).first_or_404()
+        followers = user.followers.all()
+        return render_template("user_list.html", title="Followers", users=followers)
+    except Exception as e:
+        flash("An unexpected error occurred. Please try again later.", "danger")
+        return redirect(url_for(".main")) 
 
 @pages.route("/followings/<username>")
 @login_required
