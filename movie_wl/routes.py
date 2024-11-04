@@ -586,12 +586,13 @@ def followers(username):
 @pages.route("/followings/<username>")
 @login_required
 def followings(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    followings = user.followed.all()
-    return render_template("user_list.html", title="Following", users=followings)
-
-
-
+    try:
+        user = User.query.filter_by(username=username).first_or_404()
+        followings = user.followed.all()
+        return render_template("user_list.html", title="Following", users=followings)
+    except Exception as e:
+        flash(f"An error occurred: {str(e)}", "danger")
+        return redirect(url_for(".main"))
 
 
 
