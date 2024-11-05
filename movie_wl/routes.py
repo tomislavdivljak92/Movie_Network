@@ -389,15 +389,19 @@ def logout():
 @pages.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
+    try:
+        if current_user.image_file:
+            image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+        else:
+            image_file = url_for('static', filename='profile_pics/default.png')
+        
+        user_posts = PostMain.query.filter_by(user_id=current_user.id).order_by(PostMain.date_posted.desc()).all()
+        
+        return render_template('account.html', title='Account', image_file=image_file, user_posts=user_posts)
     
-    if current_user.image_file:
-        image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    else:
-        image_file = url_for('static', filename='static\profile_pics\default.png')
-
-    user_posts = PostMain.query.filter_by(user_id=current_user.id).order_by(PostMain.date_posted.desc()).all()
-    
-    return render_template('account.html', title='Account', image_file=image_file, user_posts=user_posts)
+    except Exception as e:
+        flash("An error occurred while loading your account page. Please try again later.", "danger")
+        return redirect(url_for("pages.index"))
 
 
 
@@ -592,7 +596,7 @@ def followings(username):
         return render_template("user_list.html", title="Following", users=followings)
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "danger")
-        return redirect(url_for(".main"))
+        return redirect(url_for(".main-*"))
 
 
 
