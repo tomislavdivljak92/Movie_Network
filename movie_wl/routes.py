@@ -382,9 +382,12 @@ def login():
 
 @pages.route("/logout")
 def logout():
-    logout_user()
+    try:
+        logout_user()
+        flash("You have successfully logged out.", "success")
+    except Exception as e:
+        flash("An error occurred during logout. Please try again.", "error")
     return redirect(url_for('.main'))
-
 
 @pages.route("/account", methods=["GET", "POST"])
 @login_required
