@@ -668,8 +668,12 @@ def leave(data):
 @pages.route("/direct_message")
 @login_required
 def direct_message():
-    
-    return render_template("direct_message.html")
+    try:
+        return render_template("direct_message.html")
+    except Exception as e:
+        flash("An error occurred while trying to load the direct message page. Please try again later.", "error")
+        
+        return render_template("main.html")
 
 @pages.route("/send_direct_message", methods=["POST"])
 @login_required
