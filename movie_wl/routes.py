@@ -21,10 +21,10 @@ from google.oauth2 import service_account
 import requests
 import io
 from movie_wl.google_login_utils import initiate_google_login, handle_google_callback
-
+from werkzeug.security import check_password_hash
 from flask_mail import Message
 from flask_socketio import send, emit, SocketIO, join_room, leave_room
-
+from sqlalchemy.exc import SQLAlchemyError
 
                                     
 pages = Blueprint("pages", __name__, template_folder="templates", static_folder="static")
@@ -778,20 +778,40 @@ def settings():
 
 
 @pages.route('/change_email', methods=['GET', 'POST'])
+@login_required
 def change_email():
     form = ChangeEmailForm()
     if form.validate_on_submit():
-        # Handle form submission
+        # Get the new email and password from the form
         new_email = form.new_email.data
         password = form.password.data
-        
-        flash('Email successfully changed.', 'success')
-        return redirect(url_for('.settings'))
+
+        # Verify the user's password
+        if not check_password_hash(current_user.password, password):
+            flash('Incorrect password. Please try again.', 'danger')
+            return redirect(url_for('.change_email'))
+
+        # Check if the new email is already in use
+        if User.query.filter_by(email=new_email).first():
+            flash('This email is already in use. Please choose another one.', 'danger')
+            return redirect(url_for('.change_email'))
+
+        try:
+            # Update the user's email and commit the changes to the database
+            current_user.email = new_email
+            db.session.commit()
+            flash('Email successfully changed.', 'success')
+            return redirect(url_for('.settings'))
+        except SQLAlchemyError:
+            db.session.rollback()  # Roll back any failed database transaction
+            flash('An error occurred while updating your email. Please try again later.', 'danger')
+
     return render_template('change_email.html', form=form)
 
 
 
 @pages.route('/change_password', methods=['GET', 'POST'])
+@login_required
 def change_password():
     form = ChangePasswordForm()
     if form.validate_on_submit():
