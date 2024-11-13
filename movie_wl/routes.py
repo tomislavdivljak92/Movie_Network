@@ -815,14 +815,28 @@ def change_email():
 def change_password():
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        # Handle form submission
-        current_password = form.current_password.data
-        new_password = form.new_password.data
-        
-        flash('Password successfully changed.', 'success')
-        return redirect(url_for('.settings'))
-    return render_template('change_password.html', form=form)
+        try:
+            # Verify the current password
+            current_password = form.current_password.data
+            if current_password != current_user.password:  # Direct comparison (no hashing)
+                flash('Incorrect current password.', 'danger')
+                return redirect(url_for('.change_password'))
 
+            # Update the user's password in the database directly
+            new_password = form.new_password.data
+            current_user.password = new_password
+            db.session.commit()
+
+            flash('Password successfully changed.', 'success')
+            return redirect(url_for('.settings'))
+
+        except Exception as e:
+            # Rollback the transaction if there's an error
+            db.session.rollback()
+            flash('An error occurred while changing the password. Please try again.', 'danger')
+            print(f"Error: {e}")  # Log the error for debugging purposes
+
+    return render_template('change_password.html', form=form)
 
 
 
